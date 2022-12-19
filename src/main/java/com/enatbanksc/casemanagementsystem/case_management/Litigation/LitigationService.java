@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
-import com.enatbanksc.casemanagementsystem.case_management.settings.Expense.Expense;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;

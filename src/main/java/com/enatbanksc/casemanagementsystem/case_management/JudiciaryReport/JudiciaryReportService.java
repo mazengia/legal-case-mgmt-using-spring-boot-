@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface JudiciaryReportService {
-    JudiciaryReport createJudiciaryReport(long litigationId, JudiciaryReport judiciaryReport, JwtAuthenticationToken token);
+    JudiciaryReport createJudiciaryReport(JudiciaryReport judiciaryReport, JwtAuthenticationToken token);
     JudiciaryReport getJudiciaryReport(long id);
     JudiciaryReport updateJudiciaryReport(long id, JudiciaryReport judiciaryReport, JwtAuthenticationToken token) throws IllegalAccessException;
     Page<JudiciaryReport> getJudiciaryReports(Pageable pageable, JwtAuthenticationToken token);

@@ -1,12 +1,10 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.Adjournment;
 
-import com.enatbanksc.casemanagementsystem.case_management.EmbeddedClasses.Employee;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudiciaryReport;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
-import com.enatbanksc.casemanagementsystem.case_management.utils.Auditable;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
+import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -24,9 +22,12 @@ public class Adjournment extends Auditable{
     private Long adjournmentId;
     private LocalDateTime date;
     private String reason;
-    @ManyToOne
-    @JsonBackReference
-    private JudiciaryReport judiciaryReport;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false )
+    @JoinColumn(name = "litigationId")
+    @JsonIgnoreProperties(value={"adjournment"} )
+    private Litigation litigation;
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "employeeId", column = @Column(name = "maintainer_employee_id")),

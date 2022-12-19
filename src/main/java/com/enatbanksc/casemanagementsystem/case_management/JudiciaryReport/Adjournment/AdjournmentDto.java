@@ -1,22 +1,19 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.Adjournment;
 
-import com.enatbanksc.casemanagementsystem.case_management.EmbeddedClasses.Employee;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudiciaryReport;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import lombok.Data;
-import net.minidev.json.annotate.JsonIgnore;
-
+import lombok.EqualsAndHashCode;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
 @Data
-public class AdjournmentDto {
+@EqualsAndHashCode(callSuper = true)
+public class AdjournmentDto extends RepresentationModel<AdjournmentDto> {
     private Long adjournmentId;
     private LocalDateTime date;
     private String reason;
-    @JsonIgnore
-    @JsonBackReference
-    private JudiciaryReport judiciaryReport;
+    private Litigation litigation;
     private Employee maintained_by;
 }

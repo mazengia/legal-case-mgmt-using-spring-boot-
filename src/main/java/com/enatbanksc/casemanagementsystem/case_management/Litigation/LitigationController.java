@@ -1,9 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
-import com.enatbanksc.casemanagementsystem.case_management.settings.Expense.ExpenseDto;
-import com.enatbanksc.casemanagementsystem.case_management.settings.Expense.ExpenseMapper;
-import com.enatbanksc.casemanagementsystem.case_management.settings.Expense.ExpenseService;
-import com.enatbanksc.casemanagementsystem.case_management.utils.PaginatedResultsRetrievedEvent;
+import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;

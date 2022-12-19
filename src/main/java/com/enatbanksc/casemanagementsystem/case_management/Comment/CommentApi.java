@@ -1,17 +1,13 @@
 package com.enatbanksc.casemanagementsystem.case_management.Comment;
 
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudiciaryReportDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,11 +18,16 @@ import javax.validation.Valid;
 public interface CommentApi{
     @PostMapping("/{litigationId}")
     @ResponseStatus(HttpStatus.CREATED)
-    CommentDto commentOnLitigation(@PathVariable("litigationId") long litigationId, @RequestBody @Valid CommentDto commentDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    CommentDto commentOnLitigation(@PathVariable("litigationId") long litigationId, @RequestBody @Valid CommentDto commentDto
+            , JwtAuthenticationToken token
+    ) throws IllegalAccessException;
 
     @PostMapping("/{reportId}")
     @ResponseStatus(HttpStatus.CREATED)
-    CommentDto commentOnJudiciaryReport(@PathVariable("reportId") long reportId, @RequestBody @Valid CommentDto commentDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    CommentDto commentOnJudiciaryReport(@PathVariable("reportId") long reportId, @RequestBody @Valid CommentDto commentDto
+
+            , JwtAuthenticationToken token
+    ) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -34,7 +35,9 @@ public interface CommentApi{
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    CommentDto updateComment(@PathVariable("id") long id, @RequestBody @Valid CommentDto commentDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    CommentDto updateComment(@PathVariable("id") long id, @RequestBody @Valid CommentDto commentDto
+            , JwtAuthenticationToken token
+    ) throws IllegalAccessException;
 
     @GetMapping("/{litigationId}")
     @ResponseStatus(HttpStatus.OK)

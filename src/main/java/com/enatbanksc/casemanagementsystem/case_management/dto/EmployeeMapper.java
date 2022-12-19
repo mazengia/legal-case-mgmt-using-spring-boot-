@@ -1,7 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.dto;
 
 
-import com.enatbanksc.casemanagementsystem.case_management.EmbeddedClasses.Employee;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

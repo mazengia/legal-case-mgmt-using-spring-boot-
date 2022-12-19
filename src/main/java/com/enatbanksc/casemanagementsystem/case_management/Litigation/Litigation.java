@@ -1,26 +1,21 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 
-import com.enatbanksc.casemanagementsystem.case_management.Comment.Comment;
-import com.enatbanksc.casemanagementsystem.case_management.Common.CaseStage;
-import com.enatbanksc.casemanagementsystem.case_management.Common.PlaintiffDefendant;
-import com.enatbanksc.casemanagementsystem.case_management.EmbeddedClasses.CaseOwnerBranchDto;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudiciaryReport;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.Adjournment.Adjournment;
-import com.enatbanksc.casemanagementsystem.case_management.EmbeddedClasses.LitigationEmployee;
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.Advocate.Advocate;
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.Intervene.Intervene;
-import com.enatbanksc.casemanagementsystem.case_management.settings.CaseType.CaseType;
-import com.enatbanksc.casemanagementsystem.case_management.settings.Expense.Expense;
-import com.enatbanksc.casemanagementsystem.case_management.utils.Auditable;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.enatbanksc.casemanagementsystem.case_management.Advocate.Advocate;
+import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseType;
+import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
+import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.LitigationEmployee;
+import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
+import com.enatbanksc.casemanagementsystem.case_management._config.Common.PlaintiffDefendant;
+import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,12 +30,24 @@ public class Litigation extends Auditable {
     private String fileNumber;
     private String courtAdjudicating;
     private LitigationType litigationType;
-    private Boolean isBankPlaintiff = Boolean.TRUE;
+    private Boolean isBankPlaintiff  ;
     private CaseStage caseStage;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "case_type_id")
+    @OneToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "case_type_id",nullable = false, unique = true)
+    @JsonIgnoreProperties(value={"litigation"} )
     private CaseType caseType;
+
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false )
+    @JoinColumn(name = "advocate_id")
+    @JsonIgnoreProperties(value={"litigation"} )
+    private Advocate advocate;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false )
+    @JoinColumn(name = "intervene_id")
+    @JsonIgnoreProperties(value={"litigation"} )
+    private  Intervene intervene;
 
     @Embedded
     @AttributeOverrides({
@@ -78,4 +85,6 @@ public class Litigation extends Auditable {
     })
     private LitigationEmployee attorneyHandlingTheCase;
 
+    @OneToMany(mappedBy = "litigation")
+    private List<JudicialAppointment> judicialAppointment;
 }

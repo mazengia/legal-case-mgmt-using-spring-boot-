@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport;
 
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 public interface JudiciaryReportApi {
-    @PostMapping("/{litigationId}")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    JudiciaryReportDto createJudiciaryReport(@PathVariable("litigationId") long litigationId, @RequestBody @Valid JudiciaryReportDto judiciaryReportDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    JudiciaryReportDto createJudiciaryReport( @RequestBody @Valid JudiciaryReportDto judiciaryReportDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -1,14 +1,13 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport;
 
-import com.enatbanksc.casemanagementsystem.case_management.EmbeddedClasses.Employee;
+import com.enatbanksc.casemanagementsystem.case_management.Expense.ExpenseDetails.ExpenseDetailRepository;
+import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.Adjournment.AdjournmentRepository;
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.Intervene.Intervene;
-
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationRepository;
-import com.enatbanksc.casemanagementsystem.case_management.config.EmployeeClient;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
+import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
+import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
-import com.enatbanksc.casemanagementsystem.case_management.exceptions.EntityNotFoundException;
-import com.enatbanksc.casemanagementsystem.case_management.settings.Expense.ExpenseDetails.ExpenseDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -16,8 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import static com.enatbanksc.casemanagementsystem.case_management.utils.Util.getEmployeeID;
-import static com.enatbanksc.casemanagementsystem.case_management.utils.Util.getNullPropertyNames;
+import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
+import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
 @Service
 @RequiredArgsConstructor
@@ -31,24 +30,13 @@ public class JudiciaryReportServiceImpl implements JudiciaryReportService{
 
     private final ExpenseDetailRepository expenseDetailRepository;
     @Override
-    public JudiciaryReport createJudiciaryReport(long litigationId, JudiciaryReport judiciaryReport, JwtAuthenticationToken token) {
-        var l = litigationRepository.findById(litigationId).get();
+    public JudiciaryReport createJudiciaryReport( JudiciaryReport judiciaryReport, JwtAuthenticationToken token) {
+//        var l = litigationRepository.findById(litigationId).get();
         var employeeId = getEmployeeID(token);
         var maintainer = getEmployee(employeeId);
         judiciaryReport.setMaintained_by(maintainer);
-        judiciaryReport.setLitigation(l);
+//        judiciaryReport.setLitigation(l);
         var jr = judiciaryReportRepository.save(judiciaryReport);
-        var adjournments = jr.getNextAppointment();
-        adjournments.forEach(adjournment -> {
-            adjournment.setJudiciaryReport(jr);
-        });
-        adjournmentRepository.saveAll(adjournments);
-        var expenseDetails = jr.getExpenseDetails();
-        expenseDetails.forEach(expenseDetail -> {
-            expenseDetail.setJudiciaryReport(jr);
-
-        });
-        expenseDetailRepository.saveAll(expenseDetails);
         return jr;
     }
 

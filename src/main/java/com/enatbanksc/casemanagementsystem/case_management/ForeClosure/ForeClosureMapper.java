@@ -4,4 +4,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ForeClosureMapper {
+    ForeClosure toForeClosure(ForeClosureDto foreClosureDto);
+    ForeClosureDto toForeClosureDto(ForeClosure foreClosure);
 }

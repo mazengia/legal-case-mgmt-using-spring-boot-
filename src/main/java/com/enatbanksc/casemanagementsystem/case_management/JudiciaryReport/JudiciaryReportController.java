@@ -1,7 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport;
 
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationDto;
-import com.enatbanksc.casemanagementsystem.case_management.utils.PaginatedResultsRetrievedEvent;
+import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +23,8 @@ public class JudiciaryReportController implements JudiciaryReportApi{
     private final JudiciaryReportMapper judiciaryReportMapper;
     private final ApplicationEventPublisher eventPublisher;
     @Override
-    public JudiciaryReportDto createJudiciaryReport(long litigationId, JudiciaryReportDto judiciaryReportDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return judiciaryReportMapper.toJudiciaryReportDto(judiciaryReportService.createJudiciaryReport(litigationId, judiciaryReportMapper.toJudiciaryReport(judiciaryReportDto), token));
+    public JudiciaryReportDto createJudiciaryReport( JudiciaryReportDto judiciaryReportDto, JwtAuthenticationToken token) throws IllegalAccessException {
+        return judiciaryReportMapper.toJudiciaryReportDto(judiciaryReportService.createJudiciaryReport(judiciaryReportMapper.toJudiciaryReport(judiciaryReportDto), token));
     }
 
     @Override

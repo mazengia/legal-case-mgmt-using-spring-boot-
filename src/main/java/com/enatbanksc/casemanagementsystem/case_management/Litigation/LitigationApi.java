@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
-import com.enatbanksc.casemanagementsystem.case_management.settings.Expense.ExpenseDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Pageable;
