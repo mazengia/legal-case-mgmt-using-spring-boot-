@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionDetails;
 
-import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import lombok.Data;
 

@@ -35,7 +35,6 @@ public class JudicialAppointment extends Auditable {
     @JoinColumn(name = "litigationId")
     @JsonIgnoreProperties(value = {"judicialAppointment"})
     private Litigation litigation;
-
 //    @OneToMany(mappedBy = "judicialAppointment")
 //    private List<ExpenseDetail> expenseDetails;
 }

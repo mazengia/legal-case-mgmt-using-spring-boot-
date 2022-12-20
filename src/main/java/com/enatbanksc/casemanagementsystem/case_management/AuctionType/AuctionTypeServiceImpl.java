@@ -27,6 +27,7 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
         var maintainer = getEmployee(employeeId);
         auctionType.setAuctionTypeColor(Util.getRandomColor());
         auctionType.setMaintained_by(maintainer);
+        System.out.println(auctionType);
         return auctionTypeRepository.save(auctionType);
     }
 

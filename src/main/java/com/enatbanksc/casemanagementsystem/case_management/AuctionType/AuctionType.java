@@ -1,7 +1,9 @@
 package com.enatbanksc.casemanagementsystem.case_management.AuctionType;
 
+import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosure;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -21,6 +23,12 @@ public class AuctionType extends Auditable {
     @NotEmpty(message = "Auction Type Name can not be empty!")
     private String auctionTypeName;
     private String auctionTypeColor;
+    private String dateAuctionAnnounced;
+    private String dateAuctionConducted;;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false )
+    @JoinColumn(name = "foreClosureId",nullable = false)
+    @JsonIgnoreProperties(value={"auctionType"} )
+    private ForeClosure foreClosure;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "employeeId", column = @Column(name = "maintainer_employee_id")),

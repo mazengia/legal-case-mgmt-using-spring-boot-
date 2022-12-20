@@ -28,7 +28,6 @@ public class LitigationServiceImpl implements LitigationService {
     private final EmployeeMapper employeeMapper;
     private final CaseOwnerBranchClient caseOwnerBranchClient;
     private final CaseTypeRepository caseTypeRepository;
-    private final InterveneRepository interveneRepository;
 
 
     @Override

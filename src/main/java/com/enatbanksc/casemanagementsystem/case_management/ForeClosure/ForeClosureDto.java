@@ -6,13 +6,13 @@ import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditab
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class ForeClosureDto extends Auditable {
     private Long foreClosureId;
-    private String dateAuctionAnnounced;
-    private String dateAuctionConducted;;
     private String status;
     private MortgageDetail mortgageDetail;
-    private AuctionType auctionType;
+    private List<AuctionType> AuctionType;
 }

@@ -1,5 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.Comment;
 
+import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseTypeDto;
+import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointmentDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Pageable;
@@ -16,46 +18,37 @@ import javax.validation.Valid;
 
 
 public interface CommentApi{
-    @PostMapping("/{litigationId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    CommentDto commentOnLitigation(@PathVariable("litigationId") long litigationId, @RequestBody @Valid CommentDto commentDto
-            , JwtAuthenticationToken token
-    ) throws IllegalAccessException;
+    @GetMapping("/litigation-id/{id}")
+    ResponseEntity<PagedModel<CommentDto>> getCommentByLitigationId(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                                        @PathVariable("id") long id,
+                                                                                        PagedResourcesAssembler assembler,
+                                                                                        JwtAuthenticationToken token,
+                                                                                        UriComponentsBuilder uriBuilder,
+                                                                                        HttpServletResponse response);
 
-    @PostMapping("/{reportId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    CommentDto commentOnJudiciaryReport(@PathVariable("reportId") long reportId, @RequestBody @Valid CommentDto commentDto
 
-            , JwtAuthenticationToken token
-    ) throws IllegalAccessException;
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    CommentDto createComment(@RequestBody @Valid CommentDto commentDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    CommentDto getComment(@PathVariable("id") long id);
+    CommentDto getCommentById(@PathVariable("id") long id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    CommentDto updateComment(@PathVariable("id") long id, @RequestBody @Valid CommentDto commentDto
-            , JwtAuthenticationToken token
-    ) throws IllegalAccessException;
+    CommentDto updateComment(@PathVariable("id") long id, @RequestBody @Valid CommentDto commentDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
-    @GetMapping("/{litigationId}")
+    @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<CommentDto>> getCommentsByLitigation(@PathVariable("litigationId")long litigationId,@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<CommentDto>> getComment(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
-                                                                       @Valid Pageable pageable,
-                                                                       PagedResourcesAssembler assembler,
-                                                                       JwtAuthenticationToken token,
-                                                                       UriComponentsBuilder uriBuilder,
-                                                                       HttpServletResponse response);
+                                                         @Valid Pageable pageable,
+                                                         PagedResourcesAssembler assembler,
+                                                         JwtAuthenticationToken token,
+                                                         UriComponentsBuilder uriBuilder,
+                                                         final HttpServletResponse response);
 
-    @GetMapping("/{judiciaryReportId}")
-    @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<CommentDto>> getCommentsByJudiciaryReportId(@PathVariable("judiciaryReportId")long judiciaryReportId, @Parameter(description = "pagination object",
-            schema = @Schema(implementation = Pageable.class))
-    @Valid Pageable pageable,
-                                                                  PagedResourcesAssembler assembler,
-                                                                  JwtAuthenticationToken token,
-                                                                  UriComponentsBuilder uriBuilder,
-                                                                  HttpServletResponse response);
-}
+   }

@@ -3,6 +3,7 @@ package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 import com.enatbanksc.casemanagementsystem.case_management.Advocate.Advocate;
 import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseType;
+import com.enatbanksc.casemanagementsystem.case_management.Comment.Comment;
 import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
@@ -87,4 +88,6 @@ public class Litigation extends Auditable {
 
     @OneToMany(mappedBy = "litigation")
     private List<JudicialAppointment> judicialAppointment;
+//    @OneToMany(mappedBy = "litigation")
+//    private List<Comment> comments;
 }
