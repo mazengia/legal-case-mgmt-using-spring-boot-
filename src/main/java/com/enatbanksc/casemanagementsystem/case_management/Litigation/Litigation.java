@@ -3,7 +3,6 @@ package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 import com.enatbanksc.casemanagementsystem.case_management.Advocate.Advocate;
 import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseType;
-import com.enatbanksc.casemanagementsystem.case_management.Comment.Comment;
 import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
@@ -18,7 +17,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
-
 @Entity
 @Table(name = "litigations")
 @Data
@@ -35,18 +33,18 @@ public class Litigation extends Auditable {
     private CaseStage caseStage;
 
     @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "case_type_id",nullable = false, unique = true)
+    @JoinColumn(name = "case_type_id",nullable = false)
     @JsonIgnoreProperties(value={"litigation"} )
     private CaseType caseType;
 
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false )
-    @JoinColumn(name = "advocate_id")
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "advocate_id",nullable = true)
     @JsonIgnoreProperties(value={"litigation"} )
     private Advocate advocate;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false )
-    @JoinColumn(name = "intervene_id")
+    @ManyToOne(fetch = FetchType.EAGER  )
+    @JoinColumn(name = "intervene_id",nullable = true)
     @JsonIgnoreProperties(value={"litigation"} )
     private  Intervene intervene;
 
@@ -78,16 +76,12 @@ public class Litigation extends Auditable {
     })
     private PlaintiffDefendant defendant;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "employeeId", column = @Column(name = "attorney_employee_id")),
-            @AttributeOverride(name = "fullName", column = @Column(name = "attorney_employee_fullName")),
-            @AttributeOverride(name = "contact.email", column = @Column(name = "attorney_email")),
-    })
-    private LitigationEmployee attorneyHandlingTheCase;
+    private String attorneyHandlingTheCase;
 
     @OneToMany(mappedBy = "litigation")
     private List<JudicialAppointment> judicialAppointment;
+//    @OneToMany(mappedBy = "litigation")
+//    private List<Appeal> appeals;
 //    @OneToMany(mappedBy = "litigation")
 //    private List<Comment> comments;
 }

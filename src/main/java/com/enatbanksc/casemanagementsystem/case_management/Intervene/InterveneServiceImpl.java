@@ -28,19 +28,9 @@ public class InterveneServiceImpl implements InterveneService{
     public Intervene createIntervenes( Intervene intervenes
             , JwtAuthenticationToken token
     ) {
-//        var litigation = litigationRepository.findById(litigationId).get();
         var employeeId = getEmployeeID(token);
         var maintainer = getEmployee(employeeId);
-        Litigation litigation1=new Litigation();
-//        intervenes.forEach(intervene -> {
-//            intervene.setLitigation(litigation);
-//            intervene.setMaintained_by(maintainer);
-//        });
         intervenes.setMaintained_by(maintainer);
-
-//        var litigation = litigationRepository.findById(litigationId).orElseThrow(()-> new EntityNotFoundException(Intervene.class, "Intervene with that id " + litigationId + " was not found!"));;
-//        BeanUtils.copyProperties(intervenes, litigation, getNullPropertyNames(intervenes));
-//          litigationRepository.save(litigation);
 
         return   interveneRepository.save(intervenes);
     }

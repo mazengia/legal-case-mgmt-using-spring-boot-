@@ -1,5 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
+import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointmentDto;
+import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import static com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage.POST_TRIAL;
 
 public interface LitigationApi {
     @PostMapping()
@@ -35,4 +39,16 @@ public interface LitigationApi {
                                                        PagedResourcesAssembler assembler,
                                                        UriComponentsBuilder uriBuilder,
                                                        final HttpServletResponse response);
+
+    @GetMapping("/case-stage/{caseStage}")
+    ResponseEntity<PagedModel<LitigationDto>> getLitigationByCaseStage(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                                        @PathVariable("caseStage") CaseStage caseStage,
+                                                                                        PagedResourcesAssembler assembler,
+                                                                                        JwtAuthenticationToken token,
+                                                                                        UriComponentsBuilder uriBuilder,
+                                                                                        HttpServletResponse response);
+
+
 }

@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
+import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -42,5 +43,13 @@ public class LitigationController implements LitigationApi{
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
                 LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.getLitigations(pageable).getTotalPages(), pageable.getPageSize()));
         return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.getLitigations(pageable).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<LitigationDto>> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.getLitigationByCaseStage(pageable,caseStage, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.getLitigationByCaseStage(pageable,caseStage, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+
+
     }
 }

@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
+import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -12,7 +13,7 @@ public interface LitigationService {
     Page<Litigation> getLitigations(Pageable pageable);
     Litigation updateLitigation(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException;
 
-    Litigation addIntervene(long id, Litigation litigation, JwtAuthenticationToken token) throws  IllegalAccessException;
-    void deleteLitigation(long id, JwtAuthenticationToken token);
+     void deleteLitigation(long id, JwtAuthenticationToken token);
+    Page<Litigation> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token);
 
 }

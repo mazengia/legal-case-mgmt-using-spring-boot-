@@ -1,7 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseTypeRepository;
-import com.enatbanksc.casemanagementsystem.case_management.Intervene.InterveneRepository;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.LitigationEmployee;
@@ -17,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
 @Service
@@ -27,19 +27,12 @@ public class LitigationServiceImpl implements LitigationService {
     private final EmployeeClient employeeClient;
     private final EmployeeMapper employeeMapper;
     private final CaseOwnerBranchClient caseOwnerBranchClient;
-    private final CaseTypeRepository caseTypeRepository;
 
 
     @Override
     public Litigation createLitigation(Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
         var branch = getBranchById(litigation.getBranch().getId());
-        System.out.println("Branch " + branch.getName());
-        System.out.println("Case TYpe" + litigation.getCaseType().getCaseTypeId());
-        var ct = caseTypeRepository.findById(litigation.getCaseType().getCaseTypeId()).get();
-        litigation.setAttorneyHandlingTheCase(null);
         litigation.setBranch(branch);
-        litigation.setCaseType(ct);
-        litigation.setCaseStage(CaseStage.PRE_TRIAL);
         return litigationRepository.save(litigation);
     }
 
@@ -56,24 +49,23 @@ public class LitigationServiceImpl implements LitigationService {
     @Override
     public Litigation updateLitigation(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
         var l = getLitigation(id);
+        var branch = getBranchById(litigation.getBranch().getId());
+        litigation.setBranch(branch);
         BeanUtils.copyProperties(litigation, l, getNullPropertyNames(litigation));
         return litigationRepository.save(l);
     }
 
-    @Override
-    public Litigation addIntervene(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
-//        var l = getLitigation(id);
-//        Intervene intervene = new Intervene();
-//        l.se().forEach(intervene->{
-//            intervene.setLitigation(l);
-//        });
-//        interveneRepository.saveAll(l.getIntervenes());
-        return null;
-    }
+
 
     @Override
     public void deleteLitigation(long id, JwtAuthenticationToken token) {
         litigationRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Litigation> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token) {
+        return  litigationRepository.findLitigationByCaseStage(pageable,caseStage);
+
     }
 
     private Employee getEmployee(String employeeId) {

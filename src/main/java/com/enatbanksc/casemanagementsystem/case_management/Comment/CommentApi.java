@@ -1,7 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Comment;
 
-import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseTypeDto;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointmentDto;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Pageable;

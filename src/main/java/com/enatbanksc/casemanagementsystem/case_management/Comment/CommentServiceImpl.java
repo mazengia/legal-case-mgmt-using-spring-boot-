@@ -1,14 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.Comment;
 
 import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseType;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudiciaryReportRepository;
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationRepository;
-import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.LitigationEmployee;
-import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
-import com.enatbanksc.casemanagementsystem.case_management._config.utils.Util;
 import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
-import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
