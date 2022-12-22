@@ -11,7 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 @Service
-public class EmailServiceImpl implements EmailService {
+public class EmailServiceImpl  implements EmailService{
 
     public JavaMailSender javaMailSender;
     public EmailServiceImpl(JavaMailSender javaMailSender) {
@@ -20,7 +20,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Value("${spring.mail.username}")
     private String sender;
-    public void sendSimpleMail(EmailDetails details)
+    public String sendSimpleMail(EmailDetails details)
     {
 
         try {
@@ -31,13 +31,13 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setSubject(details.getSubject());
             javaMailSender.send(mailMessage);
             System.out.println("Mail Sent Successfully...");
-//            return "Mail Sent Successfully...";
+            return "Mail Sent Successfully...";
         }
         catch (Exception e) {
-//            return "Error while Sending Mail";
+            return "Error while Sending Mail";
         }
     }
-    public void sendMailWithAttachment(EmailDetails details)
+    public String sendMailWithAttachment(EmailDetails details)
     {
         // Creating a mime message
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -53,20 +53,17 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setText(details.getMsgBody());
             mimeMessageHelper.setSubject(
                     details.getSubject());
-
-            // Adding the attachment
             FileSystemResource file  = new FileSystemResource( new File(details.getAttachment()));
 
             mimeMessageHelper.addAttachment(file.getFilename(), file);
-            // Sending the mail
             javaMailSender.send(mimeMessage);
             System.out.println("Mail sent Successfully");
-//            return "Mail sent Successfully";
+            return "Mail sent Successfully";
         }
 
         // Catch block to handle MessagingException
         catch (MessagingException e) {
-//            return "Error while sending mail!!!";
+            return "Error while sending mail!!!";
         }
     }
 }
