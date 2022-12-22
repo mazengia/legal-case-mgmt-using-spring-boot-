@@ -28,12 +28,14 @@ public class Litigation extends Auditable {
     private Long litigationId;
     private String fileNumber;
     private String courtAdjudicating;
+    private String status;
     private LitigationType litigationType;
     private Boolean isBankPlaintiff  ;
     private CaseStage caseStage;
+    private String attorneyHandlingTheCase;
 
     @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "case_type_id",nullable = false)
+    @JoinColumn(name = "case_type_id",nullable = true)
     @JsonIgnoreProperties(value={"litigation"} )
     private CaseType caseType;
 
@@ -75,8 +77,6 @@ public class Litigation extends Auditable {
             @AttributeOverride(name = "phoneNumber", column = @Column(name = "defendant_phone_number")),
     })
     private PlaintiffDefendant defendant;
-
-    private String attorneyHandlingTheCase;
 
     @OneToMany(mappedBy = "litigation")
     private List<JudicialAppointment> judicialAppointment;

@@ -26,6 +26,7 @@ public class LitigationDto extends Auditable {
     private PlaintiffDefendant plaintiff;
     private PlaintiffDefendant defendant;
     private String attorneyHandlingTheCase;
+    private String status;
     private Intervene intervene;
     private Advocate advocate;
     private CaseType caseType;

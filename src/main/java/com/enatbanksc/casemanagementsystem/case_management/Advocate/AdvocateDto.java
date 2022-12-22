@@ -10,5 +10,4 @@ public class AdvocateDto extends Auditable {
     private Long advocateId;
     private String firstName;
     private String lastName;
-    private LocalDateTime date;
 }

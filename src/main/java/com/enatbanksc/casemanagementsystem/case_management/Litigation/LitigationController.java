@@ -52,4 +52,25 @@ public class LitigationController implements LitigationApi{
 
 
     }
+
+    @Override
+    public ResponseEntity<PagedModel<LitigationDto>> findLitigationByBranchId(Pageable pageable, Long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.findLitigationByBranchId(pageable,branchId, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.findLitigationByBranchId(pageable,branchId, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+
+
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<LitigationDto>> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.findLitigationByAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.findLitigationByAttorneyHandlingTheCase(pageable,attorney, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+
+    }
+    @Override
+    public ResponseEntity<PagedModel<LitigationDto>> findLitigationByStatus(Pageable pageable, String status, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.findLitigationByStatus(pageable,status, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.findLitigationByStatus(pageable,status, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+
+    }
 }

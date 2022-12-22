@@ -5,7 +5,6 @@ import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditab
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -20,7 +19,6 @@ public class Advocate extends Auditable {
     private Long advocateId;
     private String firstName;
     private String lastName;
-    private LocalDateTime date;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "employeeId", column = @Column(name = "maintainer_employee_id")),

@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
-import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseTypeRepository;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.LitigationEmployee;
@@ -33,6 +32,11 @@ public class LitigationServiceImpl implements LitigationService {
     public Litigation createLitigation(Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
         var branch = getBranchById(litigation.getBranch().getId());
         litigation.setBranch(branch);
+
+
+        var employeeId = getEmployeeID(token);
+        var maintainer = getEmployee(employeeId);
+//        intervenes.setMaintained_by(maintainer);
         return litigationRepository.save(litigation);
     }
 
@@ -65,6 +69,24 @@ public class LitigationServiceImpl implements LitigationService {
     @Override
     public Page<Litigation> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token) {
         return  litigationRepository.findLitigationByCaseStage(pageable,caseStage);
+
+    }
+    @Override
+    public Page<Litigation> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+        return  litigationRepository.findLitigationByAttorneyHandlingTheCase(pageable,attorney);
+
+    }
+    @Override
+    public Page<Litigation> findLitigationByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {
+        return  litigationRepository.findLitigationByStatus(pageable,status);
+
+    }
+
+
+
+    @Override
+    public Page<Litigation> findLitigationByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
+        return  litigationRepository.findLitigationByBranchId(pageable,branchId);
 
     }
 

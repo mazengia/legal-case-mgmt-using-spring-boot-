@@ -1,6 +1,8 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointmentDto;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Branch;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -49,6 +51,38 @@ public interface LitigationApi {
                                                                                         JwtAuthenticationToken token,
                                                                                         UriComponentsBuilder uriBuilder,
                                                                                         HttpServletResponse response);
+
+
+    @GetMapping("/branch-id/{branchId}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByBranchId(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                       @PathVariable("branchId") Long branchId,
+                                                                       PagedResourcesAssembler assembler,
+                                                                       JwtAuthenticationToken token,
+                                                                       UriComponentsBuilder uriBuilder,
+                                                                       HttpServletResponse response);
+
+    @GetMapping("/attorney/{attorney}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByAttorneyHandlingTheCase(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                       @PathVariable("attorney") String attorney,
+                                                                       PagedResourcesAssembler assembler,
+                                                                       JwtAuthenticationToken token,
+                                                                       UriComponentsBuilder uriBuilder,
+                                                                       HttpServletResponse response);
+
+    @GetMapping("/status/{status}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByStatus(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                     @PathVariable("status") String status,
+                                                                     PagedResourcesAssembler assembler,
+                                                                     JwtAuthenticationToken token,
+                                                                     UriComponentsBuilder uriBuilder,
+                                                                     HttpServletResponse response);
+
 
 
 }
