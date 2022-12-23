@@ -38,7 +38,7 @@ stages{
     }
     stage("Deliver for development"){
         when{
-            branch "develop"
+            branch "origin/develop"
         }
                  steps{
                     sshagent(['ebdev']) {
