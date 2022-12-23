@@ -3,7 +3,7 @@ package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 import java.io.File;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -20,7 +20,7 @@ public class EmailServiceImpl  implements EmailService{
 
     @Value("${spring.mail.username}")
     private String sender;
-    public String sendSimpleMail(EmailDetails details)
+    public boolean sendSimpleMail(EmailDetails details)
     {
 
         try {
@@ -30,12 +30,12 @@ public class EmailServiceImpl  implements EmailService{
             mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
             javaMailSender.send(mailMessage);
-            System.out.println("Mail Sent Successfully...");
-            return "Mail Sent Successfully...";
+//            return "Mail Sent Successfully...";
         }
         catch (Exception e) {
-            return "Error while Sending Mail";
+//            return "Error while Sending Mail";
         }
+        return false;
     }
     public String sendMailWithAttachment(EmailDetails details)
     {

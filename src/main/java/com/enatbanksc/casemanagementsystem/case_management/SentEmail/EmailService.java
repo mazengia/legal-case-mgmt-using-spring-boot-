@@ -5,6 +5,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 public interface EmailService {
     @Scheduled(cron = "*/10 * * * * *")
-    String sendSimpleMail(EmailDetails details);
+    boolean sendSimpleMail(EmailDetails details);
     String sendMailWithAttachment(EmailDetails details);
 }

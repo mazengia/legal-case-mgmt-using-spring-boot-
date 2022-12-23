@@ -30,6 +30,7 @@ public class InterveneServiceImpl implements InterveneService{
     ) {
         var employeeId = getEmployeeID(token);
         var maintainer = getEmployee(employeeId);
+        System.out.println(maintainer.getEmail());
         intervenes.setMaintained_by(maintainer);
 
         return   interveneRepository.save(intervenes);

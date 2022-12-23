@@ -23,7 +23,8 @@ public class EmailController {
     private EmailService emailService;
     @Autowired
     private ForeClosureRepository foreClosureRepository;
-
+    @Autowired
+    private EmailRepository emailRepository;
 
 //    @PostMapping("/sendMail")
 
@@ -35,7 +36,7 @@ public class EmailController {
         var foreClosure = foreClosureRepository.findAll();
         for (ForeClosure foreClosure1 : foreClosure) {
             LocalDate created_at = LocalDate.from(
-                    foreClosure1.getCreatedAt().plusDays(
+                    foreClosure1.getCreatedAt().minusDays(
                             foreClosure1
                                     .getMortgageDetail()
                                     .getMortgageType()
@@ -43,14 +44,22 @@ public class EmailController {
                                     .getNumberOfDays())
             );
             if (today.equals(created_at)) {
-                details.setRecipient("mz.tesfa@gmail.com");
+                details.setRecipient(foreClosure1.getMaintained_by().getEmail());
+//                "mz.tesfa@gmail.com"
                 details.setMsgBody("im try to check emil");
                 details.setSubject("im from cron job");
-                emailService.sendSimpleMail(details);
+//                emailService.sendSimpleMail(details);
+                if (emailService.sendSimpleMail(details)) {
+                    details.setSent(true);
+                    details.setForeClosure(foreClosure1);
+                    emailRepository.save(details);
+
+                }
                 System.out.println(details);
             }
         }
-        return emailService.sendSimpleMail(details);
+//        return emailService.sendSimpleMail(details);
+        return null;
     }
 
     @PostMapping("/sendMailWithAttachment")

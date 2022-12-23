@@ -12,6 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Employee {
     private String employeeId;
+    private String email;
     private String fullName;
     @Embedded()
     @AttributeOverrides({@AttributeOverride(name = "code", column = @Column(name = "branch_code"))
