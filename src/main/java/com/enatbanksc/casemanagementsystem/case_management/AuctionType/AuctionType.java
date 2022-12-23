@@ -24,7 +24,7 @@ public class AuctionType extends Auditable {
     private String auctionTypeName;
     private String auctionTypeColor;
     private String dateAuctionAnnounced;
-    private String dateAuctionConducted;;
+    private String dateAuctionConducted;
     @ManyToOne(fetch = FetchType.EAGER, optional = false )
     @JoinColumn(name = "foreClosureId",nullable = false)
     @JsonIgnoreProperties(value={"auctionType"} )
