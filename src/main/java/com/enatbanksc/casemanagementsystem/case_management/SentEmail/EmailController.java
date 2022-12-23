@@ -1,6 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 
+import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
 import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosure;
 import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,11 @@ public class EmailController {
         LocalDate today = LocalDate.now();
         var foreClosure = foreClosureRepository.findAll();
         for (ForeClosure foreClosure1 : foreClosure) {
+
+            var auctionType = foreClosure1.getAuctionType();
+            for (AuctionType auctionTypeList : auctionType) {
             LocalDate created_at = LocalDate.from(
-                    foreClosure1.getCreatedAt().minusDays(
+                    auctionTypeList.getDateAuctionAnnounced().minusDays(
                             foreClosure1
                                     .getMortgageDetail()
                                     .getMortgageType()
@@ -46,8 +50,8 @@ public class EmailController {
             if (today.equals(created_at)) {
                 details.setRecipient(foreClosure1.getMaintained_by().getEmail());
 //                "mz.tesfa@gmail.com"
-                details.setMsgBody("im try to check emil");
-                details.setSubject("im from cron job");
+                details.setMsgBody("I try to check emil");
+                details.setSubject("I'm from cron job");
 //                emailService.sendSimpleMail(details);
                 if (emailService.sendSimpleMail(details)) {
                     details.setSent(true);
@@ -56,6 +60,7 @@ public class EmailController {
 
                 }
                 System.out.println(details);
+            }
             }
         }
 //        return emailService.sendSimpleMail(details);

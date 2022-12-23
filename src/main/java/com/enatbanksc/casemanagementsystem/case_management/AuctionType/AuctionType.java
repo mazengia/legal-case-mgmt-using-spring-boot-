@@ -4,12 +4,15 @@ import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosu
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 
 @Entity(name="AuctionType")
 @Table(name="auction_types")
@@ -23,7 +26,9 @@ public class AuctionType extends Auditable {
     @NotEmpty(message = "Auction Type Name can not be empty!")
     private String auctionTypeName;
     private String auctionTypeColor;
-    private String dateAuctionAnnounced;
+    @Schema(hidden = true)
+    @Column(name = "dateAuctionAnnounced", nullable = false, updatable = false)
+    private LocalDateTime dateAuctionAnnounced;
     private String dateAuctionConducted;
     @ManyToOne(fetch = FetchType.EAGER, optional = false )
     @JoinColumn(name = "foreClosureId",nullable = false)
