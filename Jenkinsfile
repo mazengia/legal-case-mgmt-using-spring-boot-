@@ -22,7 +22,7 @@ stages{
      stage("Build Docker"){
         steps{
            script{
-               docker.build("10.1.12.73:5000/CASE-MANAGEMENT-SERVICE:${TAG}")
+               docker.build("10.1.12.73:5000/case_management_service:${TAG}")
            }
         }
     }
@@ -30,8 +30,8 @@ stages{
         steps{
            script{
                docker.withRegistry("http://10.1.12.73:5000"){
-                   docker.image("10.1.12.73:5000/CASE-MANAGEMENT-SERVICE:${TAG}").push()
-                   docker.image("10.1.12.73:5000/CASE-MANAGEMENT-SERVICE:${TAG}").push("latest")
+                   docker.image("10.1.12.73:5000/case_management_service:${TAG}").push()
+                   docker.image("10.1.12.73:5000/case_management_service:${TAG}").push("latest")
                }
            }
         }
@@ -42,7 +42,7 @@ stages{
         }
                  steps{
                     sshagent(['ebdev']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l  ebdevuat 10.1.22.72      "docker stop CASE-MANAGEMENT-SERVICE | true;     docker rm CASE-MANAGEMENT-SERVICE | true;     docker run -p 8094:8080 -e "SPRING_PROFILES_ACTIVE=develop" -d --restart=always --name  CASE-MANAGEMENT-SERVICE 10.1.12.73:5000/CASE-MANAGEMENT-SERVICE:${TAG}"'
+                    sh 'ssh -o StrictHostKeyChecking=no -l  ebdevuat 10.1.22.72      "docker stop case_management_service | true;     docker rm case_management_service | true;     docker run -p 8094:8080 -e "SPRING_PROFILES_ACTIVE=develop" -d --restart=always --name case_management_service 10.1.12.73:5000/case_management_service:${TAG}"'
                 }
 
 
@@ -56,7 +56,7 @@ stages{
 
            steps{
                     sshagent(['enat-remedy-production']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l  administrator 10.1.12.70      "docker stop CASE-MANAGEMENT-SERVICE | true;     docker rm CASE-MANAGEMENT-SERVICE | true;     docker run -p 8094:8080  -e "SPRING_PROFILES_ACTIVE=prod" -d --restart=always  --name CASE-MANAGEMENT-SERVICE 10.1.12.73:5000/CASE-MANAGEMENT-SERVICE:${TAG}"'
+                    sh 'ssh -o StrictHostKeyChecking=no -l  administrator 10.1.12.70      "docker stop case_management_service | true;     docker rm case_management_service | true;     docker run -p 8094:8080  -e "SPRING_PROFILES_ACTIVE=prod" -d --restart=always  --name case_management_service 10.1.12.73:5000/case_management_service:${TAG}"'
                 }
             }
 
