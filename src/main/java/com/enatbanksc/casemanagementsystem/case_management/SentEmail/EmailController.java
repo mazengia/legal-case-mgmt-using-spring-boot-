@@ -57,7 +57,6 @@ public class EmailController {
                     details.setSent(true);
                     details.setForeClosure(foreClosure1);
                     emailRepository.save(details);
-
                 }
                 System.out.println(details);
             }
