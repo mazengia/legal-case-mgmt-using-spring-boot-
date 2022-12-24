@@ -28,8 +28,9 @@ public class EmailController {
     private EmailRepository emailRepository;
 
 //    @PostMapping("/sendMail")
-
-    @Scheduled(cron = "*/10 * * * * *")
+//"*/10 * * * * *"     every ten second
+//    "0 0 8,10 * * *" = 8 and 10 o'clock of every day.
+    @Scheduled(cron = "0 0 2,10 * * *")
     public String sendMail() throws Exception {
 
         EmailDetails details = new EmailDetails();
@@ -39,8 +40,9 @@ public class EmailController {
 
             var auctionType = foreClosure1.getAuctionType();
             for (AuctionType auctionTypeList : auctionType) {
+                LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionAnnounced());
             LocalDate created_at = LocalDate.from(
-                    auctionTypeList.getDateAuctionAnnounced().minusDays(
+                    date.minusDays(
                             foreClosure1
                                     .getMortgageDetail()
                                     .getMortgageType()

@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
@@ -27,6 +29,9 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
         var maintainer = getEmployee(employeeId);
         auctionType.setAuctionTypeColor(Util.getRandomColor());
         auctionType.setMaintained_by(maintainer);
+//        System.out.println(auctionType.getDateAuctionAnnounced());
+//        var ld=Instant.parse(auctionType.getDateAuctionAnnounced());
+
         System.out.println(auctionType);
         return auctionTypeRepository.save(auctionType);
     }

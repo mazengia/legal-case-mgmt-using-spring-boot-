@@ -3,6 +3,7 @@ package com.enatbanksc.casemanagementsystem.case_management.AuctionType;
 import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosure;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -28,7 +29,8 @@ public class AuctionType extends Auditable {
     private String auctionTypeColor;
     @Schema(hidden = true)
     @Column(name = "dateAuctionAnnounced", nullable = false, updatable = false)
-    private LocalDateTime dateAuctionAnnounced;
+    private String dateAuctionAnnounced;
+//    LocalDateTime
     private String dateAuctionConducted;
     @ManyToOne(fetch = FetchType.EAGER, optional = false )
     @JoinColumn(name = "foreClosureId",nullable = false)
