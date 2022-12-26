@@ -91,8 +91,8 @@ public class LitigationServiceImpl implements LitigationService {
     }
 
     @Override
-    public Page<Litigation> findLitigationByFilterByCaseStage(Pageable pageable, String filterValue, CaseStage caseStage, JwtAuthenticationToken token) {
-        return  litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndCaseStage(pageable,filterValue,caseStage);
+    public Page<Litigation> findLitigationByFilter(Pageable pageable, String filterValue , JwtAuthenticationToken token) {
+        return  litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCase(pageable,filterValue);
 
     }
 

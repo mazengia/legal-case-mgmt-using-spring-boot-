@@ -1,13 +1,10 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
-import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-
-import java.io.Serializable;
 
 @Service
 public interface LitigationService {
@@ -25,7 +22,7 @@ public interface LitigationService {
 
     Page<Litigation> findLitigationByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token);
 
-    Page<Litigation> findLitigationByFilterByCaseStage(Pageable pageable, String filterValue, CaseStage caseStage, JwtAuthenticationToken token);
+    Page<Litigation> findLitigationByFilter(Pageable pageable, String filterValue , JwtAuthenticationToken token);
 
     Page<Litigation> findLitigationByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token);
 

@@ -78,12 +78,11 @@ public interface LitigationApi {
                                                                      UriComponentsBuilder uriBuilder,
                                                                      HttpServletResponse response);
 
-    @GetMapping("/filter/caseStage/{caseStage}/{filterValue}")
-    ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilterByCaseStage(@Parameter(
+    @GetMapping("/filter/{filterValue}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilter(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                      @PathVariable("filterValue") String filterValue,
-                                                                     @PathVariable("caseStage") CaseStage caseStage,
                                                                      PagedResourcesAssembler assembler,
                                                                      JwtAuthenticationToken token,
                                                                      UriComponentsBuilder uriBuilder,

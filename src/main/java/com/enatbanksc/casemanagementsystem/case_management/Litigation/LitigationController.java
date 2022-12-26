@@ -75,10 +75,10 @@ public class LitigationController implements LitigationApi{
     }
 
     @Override
-    public ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilterByCaseStage(Pageable pageable, String filterValue,CaseStage caseStage, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilter(Pageable pageable, String filterValue , PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(LitigationDto.class, uriBuilder,
-                response, pageable.getPageNumber(), litigationService.findLitigationByFilterByCaseStage(pageable,filterValue,caseStage, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.findLitigationByFilterByCaseStage(pageable,filterValue,caseStage, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+                response, pageable.getPageNumber(), litigationService.findLitigationByFilter(pageable,filterValue, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.findLitigationByFilter(pageable,filterValue, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
 
     }
 
