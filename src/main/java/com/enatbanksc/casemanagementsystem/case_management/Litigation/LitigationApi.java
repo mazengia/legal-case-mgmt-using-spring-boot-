@@ -1,8 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointmentDto;
-import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Branch;
-import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,8 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
-import static com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage.POST_TRIAL;
 
 public interface LitigationApi {
     @PostMapping()
@@ -77,6 +72,51 @@ public interface LitigationApi {
     ResponseEntity<PagedModel<LitigationDto>> findLitigationByStatus(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                     @PathVariable("status") String status,
+                                                                     PagedResourcesAssembler assembler,
+                                                                     JwtAuthenticationToken token,
+                                                                     UriComponentsBuilder uriBuilder,
+                                                                     HttpServletResponse response);
+
+    @GetMapping("/filter/caseStage/{caseStage}/{filterValue}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilterByCaseStage(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                     @PathVariable("filterValue") String filterValue,
+                                                                     @PathVariable("caseStage") CaseStage caseStage,
+                                                                     PagedResourcesAssembler assembler,
+                                                                     JwtAuthenticationToken token,
+                                                                     UriComponentsBuilder uriBuilder,
+                                                                     HttpServletResponse response);
+
+    @GetMapping("/filter/branch/{branchId}/{filterValue}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilterByBranch(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                             @PathVariable("filterValue") String filterValue,
+                                                                             @PathVariable("branchId") Long branchId,
+                                                                             PagedResourcesAssembler assembler,
+                                                                             JwtAuthenticationToken token,
+                                                                             UriComponentsBuilder uriBuilder,
+                                                                             HttpServletResponse response);
+
+
+    @GetMapping("/filter/attorney/{attorney}/{filterValue}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilterByattorney(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                     @PathVariable("filterValue") String filterValue,
+                                                                     @PathVariable("attorney") String attorney,
+                                                                     PagedResourcesAssembler assembler,
+                                                                     JwtAuthenticationToken token,
+                                                                     UriComponentsBuilder uriBuilder,
+                                                                     HttpServletResponse response);
+
+    @GetMapping("/filter/status/{status}/{filterValue}")
+    ResponseEntity<PagedModel<LitigationDto>> findLitigationByFilterByStatus(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                     @PathVariable("filterValue") String filterValue,
                                                                      @PathVariable("status") String status,
                                                                      PagedResourcesAssembler assembler,
                                                                      JwtAuthenticationToken token,

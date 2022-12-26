@@ -90,6 +90,31 @@ public class LitigationServiceImpl implements LitigationService {
 
     }
 
+    @Override
+    public Page<Litigation> findLitigationByFilterByCaseStage(Pageable pageable, String filterValue, CaseStage caseStage, JwtAuthenticationToken token) {
+        return  litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndCaseStage(pageable,filterValue,caseStage);
+
+    }
+
+    @Override
+    public Page<Litigation> findLitigationByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token) {
+        return litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatus(pageable,filterValue,status);
+//    return  null;
+    }
+
+    @Override
+    public Page<Litigation> findLitigationByFilterByattorney(Pageable pageable, String filterValue, String attorney, JwtAuthenticationToken token) {
+        return litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndAttorneyHandlingTheCase(pageable,filterValue,attorney);
+//return  null;
+    }
+
+    @Override
+    public Page<Litigation> findLitigationByFilterByBranch(Pageable pageable, String filterValue, Long branchId, JwtAuthenticationToken token) {
+
+        return litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndBranchId(pageable,filterValue,branchId);
+//   return null;
+    }
+
     private Employee getEmployee(String employeeId) {
         return employeeMapper.employeeDtoToEmployee(employeeClient.getEmployeeById(employeeId));
     }
