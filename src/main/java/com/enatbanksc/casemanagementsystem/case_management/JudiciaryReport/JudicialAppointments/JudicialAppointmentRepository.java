@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface JudicialAppointmentRepository extends PagingAndSortingRepository<JudicialAppointment, Long>, JpaSpecificationExecutor<JudicialAppointment> {
-    Page<JudicialAppointment> findJudicialAppointmentByLitigationLitigationId(Pageable pageable, Long id);
-
+    Page<JudicialAppointment> findJudicialAppointmentByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<JudicialAppointment> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }

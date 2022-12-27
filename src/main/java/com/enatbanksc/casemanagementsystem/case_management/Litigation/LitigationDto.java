@@ -6,20 +6,23 @@ import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseType;
 import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
-import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.LitigationEmployee;
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.PlaintiffDefendant;
-import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class LitigationDto extends Auditable {
+@AllArgsConstructor
+public class LitigationDto extends   RepresentationModel<LitigationDto> {
     private Long litigationId;
     private String fileNumber;
     private String courtAdjudicating;
-    private LitigationType litigationType;
+    private String litigationType;
     private Boolean isBankPlaintiff  ;
     private CaseStage caseStage;
     private CaseOwnerBranchDto branch;

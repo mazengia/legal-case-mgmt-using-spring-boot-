@@ -36,14 +36,14 @@ public interface ExpenseDetailApi {
                                                                    JwtAuthenticationToken token,
                                                                    UriComponentsBuilder uriBuilder,
                                                                    final HttpServletResponse response);
-    @GetMapping("/appointment-id/{id}")
-    ResponseEntity<PagedModel<ExpenseDetailDto>> findExpenseDetailByJudicialAppointmentId(@Parameter(
+    @GetMapping("/litigation-id/{id}")
+    ResponseEntity<PagedModel<ExpenseDetailDto>> findExpenseDetailByLitigationId(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
-                                                                                          @PathVariable("id") long id,
-                                                                                          PagedResourcesAssembler assembler,
-                                                                                          JwtAuthenticationToken token,
-                                                                                          UriComponentsBuilder uriBuilder,
-                                                                                          HttpServletResponse response);
+                                                                                 @PathVariable("id") long id,
+                                                                                 PagedResourcesAssembler assembler,
+                                                                                 JwtAuthenticationToken token,
+                                                                                 UriComponentsBuilder uriBuilder,
+                                                                                 HttpServletResponse response);
 
 }

@@ -55,7 +55,7 @@ public class AdvocateServiceImpl implements AdvocateService{
 
     @Override
     public Page<Advocate> getAdvocates(Pageable pageable, JwtAuthenticationToken token) {
-        return advocateRepository.findAll(pageable);
+        return advocateRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

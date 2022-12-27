@@ -5,8 +5,8 @@ import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditab
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "advocates")

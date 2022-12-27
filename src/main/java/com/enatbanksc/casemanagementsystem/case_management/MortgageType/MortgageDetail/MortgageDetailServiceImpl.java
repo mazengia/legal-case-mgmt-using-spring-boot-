@@ -28,7 +28,7 @@ public class MortgageDetailServiceImpl implements MortgageDetailService {
 
     @Override
     public Page<MortgageDetail> getMortgageDetail(Pageable pageable, JwtAuthenticationToken token) {
-        return mortgageDetailRepository.findAll(pageable);
+        return mortgageDetailRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

@@ -54,7 +54,7 @@ public class AdjournmentServiceImpl implements AdjournmentService{
     public Page<Adjournment> getAdjournment(Pageable pageable
             , JwtAuthenticationToken token
     ) {
-        return adjournmentRepository.findAll(pageable);
+        return adjournmentRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

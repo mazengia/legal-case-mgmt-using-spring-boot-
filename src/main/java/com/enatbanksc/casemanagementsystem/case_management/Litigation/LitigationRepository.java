@@ -13,23 +13,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface LitigationRepository extends PagingAndSortingRepository<Litigation, Long>, JpaSpecificationExecutor<Litigation> {
-    Page<Litigation> findLitigationByCaseStage(Pageable pageable, CaseStage caseStage);
+    Page<Litigation> findLitigationByCaseStageOrderByCreatedAtDesc(Pageable pageable, CaseStage caseStage);
+    Page<Litigation> findLitigationByBranchIdOrderByCreatedAtDesc(Pageable pageable, Long branchId);
+    Page<Litigation> findLitigationByAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<Litigation> findLitigationByStatusOrderByCreatedAtDesc(Pageable pageable, String Status);
 
-    Page<Litigation> findLitigationByBranchId(Pageable pageable, Long branchId);
-    Page<Litigation> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney);
-    Page<Litigation> findLitigationByStatus(Pageable pageable, String Status);
+    @Query(value = "select * from litigations sl where (sl.litigation_type like %:value% or sl.court_adjudicating like %:value% or sl.status like %:value%    or sl.attorney_handling_the_case like %:value% )" , nativeQuery = true)
+    Page<Litigation> findByLitigationTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, @Param("value") String value);
+    @Query(value = "select * from litigations s where (s.litigation_type like %:value% or s.court_adjudicating like %:value% or s.status like %:value%   or s.attorney_handling_the_case like %:value%) and  s.id  =:branchId" , nativeQuery = true)
+    Page<Litigation> findByLitigationTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndBranchIdOrderByCreatedAtDesc(Pageable pageable, @Param("value") String value, @Param("branchId") Long branchId);
 
-    @Query(value = "select * from litigation s where s.litigationType like %:value% or s.courtAdjudicating like %:value%   or s.attorneyHandlingTheCase like %:value% " , nativeQuery = true)
-    Page<Litigation> findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCase(Pageable pageable, @Param("value") String value);
-    @Query(value = "select * from litigation s where s.litigationType like %:value% or s.courtAdjudicating like %:value%   or s.attorneyHandlingTheCase like %:value% and  s.branchId  =:branchId" , nativeQuery = true)
-    Page<Litigation> findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndBranchId(Pageable pageable,@Param("value") String value,@Param("branchId") Long branchId);
+    @Query(value = "select * from litigations s where (s.litigation_type like %:value% or s.court_adjudicating like %:value% ) and  s.attorney_handling_the_case  =:attorneyHandlingTheCase" , nativeQuery = true)
+    Page<Litigation> findAllByLitigationTypeOrCourtAdjudicatingOrStatusAndAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, @Param("value") String value, @Param("attorneyHandlingTheCase") String attorneyHandlingTheCase);
 
-    @Query(value = "select * from litigation s where s.litigationType like %:value% or s.courtAdjudicating like %:value%   or s.attorneyHandlingTheCase like %:value% and  s.attorney  =:attorney" , nativeQuery = true)
-    Page<Litigation> findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndAttorneyHandlingTheCase(Pageable pageable,@Param("value") String value,@Param("attorney") String attorney);
+    @Query(value = "select * from litigations s where (s.litigation_type like %:value% or s.court_adjudicating like %:value%   or s.attorney_handling_the_case like %:value% ) and  s.status  =:status" , nativeQuery = true)
+    Page<Litigation> findAllByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatusOrderByCreatedAtDesc(Pageable pageable, @Param("value") String value, @Param("status") String status);
 
-    @Query(value = "select * from litigation s where s.litigationType like %:value% or s.courtAdjudicating like %:value%   or s.attorneyHandlingTheCase like %:value% and  s.status  =:status" , nativeQuery = true)
-    Page<Litigation> findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatus(Pageable pageable,@Param("value") String value,@Param("status") String status);
-
-
+    Page<Litigation> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
 }

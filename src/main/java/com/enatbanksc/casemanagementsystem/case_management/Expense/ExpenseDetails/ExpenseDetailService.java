@@ -13,7 +13,7 @@ public interface ExpenseDetailService {
     Page<ExpenseDetail> getExpensesDetail(Pageable pageable, JwtAuthenticationToken token);
     ExpenseDetail updateExpenseDetail(long id, ExpenseDetail expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException;
     void deleteExpenseDetail(long id, JwtAuthenticationToken token);
-    Page<ExpenseDetail> findExpenseDetailByJudicialAppointmentId(Pageable pageable, long id, JwtAuthenticationToken token);
+    Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token);
 
 }
 

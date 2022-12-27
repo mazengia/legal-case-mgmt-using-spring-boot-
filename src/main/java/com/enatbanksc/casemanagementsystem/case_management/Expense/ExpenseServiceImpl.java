@@ -41,7 +41,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 
     @Override
     public Page<Expense> getExpenses(Pageable pageable, JwtAuthenticationToken token) {
-        return expenseRepository.findAll(pageable);
+        return expenseRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

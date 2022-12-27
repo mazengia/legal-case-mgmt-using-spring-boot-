@@ -12,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
@@ -43,7 +41,7 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
 
     @Override
     public Page<AuctionType> getAuctionTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return auctionTypeRepository.findAll(pageable);
+        return auctionTypeRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

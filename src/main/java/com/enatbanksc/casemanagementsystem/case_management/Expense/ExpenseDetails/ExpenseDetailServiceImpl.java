@@ -29,7 +29,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
 
     @Override
     public Page<ExpenseDetail> getExpensesDetail(Pageable pageable, JwtAuthenticationToken token) {
-        return expenseDetailRepository.findAll(pageable);
+        return expenseDetailRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
         expenseDetailRepository.deleteById(expenseId);
     }
     @Override
-    public Page<ExpenseDetail> findExpenseDetailByJudicialAppointmentId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  expenseDetailRepository.findExpenseDetailByJudicialAppointmentAppointmentId(pageable,id);
+    public Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
+        return  expenseDetailRepository.findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(pageable,id);
     }
 }

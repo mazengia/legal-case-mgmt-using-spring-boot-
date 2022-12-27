@@ -43,7 +43,7 @@ public class ForeClosureServiceImpl implements ForeClosureService {
     public Page<ForeClosure> getForeClosure(Pageable pageable
             , JwtAuthenticationToken token
     ) {
-        return foreClosureRepository.findAll(pageable);
+        return foreClosureRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

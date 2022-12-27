@@ -39,7 +39,7 @@ public class MortgageTypeServiceImpl implements MortgageTypeService{
 
     @Override
     public Page<MortgageType> getMortgageTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return mortgageTypeRepository.findAll(pageable);
+        return mortgageTypeRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

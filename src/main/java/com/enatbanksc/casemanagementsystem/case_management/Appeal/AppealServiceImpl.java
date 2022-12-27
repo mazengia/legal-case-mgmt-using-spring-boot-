@@ -37,7 +37,7 @@ public class AppealServiceImpl implements AppealService {
 
     @Override
     public Page<Appeal> getAllAppeal(Pageable pageable, JwtAuthenticationToken token) {
-        return appealRepository.findAll(pageable);
+        return appealRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

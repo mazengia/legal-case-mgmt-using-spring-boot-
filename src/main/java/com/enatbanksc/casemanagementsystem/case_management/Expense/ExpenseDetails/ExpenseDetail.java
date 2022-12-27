@@ -1,7 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.Expense.ExpenseDetails;
 
 import com.enatbanksc.casemanagementsystem.case_management.Expense.Expense;
-import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
+import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -20,10 +20,10 @@ public class ExpenseDetail extends Auditable {
     @ManyToOne
     private Expense expense;
     private Double miscellaneous;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false )
-    @JoinColumn(name = "appointmentId")
-    @JsonIgnoreProperties(value={"expenseDetail"} )
-    private JudicialAppointment judicialAppointment;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "litigationId")
+    @JsonIgnoreProperties(value = {"expenseDetail"})
+    private Litigation litigation;
 
 
 }

@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Intervene;
 
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
 import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
@@ -25,8 +24,7 @@ public class InterveneServiceImpl implements InterveneService{
 
 
     @Override
-    public Intervene createIntervenes( Intervene intervenes
-            , JwtAuthenticationToken token
+    public Intervene createIntervenes( Intervene intervenes, JwtAuthenticationToken token
     ) {
         var employeeId = getEmployeeID(token);
         var maintainer = getEmployee(employeeId);
@@ -58,7 +56,7 @@ public class InterveneServiceImpl implements InterveneService{
     public Page<Intervene> getIntervenes(Pageable pageable
             , JwtAuthenticationToken token
     ) {
-        return interveneRepository.findAll(pageable);
+        return interveneRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override

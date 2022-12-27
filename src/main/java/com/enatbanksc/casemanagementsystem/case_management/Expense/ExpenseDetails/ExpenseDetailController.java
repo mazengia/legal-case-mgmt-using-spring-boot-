@@ -48,9 +48,9 @@ public class ExpenseDetailController implements ExpenseDetailApi {
 
     @Override
     public ResponseEntity<PagedModel<ExpenseDetailDto>>
-    findExpenseDetailByJudicialAppointmentId(Pageable pageable, long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.findExpenseDetailByJudicialAppointmentId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.findExpenseDetailByJudicialAppointmentId(pageable,id, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
+    findExpenseDetailByLitigationId(Pageable pageable, long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.findExpenseDetailByLitigationId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.findExpenseDetailByLitigationId(pageable,id, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
 
     }
 }

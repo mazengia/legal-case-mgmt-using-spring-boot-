@@ -39,12 +39,12 @@ public class JudicialAppointmentServiceImpl implements JudicialAppointmentServic
 
     @Override
     public Page<JudicialAppointment> getJudicialAppointments(Pageable pageable, JwtAuthenticationToken token) {
-        return judicialAppointmentRepository.findAll(pageable);
+        return judicialAppointmentRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override
     public Page<JudicialAppointment> getJudiciaryReportByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  judicialAppointmentRepository.findJudicialAppointmentByLitigationLitigationId(pageable,id);
+        return  judicialAppointmentRepository.findJudicialAppointmentByLitigationLitigationIdOrderByCreatedAtDesc(pageable,id);
     }
 
     @Override

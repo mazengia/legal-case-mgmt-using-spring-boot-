@@ -6,7 +6,6 @@ import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseType;
 import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
-import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.LitigationEmployee;
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.PlaintiffDefendant;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
@@ -29,7 +28,7 @@ public class Litigation extends Auditable {
     private String fileNumber;
     private String courtAdjudicating;
     private String status;
-    private LitigationType litigationType;
+    private String litigationType;
     private Boolean isBankPlaintiff  ;
     private CaseStage caseStage;
     private String attorneyHandlingTheCase;
