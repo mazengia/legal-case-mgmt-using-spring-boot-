@@ -21,6 +21,9 @@ public class MortgageDetail extends Auditable {
     private Long mortgageDetailId;
     private String machineryType;
     private String numberOfTitleIndeed;
+    private String plateNumber;
+    private String shansiNumber;
+    private String motorNumber;
     private String dateCollateralRegistered;
     private Boolean isWrittenLegalNoticeServed;
     private String dateLegalNoticeServed;
@@ -30,13 +33,14 @@ public class MortgageDetail extends Auditable {
     private String borrower;
 
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "plateNumber", column = @Column(name = "plateNumber")),
-            @AttributeOverride(name = "shansiNumber", column = @Column(name = "shansiNumber")),
-            @AttributeOverride(name = "motorNumber", column = @Column(name = "motorNumber"))
-    })
-    private Vehicle vehicle;
+
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "plateNumber", column = @Column(name = "plateNumber")),
+//            @AttributeOverride(name = "shansiNumber", column = @Column(name = "shansiNumber")),
+//            @AttributeOverride(name = "motorNumber", column = @Column(name = "motorNumber"))
+//    })
+//    private Vehicle vehicle;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mortgage_type_id")

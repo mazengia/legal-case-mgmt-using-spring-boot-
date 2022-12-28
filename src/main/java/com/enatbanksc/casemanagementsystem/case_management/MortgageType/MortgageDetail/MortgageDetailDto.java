@@ -12,6 +12,9 @@ public class MortgageDetailDto   extends Auditable {
     private Long mortgageDetailId;
     private String machineryType;
     private String numberOfTitleIndeed;
+    private String plateNumber;
+    private String shansiNumber;
+    private String motorNumber;
     private String dateCollateralRegistered;
     private Boolean isCollateralEstimated;
     private String dateCollateralIsEstimated;
@@ -19,7 +22,7 @@ public class MortgageDetailDto   extends Auditable {
     private String dateLegalNoticeServed;
     private String mortgagor;
     private String borrower;
-    private Vehicle vehicle;
+//    private Vehicle vehicle;
     private MortgageType mortgageType;
 
 }

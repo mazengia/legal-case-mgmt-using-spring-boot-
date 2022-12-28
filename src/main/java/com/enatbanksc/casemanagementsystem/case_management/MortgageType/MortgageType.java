@@ -24,7 +24,7 @@ public class MortgageType extends Auditable {
     private String remark;
 
     @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "mailNotificationType_id",nullable = false, unique = true)
+    @JoinColumn(name = "mailNotificationType_id",nullable = false)
     @JsonIgnoreProperties(value={"mortgageType"} )
     private MailNotificationType mailNotificationType;
 
