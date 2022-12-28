@@ -9,11 +9,12 @@ import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/expense-detail")
@@ -21,11 +22,22 @@ import javax.servlet.http.HttpServletResponse;
 public class ExpenseDetailController implements ExpenseDetailApi {
     private final ExpenseDetailService expenseDetailService;
     private final ExpenseDetailMapper expenseDetailMapper;
+    private final ExpenseDetailRepository expenseDetailRepository;
     private final ApplicationEventPublisher eventPublisher;
 
+//    @PostMapping()
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
+//        System.out.println("dfdf");
+//        System.out.println(expenseDetail);
+//        System.out.println("dfdf");
+//        return (ResponseEntity<?> )expenseDetailRepository.saveAll(expenseDetail);
+//    }
+
+
     @Override
-    public ExpenseDetailDto createExpenseDetail(ExpenseDetailDto expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return expenseDetailMapper.toExpenseDetailDto(expenseDetailService.createExpenseDetail(expenseDetailMapper.toExpenseDetail(expenseDetailDto), token));
+    public  ExpenseDetailDto createExpenseDetail( ExpenseDetailDto  expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException {
+        return expenseDetailMapper.toExpenseDetailDto(expenseDetailService.createExpenseDetail(expenseDetailMapper.toExpenseDetail( expenseDetailDto), token));
     }
 
     @Override

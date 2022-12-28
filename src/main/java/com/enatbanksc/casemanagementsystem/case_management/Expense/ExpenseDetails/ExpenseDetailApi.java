@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 public interface ExpenseDetailApi {
     @PostMapping()
