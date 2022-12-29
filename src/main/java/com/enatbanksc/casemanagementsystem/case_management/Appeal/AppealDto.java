@@ -9,6 +9,10 @@ import lombok.Data;
 public class AppealDto extends Auditable {
     private Long appealId;
     private String reason;
+    private String fileNumber;
+    private String courtAdjudicating;
+    private String applicant;
+    private String respondent  ;
     private Litigation litigation;
     private Employee maintained_by;
 }

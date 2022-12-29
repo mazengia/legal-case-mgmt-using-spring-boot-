@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments;
 
+import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
@@ -35,6 +36,12 @@ public class JudicialAppointment extends Auditable {
     @JoinColumn(name = "litigationId")
     @JsonIgnoreProperties(value = {"judicialAppointment"})
     private Litigation litigation;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "executionsId")
+    @JsonIgnoreProperties(value = {"judicialAppointment"})
+    private Executions executions;
+
+
 //    @OneToMany(mappedBy = "judicialAppointment")
 //    private List<ExpenseDetail> expenseDetails;
 }

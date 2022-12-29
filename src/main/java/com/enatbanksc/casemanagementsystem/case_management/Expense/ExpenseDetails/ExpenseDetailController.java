@@ -25,20 +25,27 @@ public class ExpenseDetailController implements ExpenseDetailApi {
     private final ExpenseDetailRepository expenseDetailRepository;
     private final ApplicationEventPublisher eventPublisher;
 
-//    @PostMapping()
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
-//        System.out.println("dfdf");
-//        System.out.println(expenseDetail);
-//        System.out.println("dfdf");
-//        return (ResponseEntity<?> )expenseDetailRepository.saveAll(expenseDetail);
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
+        System.out.println("dfdf");
+        System.out.println(expenseDetail);
+        System.out.println("dfdf");
+        return (ResponseEntity<?> )expenseDetailRepository.saveAll(expenseDetail);
+    }
+//    @PutMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<?> updateExpenseDetail(@PathVariable("id") long id, @RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
+//        var et = getExpenseDetail(id);
+//        BeanUtils.copyProperties(expenseDetail, et, getNullPropertyNames(expenseDetail));
+//        return expenseDetailRepository.save(et);
 //    }
 
-
-    @Override
-    public  ExpenseDetailDto createExpenseDetail( ExpenseDetailDto  expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return expenseDetailMapper.toExpenseDetailDto(expenseDetailService.createExpenseDetail(expenseDetailMapper.toExpenseDetail( expenseDetailDto), token));
-    }
+//
+//    @Override
+//    public  ExpenseDetailDto createExpenseDetail( ExpenseDetailDto  expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException {
+//        return expenseDetailMapper.toExpenseDetailDto(expenseDetailService.createExpenseDetail(expenseDetailMapper.toExpenseDetail( expenseDetailDto), token));
+//    }
 
     @Override
     public ExpenseDetailDto getExpenseDetail(long id) {

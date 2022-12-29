@@ -31,6 +31,7 @@ public class LitigationServiceImpl implements LitigationService {
     @Override
     public Litigation createLitigation(Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
         var branch = getBranchById(litigation.getBranch().getId());
+
         litigation.setBranch(branch);
 
 
@@ -55,6 +56,12 @@ public class LitigationServiceImpl implements LitigationService {
         var l = getLitigation(id);
 //        var branch = getBranchById(litigation.getBranch().getId());
 //        litigation.setBranch(branch);
+//        var rol=token.getTokenAttributes().get("realm_access");
+//        System.out.println("role="+rol);
+//        System.out.println(token.getToken().getClaims());
+//        if(litigation.getIntervene().getInterveneId()==null){
+//            litigation.setIntervene(null);
+//        }
         BeanUtils.copyProperties(litigation, l, getNullPropertyNames(litigation));
         return litigationRepository.save(l);
     }

@@ -13,12 +13,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 public interface ExpenseDetailApi {
-    @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    ExpenseDetailDto createExpenseDetail(@RequestBody @Valid ExpenseDetailDto expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException;
+//    @PostMapping()
+//    @ResponseStatus(HttpStatus.CREATED)
+//    ExpenseDetailDto createExpenseDetail(@RequestBody @Valid ExpenseDetailDto expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

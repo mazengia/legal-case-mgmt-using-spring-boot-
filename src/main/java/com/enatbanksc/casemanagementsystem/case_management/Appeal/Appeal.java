@@ -19,6 +19,11 @@ public class Appeal extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appealId;
+    private String fileNumber;
+    private String courtAdjudicating;
+    private String applicant;
+    private String respondent;
+
     private String reason;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "litigationId")

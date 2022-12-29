@@ -1,13 +1,9 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 
-import com.enatbanksc.casemanagementsystem.case_management.Advocate.Advocate;
-import com.enatbanksc.casemanagementsystem.case_management.CaseType.CaseType;
 import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments.JudicialAppointment;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
-import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
-import com.enatbanksc.casemanagementsystem.case_management._config.Common.PlaintiffDefendant;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -30,15 +26,16 @@ public class Litigation extends Auditable {
     private String status;
     private String litigationType;
     private Boolean isBankPlaintiff  ;
-    private CaseStage caseStage;
+    private String caseStage;
     private String attorneyHandlingTheCase;
     private String plaintiff;
     private String defendant;
+    private  String  caseType;
 
-    @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "case_type_id",nullable = true)
-    @JsonIgnoreProperties(value={"litigation"} )
-    private CaseType caseType;
+//    @OneToOne (fetch = FetchType.EAGER)
+//    @JoinColumn(name = "case_type_id",nullable = true)
+//    @JsonIgnoreProperties(value={"litigation"} )
+//    private CaseType caseType;
 
 
 //    @ManyToOne(fetch = FetchType.EAGER )

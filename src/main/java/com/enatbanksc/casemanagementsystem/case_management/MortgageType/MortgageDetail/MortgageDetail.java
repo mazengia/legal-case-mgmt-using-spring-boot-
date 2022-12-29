@@ -1,7 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail;
 
+import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
 import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageType;
-import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Vehicle;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -9,6 +9,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "MortgageDetail")
 @Table(name = "mortgage_details")
@@ -31,6 +32,8 @@ public class MortgageDetail extends Auditable {
     private String dateCollateralIsEstimated;
     private String mortgagor;
     private String borrower;
+    private String status;
+    private String mortgageTypeName;
 
 
 
@@ -42,8 +45,12 @@ public class MortgageDetail extends Auditable {
 //    })
 //    private Vehicle vehicle;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mortgage_type_id")
-    @JsonIgnoreProperties(value = {"mortgageDetail"})
-    private MortgageType mortgageType;
+
+//
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "mortgage_type_id")
+//    @JsonIgnoreProperties(value = {"mortgageDetail"})
+//    private MortgageType mortgageType;
+    @OneToMany(mappedBy = "mortgageDetail")
+    private List<AuctionType> AuctionType;
 }

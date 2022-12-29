@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.AuctionType;
 
-import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosure;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,12 +27,12 @@ public class AuctionType extends Auditable {
     @Schema(hidden = true)
     @Column(name = "dateAuctionAnnounced", nullable = false, updatable = false)
     private String dateAuctionAnnounced;
-//    LocalDateTime
+    private String dateAuctionWillBeConducted;
     private String dateAuctionConducted;
     @ManyToOne(fetch = FetchType.EAGER, optional = false )
-    @JoinColumn(name = "foreClosureId",nullable = false)
+    @JoinColumn(name = "mortgageDetailId",nullable = false)
     @JsonIgnoreProperties(value={"auctionType"} )
-    private ForeClosure foreClosure;
+    private MortgageDetail mortgageDetail;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "employeeId", column = @Column(name = "maintainer_employee_id")),
