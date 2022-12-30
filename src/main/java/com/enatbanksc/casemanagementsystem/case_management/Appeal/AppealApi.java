@@ -21,7 +21,17 @@ public interface AppealApi {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    AppealDto getAppeal(@PathVariable("id") long id);
+    AppealDto getAppealById(@PathVariable("id") long id);
+
+    @GetMapping("/attorney/{attorneyHandlingTheCase}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<AppealDto>> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
+                                                                                                         @Valid Pageable pageable,
+                                                                                                         @PathVariable("attorneyHandlingTheCase")   String attorneyHandlingTheCase,
+                                                                                                         PagedResourcesAssembler assembler,
+                                                                                                         JwtAuthenticationToken token,
+                                                                                                         UriComponentsBuilder uriBuilder,
+                                                                                                         final HttpServletResponse response);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -29,11 +39,10 @@ public interface AppealApi {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<AppealDto>> getAppeal(@Parameter(description = "pagination object",
-            schema = @Schema(implementation = Pageable.class))
-                                                                            @Valid Pageable pageable,
-                                                    PagedResourcesAssembler assembler,
-                                                    JwtAuthenticationToken token,
-                                                    UriComponentsBuilder uriBuilder,
-                                                    final HttpServletResponse response);
+    ResponseEntity<PagedModel<AppealDto>> getAllAppeal(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
+                                                       @Valid Pageable pageable,
+                                                       PagedResourcesAssembler assembler,
+                                                       JwtAuthenticationToken token,
+                                                       UriComponentsBuilder uriBuilder,
+                                                       final HttpServletResponse response);
 }

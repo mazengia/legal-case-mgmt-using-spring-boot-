@@ -21,18 +21,11 @@ public class LitigationDto extends   RepresentationModel<LitigationDto> {
     private String litigationType;
     private Boolean isBankPlaintiff  ;
     private String caseStage;
-    private String plaintiff;
-    private String defendant;
     private CaseOwnerBranchDto branch;
-//    private PlaintiffDefendant plaintiff;
-//    private PlaintiffDefendant defendant;
     private String attorneyHandlingTheCase;
     private String status;
     private Intervene intervene;
     private  String  caseType;
-//    private Advocate advocate;
-//    private CaseType caseType;
     private List<JudicialAppointment> judicialAppointment;
-//    private List<Comment> comments;
 
 }

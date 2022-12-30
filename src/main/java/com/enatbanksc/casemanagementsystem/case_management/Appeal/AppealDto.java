@@ -11,8 +11,7 @@ public class AppealDto extends Auditable {
     private String reason;
     private String fileNumber;
     private String courtAdjudicating;
-    private String applicant;
-    private String respondent  ;
     private Litigation litigation;
+//    private List<AppealApplicantRespondent> appealApplicantRespondents;
     private Employee maintained_by;
 }

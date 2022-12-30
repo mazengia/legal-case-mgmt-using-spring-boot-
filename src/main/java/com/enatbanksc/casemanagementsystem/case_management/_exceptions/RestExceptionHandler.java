@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ 
 package com.enatbanksc.casemanagementsystem.case_management._exceptions;
 
 import lombok.extern.log4j.Log4j2;
@@ -157,25 +153,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    /**
-     * Handles StorageException
-     *
-     * @param ex the StorageException
-     * @return ApiError object
-     */
-//    @ExceptionHandler(StorageException.class)
-//    protected ResponseEntity<Object> handleStorageException(StorageException ex) {
-//        ApiError apiError = new ApiError(BAD_REQUEST);
-//        apiError.setMessage(ex.getMessage());
-//        return buildResponseEntity(apiError);
-//    }
-
-    /**
-     * Handles EntityNotFoundException. Created to encapsulate errors with more detail than javax.persistence.EntityNotFoundException.
-     *
-     * @param ex the EntityNotFoundException
-     * @return the ApiError object
-     */
+ 
     @ExceptionHandler(EntityNotFoundException.class)
     protected ResponseEntity<Object> handleEntityNotFound(
             EntityNotFoundException ex) {

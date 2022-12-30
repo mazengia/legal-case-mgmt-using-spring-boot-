@@ -28,9 +28,9 @@ public class ExpenseDetailController implements ExpenseDetailApi {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
-        System.out.println("dfdf");
-        System.out.println(expenseDetail);
-        System.out.println("dfdf");
+//        System.out.println("dfdf");
+//        System.out.println(expenseDetail);
+//        System.out.println("dfdf");
         return (ResponseEntity<?> )expenseDetailRepository.saveAll(expenseDetail);
     }
 //    @PutMapping("/{id}")

@@ -1,4 +1,4 @@
-package com.enatbanksc.casemanagementsystem.case_management.Appeal;
+package com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplicantRespondant;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RepositoryRestResource
-public interface AppealRepository extends PagingAndSortingRepository<Appeal, Long>, JpaSpecificationExecutor<Appeal> {
-    Page<Appeal> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    Page<Appeal> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable,String attorneyHandlingTheCase);
+public interface AppealApplicantRespondentRepository extends PagingAndSortingRepository<AppealApplicantRespondent, Long>, JpaSpecificationExecutor<AppealApplicantRespondent> {
+    Page<AppealApplicantRespondent> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }

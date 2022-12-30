@@ -21,10 +21,11 @@ public class Appeal extends Auditable {
     private Long appealId;
     private String fileNumber;
     private String courtAdjudicating;
-    private String applicant;
-    private String respondent;
-
     private String reason;
+//    @OneToMany(mappedBy = "appeal")
+//    private List<AppealApplicantRespondent> appealApplicantRespondents;
+
+//    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "litigationId")
     @JsonIgnoreProperties(value = {"appeal"})

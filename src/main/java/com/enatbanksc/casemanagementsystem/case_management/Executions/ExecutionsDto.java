@@ -7,7 +7,6 @@ import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditab
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
@@ -18,8 +17,6 @@ public class ExecutionsDto extends Auditable {
     private Long executionsId;
     private String fileNumber;
     private String courtAdjudicating;
-    private String judgmentCreditor;
-    private String judgmentGetter;
     private String caseStage;
     private String attorneyHandlingTheCase;
     private  String  caseType;

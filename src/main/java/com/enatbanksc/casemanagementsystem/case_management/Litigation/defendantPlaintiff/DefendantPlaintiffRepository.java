@@ -1,4 +1,4 @@
-package com.enatbanksc.casemanagementsystem.case_management.Advocate;
+package com.enatbanksc.casemanagementsystem.case_management.Litigation.defendantPlaintiff;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RepositoryRestResource
-public interface AdvocateRepository extends PagingAndSortingRepository<Advocate, Long>, JpaSpecificationExecutor<Advocate> {
-    Page<Advocate> findAllByOrderByCreatedAtDesc(Pageable pageable);
+public interface DefendantPlaintiffRepository extends PagingAndSortingRepository<DefendantPlaintiff, Long>, JpaSpecificationExecutor<DefendantPlaintiff> {
+    Page<DefendantPlaintiff> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }

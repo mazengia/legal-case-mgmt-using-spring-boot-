@@ -12,6 +12,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Table(name = "litigations")
 @Data
@@ -25,12 +26,10 @@ public class Litigation extends Auditable {
     private String courtAdjudicating;
     private String status;
     private String litigationType;
-    private Boolean isBankPlaintiff  ;
+    private Boolean isBankPlaintiff;
     private String caseStage;
     private String attorneyHandlingTheCase;
-    private String plaintiff;
-    private String defendant;
-    private  String  caseType;
+    private String caseType;
 
 //    @OneToOne (fetch = FetchType.EAGER)
 //    @JoinColumn(name = "case_type_id",nullable = true)
@@ -43,10 +42,10 @@ public class Litigation extends Auditable {
 //    @JsonIgnoreProperties(value={"litigation"} )
 //    private Advocate advocate;
 
-    @ManyToOne(fetch = FetchType.EAGER  )
-    @JoinColumn(name = "intervene_id",nullable = true)
-    @JsonIgnoreProperties(value={"litigation"} )
-    private  Intervene intervene;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "intervene_id", nullable = true)
+    @JsonIgnoreProperties(value = {"litigation"})
+    private Intervene intervene;
 
     @Embedded
     @AttributeOverrides({
@@ -78,6 +77,9 @@ public class Litigation extends Auditable {
 
     @OneToMany(mappedBy = "litigation")
     private List<JudicialAppointment> judicialAppointment;
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "litigation")
+//    private List<Appeal> appeal;
 //    @OneToMany(mappedBy = "litigation")
 //    private List<Appeal> appeals;
 //    @OneToMany(mappedBy = "litigation")

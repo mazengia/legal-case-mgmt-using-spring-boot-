@@ -29,8 +29,14 @@ public class AppealController implements AppealApi {
     }
 
     @Override
-    public AppealDto getAppeal(long id) {
+    public AppealDto getAppealById(long id) {
         return appealMapper.toAppealDto(appealService.getAppealById(id));
+    }
+    @Override
+    public ResponseEntity<PagedModel<AppealDto>> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable,String attorneyHandlingTheCase, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                AppealDto.class, uriBuilder, response, pageable.getPageNumber(), appealService.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<AppealDto>>(assembler.toModel(appealService.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase, token).map(appealMapper::toAppealDto)), HttpStatus.OK);
     }
 
     @Override
@@ -39,7 +45,7 @@ public class AppealController implements AppealApi {
     }
 
     @Override
-    public ResponseEntity<PagedModel<AppealDto>> getAppeal(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<AppealDto>> getAllAppeal(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
                 AppealDto.class, uriBuilder, response, pageable.getPageNumber(), appealService.getAllAppeal(pageable, token).getTotalPages(), pageable.getPageSize()));
         return new ResponseEntity<PagedModel<AppealDto>>(assembler.toModel(appealService.getAllAppeal(pageable, token).map(appealMapper::toAppealDto)), HttpStatus.OK);

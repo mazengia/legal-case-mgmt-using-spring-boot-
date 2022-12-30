@@ -1,9 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail;
 
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageType;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;

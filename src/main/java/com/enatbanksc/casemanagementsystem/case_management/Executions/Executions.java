@@ -20,8 +20,6 @@ public class Executions extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long executionsId;
     private String fileNumber;
-    private String courtAdjudicating;
-    private String judgmentCreditor;
     private String judgmentGetter;
     private String caseStage;
     private String attorneyHandlingTheCase;
