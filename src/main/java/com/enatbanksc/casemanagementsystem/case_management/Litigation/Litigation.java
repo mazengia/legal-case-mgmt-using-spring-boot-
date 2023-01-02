@@ -21,7 +21,7 @@ import java.util.List;
 public class Litigation extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long litigationId;
+    private Long   litigationId;
     private String fileNumber;
     private String courtAdjudicating;
     private String status;
@@ -30,6 +30,7 @@ public class Litigation extends Auditable {
     private String caseStage;
     private String attorneyHandlingTheCase;
     private String caseType;
+    private String content;
 
 //    @OneToOne (fetch = FetchType.EAGER)
 //    @JoinColumn(name = "case_type_id",nullable = true)

@@ -18,27 +18,27 @@ import javax.validation.Valid;
 public interface ExecutionsApi {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    ExecutionsDto createLitigation(@RequestBody @Valid ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    ExecutionsDto createExecutions(@RequestBody @Valid ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ExecutionsDto getLitigation(@PathVariable("id") long id);
+    ExecutionsDto getExecutionsById(@PathVariable("id") long id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ExecutionsDto updateLitigation(@PathVariable("id") long id, @RequestBody @Valid ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    ExecutionsDto updateExecutions(@PathVariable("id") long id, @RequestBody @Valid ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<ExecutionsDto>> getLitigations(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<ExecutionsDto>> getExecutions(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                        @Valid Pageable pageable,
-                                                             PagedResourcesAssembler assembler,
-                                                             UriComponentsBuilder uriBuilder,
-                                                             final HttpServletResponse response);
+                                                            PagedResourcesAssembler assembler,
+                                                            UriComponentsBuilder uriBuilder,
+                                                            final HttpServletResponse response);
 
     @GetMapping("/case-stage/{caseStage}")
-    ResponseEntity<PagedModel<ExecutionsDto>> getLitigationByCaseStage(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> getExecutionsByCaseStage(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                        @PathVariable("caseStage") CaseStage caseStage,
@@ -49,7 +49,7 @@ public interface ExecutionsApi {
 
 
     @GetMapping("/branch-id/{branchId}")
-    ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByBranchId(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByBranchId(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                        @PathVariable("branchId") Long branchId,
@@ -59,7 +59,7 @@ public interface ExecutionsApi {
                                                                        HttpServletResponse response);
 
     @GetMapping("/attorney/{attorney}")
-    ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByAttorneyHandlingTheCase(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByAttorneyHandlingTheCase(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                                       @PathVariable("attorney") String attorney,
@@ -69,7 +69,7 @@ public interface ExecutionsApi {
                                                                                       HttpServletResponse response);
 
     @GetMapping("/status/{status}")
-    ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByStatus(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByStatus(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                      @PathVariable("status") String status,
@@ -79,7 +79,7 @@ public interface ExecutionsApi {
                                                                      HttpServletResponse response);
 
     @GetMapping("/filter/{filterValue}")
-    ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilter(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilter(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                      @PathVariable("filterValue") String filterValue,
@@ -89,7 +89,7 @@ public interface ExecutionsApi {
                                                                      HttpServletResponse response);
 
     @GetMapping("/filter/branch/{branchId}/{filterValue}")
-    ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilterByBranch(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilterByBranch(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                              @PathVariable("filterValue") String filterValue,
@@ -101,7 +101,7 @@ public interface ExecutionsApi {
 
 
     @GetMapping("/filter/attorney/{attorney}/{filterValue}")
-    ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilterByattorney(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilterByattorney(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                                @PathVariable("filterValue") String filterValue,
@@ -112,7 +112,7 @@ public interface ExecutionsApi {
                                                                                HttpServletResponse response);
 
     @GetMapping("/filter/status/{status}/{filterValue}")
-    ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilterByStatus(@Parameter(
+    ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilterByStatus(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
                                                                              @PathVariable("filterValue") String filterValue,

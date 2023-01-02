@@ -8,25 +8,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ExecutionsService {
-    Executions createLitigation(Executions executions, JwtAuthenticationToken token) throws IllegalAccessException;
-    Executions getLitigation(long id);
-    Page<Executions> getLitigations(Pageable pageable);
-    Executions updateLitigation(long id, Executions executions, JwtAuthenticationToken token) throws IllegalAccessException;
+    Executions createExecutions(Executions executions, JwtAuthenticationToken token) throws IllegalAccessException;
+    Executions getExecutionsById(long id);
+    Page<Executions> getExecutions(Pageable pageable);
+    Executions updateExecutions(long id, Executions executions, JwtAuthenticationToken token) throws IllegalAccessException;
 
      void deleteLitigation(long id, JwtAuthenticationToken token);
-    Page<Executions> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token);
+    Page<Executions> getExecutionsByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token);
 
-    Page<Executions> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
+    Page<Executions> findExecutionsByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
 
-    Page<Executions> findLitigationByStatus(Pageable pageable, String status, JwtAuthenticationToken token);
+    Page<Executions> findExecutionsByStatus(Pageable pageable, String status, JwtAuthenticationToken token);
 
-    Page<Executions> findLitigationByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token);
+    Page<Executions> findExecutionsByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token);
 
-    Page<Executions> findLitigationByFilter(Pageable pageable, String filterValue , JwtAuthenticationToken token);
+    Page<Executions> findExecutionsByFilter(Pageable pageable, String filterValue , JwtAuthenticationToken token);
 
-    Page<Executions> findLitigationByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token);
+    Page<Executions> findExecutionsByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token);
 
-    Page<Executions> findLitigationByFilterByattorney(Pageable pageable, String filterValue, String attorney, JwtAuthenticationToken token);
+    Page<Executions> findExecutionsByFilterByattorney(Pageable pageable, String filterValue, String attorney, JwtAuthenticationToken token);
 
-    Page<Executions> findLitigationByFilterByBranch(Pageable pageable, String filterValue, Long branchId, JwtAuthenticationToken token);
+    Page<Executions> findExecutionsByFilterByBranch(Pageable pageable, String filterValue, Long branchId, JwtAuthenticationToken token);
 }

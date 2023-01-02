@@ -4,6 +4,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ExecutionsMapper {
-    Executions toLitigation(ExecutionsDto executionsDto);
-    ExecutionsDto toLitigationDto(Executions executions);
+    Executions toExecutions(ExecutionsDto executionsDto);
+    ExecutionsDto toExecutionsDto(Executions executions);
 }

@@ -10,11 +10,19 @@ import org.springframework.stereotype.Service;
 public interface ExpenseDetailService {
 //    ExpenseDetail createExpenseDetail(ExpenseDetail expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException;
     ExpenseDetail getExpenseDetail(long id);
-    Page<ExpenseDetail> getExpensesDetail(Pageable pageable, JwtAuthenticationToken token);
+    Page<ExpenseDetail> getExpensesDetailByForeclosure(Pageable pageable, JwtAuthenticationToken token);
+
+    Page<ExpenseDetail> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token);
+
+    Page<ExpenseDetail> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token);
+
     ExpenseDetail updateExpenseDetail(long id, ExpenseDetail expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException;
     void deleteExpenseDetail(long id, JwtAuthenticationToken token);
     Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token);
 
+    Page<ExpenseDetail> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token);
+
+    Page<ExpenseDetail> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token);
 }
 
 

@@ -30,8 +30,16 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     }
 
     @Override
-    public Page<ExpenseDetail> getExpensesDetail(Pageable pageable, JwtAuthenticationToken token) {
-        return expenseDetailRepository.findAllByOrderByCreatedAtDesc(pageable);
+    public Page<ExpenseDetail> getExpensesDetailByForeclosure(Pageable pageable, JwtAuthenticationToken token) {
+        return expenseDetailRepository.findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(pageable);
+    }
+    @Override
+    public Page<ExpenseDetail> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token) {
+        return expenseDetailRepository.findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable);
+    }
+    @Override
+    public Page<ExpenseDetail> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token) {
+        return expenseDetailRepository.findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable);
     }
 
     @Override
@@ -48,5 +56,16 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     @Override
     public Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(pageable,id);
+    }
+
+    @Override
+    public Page<ExpenseDetail> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token) {
+        return  expenseDetailRepository.findExpenseDetailByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable,id);
+    }
+
+
+    @Override
+    public Page<ExpenseDetail> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
+        return  expenseDetailRepository.findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(pageable,id);
     }
 }

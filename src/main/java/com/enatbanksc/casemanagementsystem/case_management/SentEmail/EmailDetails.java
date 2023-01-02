@@ -1,7 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 
-import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosure;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -30,9 +30,9 @@ public class EmailDetails extends Auditable {
     private String attachment;
     private boolean sent;
     @OneToOne (fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name = "foreClosure_id",nullable = false)
+    @JoinColumn(name = "mortgageDetailId",nullable = false)
     @JsonIgnoreProperties(value={"emailDetails"} )
-    private ForeClosure foreClosure;
+    private MortgageDetail mortgageDetail;
 
     @Override
     public boolean equals(Object o) {

@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource
 public interface JudgmentCreditorGetterRepository extends PagingAndSortingRepository<JudgmentCreditorGetter, Long>, JpaSpecificationExecutor<JudgmentCreditorGetter> {
     Page<JudgmentCreditorGetter> findAllByOrderByCreatedAtDesc(Pageable pageable);
+
+    Page<JudgmentCreditorGetter> findAllByExecutionsExecutionsIdOrderByCreatedAtDesc(long executionsId, Pageable pageable);
 }

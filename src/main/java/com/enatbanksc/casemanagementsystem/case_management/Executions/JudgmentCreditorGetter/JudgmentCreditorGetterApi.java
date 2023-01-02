@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 public interface JudgmentCreditorGetterApi {
 
@@ -22,19 +23,21 @@ public interface JudgmentCreditorGetterApi {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    JudgmentCreditorGetterDro getAdvocate(@PathVariable("id") long id);
-
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    JudgmentCreditorGetterDro updateAdvocate(@PathVariable("id") long id, @RequestBody @Valid JudgmentCreditorGetterDro judgmentCreditorGetterDro, JwtAuthenticationToken token) throws IllegalAccessException;
+    JudgmentCreditorGetterDto getJudgmentCreditorGetterById(@PathVariable("id") long id);
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<JudgmentCreditorGetterDro>> getAdvocates(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<JudgmentCreditorGetterDto>> getJudgmentCreditorGetter(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                            @Valid Pageable pageable,
-                                                                       PagedResourcesAssembler assembler,
-                                                                       JwtAuthenticationToken token,
-                                                                       UriComponentsBuilder uriBuilder,
-                                                                       final HttpServletResponse response);
+                                                                                    PagedResourcesAssembler assembler,
+                                                                                    JwtAuthenticationToken token,
+                                                                                    UriComponentsBuilder uriBuilder,
+                                                                                    final HttpServletResponse response);
+    @GetMapping("/execution/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<JudgmentCreditorGetterDto>> getJudgmentCreditorGetterByExecutionId(@PathVariable("id") long id, Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    List<JudgmentCreditorGetterDto> updateJudgmentCreditorGetter(@PathVariable("id") long id, @RequestBody @Valid List<JudgmentCreditorGetterDto> judgmentCreditorGetterDtos, JwtAuthenticationToken token) throws IllegalAccessException;
 }

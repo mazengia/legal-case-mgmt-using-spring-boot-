@@ -1,7 +1,10 @@
 package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 
-import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosureRepository;
+import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
+import com.enatbanksc.casemanagementsystem.case_management.MailNotificationType.MailNotificationTypeRepository;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetailRepository;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -31,8 +34,9 @@ public class EmailController implements EmailApi {
     //    @Scheduled(cron = "*/10 * * * * *")
     //    For example, 0 10 8 * * ? means that the task is executed at 08:10:00 every day
     private final EmailService emailService;
-    private final ForeClosureRepository foreClosureRepository;
     private final EmailRepository emailRepository;
+    private final MortgageDetailRepository mortgageDetailRepository;
+    private final MailNotificationTypeRepository mailNotificationTypeRepository;
     private final EmailMapper emailMapper;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -41,33 +45,29 @@ public class EmailController implements EmailApi {
         System.out.println("meee");
         EmailDetails details = new EmailDetails();
         LocalDate today = LocalDate.now();
-        var foreClosure = foreClosureRepository.findAll();
-//        for (ForeClosure foreClosure1 : foreClosure) {
-//            var auctionType = foreClosure1.getAuctionType();
-//            for (AuctionType auctionTypeList : auctionType) {
-//                LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionAnnounced());
-//                LocalDate created_at = LocalDate.from(
-//                        date.minusDays(
-//                                foreClosure1
-//                                        .getMortgageDetail()
-//                                        .getMortgageType()
-//                                        .getMailNotificationType()
-//                                        .getNumberOfDays())
-//                );
-//                if (today.equals(created_at)) {
-//                    details.setRecipient(foreClosure1.getMaintained_by().getEmail());
-////                "mz.tesfa@gmail.com"
-//                    details.setMsgBody("I try to check emil");
-//                    details.setSubject("I'm from cron job");
-//                    if (emailService.sendSimpleMail(details)) {
-//                        details.setSent(true);
-//                        details.setForeClosure(foreClosure1);
-//                        emailRepository.save(details);
-//                    }
-//                    System.out.println(details);
-//                }
-//            }
-//        }
+        var mortgageDetails = mortgageDetailRepository.findAll();
+        var mail=mailNotificationTypeRepository.findById(Long.valueOf(1));
+        for (MortgageDetail mortgageDetail : mortgageDetails) {
+            var auctionType = mortgageDetail.getAuctionType();
+            for (AuctionType auctionTypeList : auctionType) {
+                LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionAnnounced());
+                LocalDate created_at = LocalDate.from(
+                        date.minusDays(mail.get().getNumberOfDays())
+                );
+                if (today.equals(created_at)) {
+                    details.setRecipient(mortgageDetail.getMaintained_by().getEmail());
+//                "mz.tesfa@gmail.com"
+                    details.setMsgBody("I try to check emil");
+                    details.setSubject("I'm from cron job");
+                    if (emailService.sendSimpleMail(details)) {
+                        details.setSent(true);
+                        details.setMortgageDetail(mortgageDetail);
+                        emailRepository.save(details);
+                    }
+                    System.out.println(details);
+                }
+            }
+        }
         return null;
     }
 

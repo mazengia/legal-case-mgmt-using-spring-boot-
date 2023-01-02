@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource
 public interface AppealApplicantRespondentRepository extends PagingAndSortingRepository<AppealApplicantRespondent, Long>, JpaSpecificationExecutor<AppealApplicantRespondent> {
     Page<AppealApplicantRespondent> findAllByOrderByCreatedAtDesc(Pageable pageable);
+
+    Page<AppealApplicantRespondent> findAllByAppealAppealIdOrderByCreatedAtDesc(long id, Pageable pageable);
 }

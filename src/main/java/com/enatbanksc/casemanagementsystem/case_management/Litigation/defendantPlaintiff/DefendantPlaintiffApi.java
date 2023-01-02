@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 public interface DefendantPlaintiffApi {
 
@@ -22,19 +23,28 @@ public interface DefendantPlaintiffApi {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    DefendantPlaintiffDto getAdvocate(@PathVariable("id") long id);
+    DefendantPlaintiffDto getDefendantPlaintiffById(@PathVariable("id") long id);
+    @GetMapping("/litigation/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<DefendantPlaintiffDto>> getDefendantPlaintiffByLitigationId(@Parameter(description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @PathVariable("id") long id,
+                                                              @Valid Pageable pageable,
+                                                              PagedResourcesAssembler assembler,
+                                                              JwtAuthenticationToken token,
+                                                              UriComponentsBuilder uriBuilder,
+                                                              final HttpServletResponse response);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    DefendantPlaintiffDto updateAdvocate(@PathVariable("id") long id, @RequestBody @Valid DefendantPlaintiffDto defendantPlaintiffDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    List<DefendantPlaintiffDto> updateDefendantPlaintiff(@PathVariable("id") long id, @RequestBody @Valid List<DefendantPlaintiffDto> defendantPlaintiffDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<DefendantPlaintiffDto>> getAdvocates(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<DefendantPlaintiffDto>> getAllDefendantPlaintiff(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                            @Valid Pageable pageable,
-                                                                   PagedResourcesAssembler assembler,
-                                                                   JwtAuthenticationToken token,
-                                                                   UriComponentsBuilder uriBuilder,
-                                                                   final HttpServletResponse response);
+                                                                               PagedResourcesAssembler assembler,
+                                                                               JwtAuthenticationToken token,
+                                                                               UriComponentsBuilder uriBuilder,
+                                                                               final HttpServletResponse response);
 }

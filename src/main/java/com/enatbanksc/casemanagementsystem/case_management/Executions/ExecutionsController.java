@@ -24,88 +24,88 @@ public class ExecutionsController implements ExecutionsApi {
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    public ExecutionsDto createLitigation(ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return executionsMapper.toLitigationDto(executionsService.createLitigation(executionsMapper.toLitigation(executionsDto), token));
+    public ExecutionsDto createExecutions(ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException {
+        return executionsMapper.toExecutionsDto(executionsService.createExecutions(executionsMapper.toExecutions(executionsDto), token));
     }
 
     @Override
-    public ExecutionsDto getLitigation(long id) {
-        return executionsMapper.toLitigationDto(executionsService.getLitigation(id));
+    public ExecutionsDto getExecutionsById(long id) {
+        return executionsMapper.toExecutionsDto(executionsService.getExecutionsById(id));
     }
 
     @Override
-    public ExecutionsDto updateLitigation(long id, ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return executionsMapper.toLitigationDto(executionsService.updateLitigation(id, executionsMapper.toLitigation(executionsDto), token));
+    public ExecutionsDto updateExecutions(long id, ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException {
+        return executionsMapper.toExecutionsDto(executionsService.updateExecutions(id, executionsMapper.toExecutions(executionsDto), token));
     }
 
     @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> getLitigations(Pageable pageable, PagedResourcesAssembler assembler, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<ExecutionsDto>> getExecutions(Pageable pageable, PagedResourcesAssembler assembler, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.getLitigations(pageable).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.getLitigations(pageable).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
+                ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.getExecutions(pageable).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.getExecutions(pageable).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.getLitigationByCaseStage(pageable,caseStage, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.getLitigationByCaseStage(pageable,caseStage, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
-
-
-    }
-
-    @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByBranchId(Pageable pageable, Long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.findLitigationByBranchId(pageable,branchId, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findLitigationByBranchId(pageable,branchId, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
+    public ResponseEntity<PagedModel<ExecutionsDto>> getExecutionsByCaseStage(Pageable pageable, CaseStage caseStage, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.getExecutionsByCaseStage(pageable,caseStage, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.getExecutionsByCaseStage(pageable,caseStage, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
 
 
     }
 
     @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.findLitigationByAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findLitigationByAttorneyHandlingTheCase(pageable,attorney, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
+    public ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByBranchId(Pageable pageable, Long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.findExecutionsByBranchId(pageable,branchId, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findExecutionsByBranchId(pageable,branchId, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
 
-    }
-    @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByStatus(Pageable pageable, String status, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.findLitigationByStatus(pageable,status, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findLitigationByStatus(pageable,status, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
 
     }
 
     @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilter(Pageable pageable, String filterValue , PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByAttorneyHandlingTheCase(Pageable pageable, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.findExecutionsByAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findExecutionsByAttorneyHandlingTheCase(pageable,attorney, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
+
+    }
+    @Override
+    public ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByStatus(Pageable pageable, String status, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder, response, pageable.getPageNumber(), executionsService.findExecutionsByStatus(pageable,status, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findExecutionsByStatus(pageable,status, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilter(Pageable pageable, String filterValue , PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder,
-                response, pageable.getPageNumber(), executionsService.findLitigationByFilter(pageable,filterValue, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findLitigationByFilter(pageable,filterValue, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
+                response, pageable.getPageNumber(), executionsService.findExecutionsByFilter(pageable,filterValue, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findExecutionsByFilter(pageable,filterValue, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
 
     }
 
     @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilterByBranch(Pageable pageable, String filterValue, Long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilterByBranch(Pageable pageable, String filterValue, Long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder,
-                response, pageable.getPageNumber(), executionsService.findLitigationByFilterByBranch(pageable,filterValue,branchId, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findLitigationByFilterByBranch(pageable,filterValue,branchId, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
+                response, pageable.getPageNumber(), executionsService.findExecutionsByFilterByBranch(pageable,filterValue,branchId, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findExecutionsByFilterByBranch(pageable,filterValue,branchId, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
 
 
     }
 
 
     @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilterByattorney(Pageable pageable, String filterValue, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilterByattorney(Pageable pageable, String filterValue, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder,
-                response, pageable.getPageNumber(), executionsService.findLitigationByFilterByattorney(pageable,filterValue,attorney, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findLitigationByFilterByattorney(pageable,filterValue,attorney, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
+                response, pageable.getPageNumber(), executionsService.findExecutionsByFilterByattorney(pageable,filterValue,attorney, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findExecutionsByFilterByattorney(pageable,filterValue,attorney, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
 
 
     }
 
     @Override
-    public ResponseEntity<PagedModel<ExecutionsDto>> findLitigationByFilterByStatus(Pageable pageable, String filterValue, String status, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<ExecutionsDto>> findExecutionsByFilterByStatus(Pageable pageable, String filterValue, String status, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExecutionsDto.class, uriBuilder,
-                response, pageable.getPageNumber(), executionsService.findLitigationByFilterByStatus(pageable,filterValue,status, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findLitigationByFilterByStatus(pageable,filterValue,status, token).map(executionsMapper::toLitigationDto)), HttpStatus.OK);
+                response, pageable.getPageNumber(), executionsService.findExecutionsByFilterByStatus(pageable,filterValue,status, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExecutionsDto>>(assembler.toModel(executionsService.findExecutionsByFilterByStatus(pageable,filterValue,status, token).map(executionsMapper::toExecutionsDto)), HttpStatus.OK);
 
 
     }

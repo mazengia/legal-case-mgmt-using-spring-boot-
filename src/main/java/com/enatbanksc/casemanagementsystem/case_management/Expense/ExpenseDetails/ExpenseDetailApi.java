@@ -27,15 +27,16 @@ public interface ExpenseDetailApi {
     @ResponseStatus(HttpStatus.OK)
     ExpenseDetailDto updateExpenseDetail(@PathVariable("id") long id, @RequestBody @Valid ExpenseDetailDto expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
-    @GetMapping()
+    @GetMapping("/litigation")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<ExpenseDetailDto>> getExpensesDetail(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<ExpenseDetailDto>> getALLExpensesDetailByLitigation(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
-                                                                            @Valid Pageable pageable,
-                                                                   PagedResourcesAssembler assembler,
-                                                                   JwtAuthenticationToken token,
-                                                                   UriComponentsBuilder uriBuilder,
-                                                                   final HttpServletResponse response);
+                                                                                  @Valid Pageable pageable,
+                                                                                  PagedResourcesAssembler assembler,
+                                                                                  JwtAuthenticationToken token,
+                                                                                  UriComponentsBuilder uriBuilder,
+                                                                                  final HttpServletResponse response);
+
     @GetMapping("/litigation-id/{id}")
     ResponseEntity<PagedModel<ExpenseDetailDto>> findExpenseDetailByLitigationId(@Parameter(
             description = "pagination object",
@@ -45,5 +46,47 @@ public interface ExpenseDetailApi {
                                                                                  JwtAuthenticationToken token,
                                                                                  UriComponentsBuilder uriBuilder,
                                                                                  HttpServletResponse response);
+
+    @GetMapping("/foreclosure-id/{id}")
+    ResponseEntity<PagedModel<ExpenseDetailDto>> findExpenseDetailByForeClosureId(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                                  @PathVariable("id") long id,
+                                                                                  PagedResourcesAssembler assembler,
+                                                                                  JwtAuthenticationToken token,
+                                                                                  UriComponentsBuilder uriBuilder,
+                                                                                  HttpServletResponse response);
+
+
+    @GetMapping("/execution-id/{id}")
+    ResponseEntity<PagedModel<ExpenseDetailDto>> findExpenseDetailByExecutionId(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                                @PathVariable("id") long id,
+                                                                                PagedResourcesAssembler assembler,
+                                                                                JwtAuthenticationToken token,
+                                                                                UriComponentsBuilder uriBuilder,
+                                                                                HttpServletResponse response);
+
+
+    @GetMapping("/foreclosure")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<ExpenseDetailDto>> getALLExpensesDetailByForeclosure(@Parameter(description = "pagination object",
+            schema = @Schema(implementation = Pageable.class))
+                                                                                   @Valid Pageable pageable,
+                                                                                   PagedResourcesAssembler assembler,
+                                                                                   JwtAuthenticationToken token,
+                                                                                   UriComponentsBuilder uriBuilder,
+                                                                                   final HttpServletResponse response);
+
+    @GetMapping("/execution")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<ExpenseDetailDto>> getALLExpensesDetailByExecution(@Parameter(description = "pagination object",
+            schema = @Schema(implementation = Pageable.class))
+                                                                                 @Valid Pageable pageable,
+                                                                                 PagedResourcesAssembler assembler,
+                                                                                 JwtAuthenticationToken token,
+                                                                                 UriComponentsBuilder uriBuilder,
+                                                                                 final HttpServletResponse response);
 
 }

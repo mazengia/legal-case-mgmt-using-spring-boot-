@@ -36,19 +36,27 @@ public class DefendantPlaintiffController implements DefendantPlaintiffApi {
 //    }
 
     @Override
-    public DefendantPlaintiffDto getAdvocate(long id) {
-        return defendantPlaintiffMapper.toAdvocateDto(defendantPlaintiffService.getAdvocate(id));
+    public DefendantPlaintiffDto getDefendantPlaintiffById(long id) {
+        return defendantPlaintiffMapper.toAdvocateDto(defendantPlaintiffService.getDefendantPlaintiffById(id));
     }
 
     @Override
-    public DefendantPlaintiffDto updateAdvocate(long id, DefendantPlaintiffDto defendantPlaintiffDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return defendantPlaintiffMapper.toAdvocateDto(defendantPlaintiffService.updateAdvocate(id, defendantPlaintiffMapper.toAdvocate(defendantPlaintiffDto), token));
-    }
-
-    @Override
-    public ResponseEntity<PagedModel<DefendantPlaintiffDto>> getAdvocates(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<DefendantPlaintiffDto>> getDefendantPlaintiffByLitigationId(long id, Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                DefendantPlaintiffDto.class, uriBuilder, response, pageable.getPageNumber(), defendantPlaintiffService.getAdvocates(pageable, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<DefendantPlaintiffDto>>(assembler.toModel(defendantPlaintiffService.getAdvocates(pageable, token).map(defendantPlaintiffMapper::toAdvocateDto)), HttpStatus.OK);
+                DefendantPlaintiffDto.class, uriBuilder, response, pageable.getPageNumber(), defendantPlaintiffService.getDefendantPlaintiffByLitigationId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<DefendantPlaintiffDto>>(assembler.toModel(defendantPlaintiffService.getDefendantPlaintiffByLitigationId(pageable,id, token).map(defendantPlaintiffMapper::toAdvocateDto)), HttpStatus.OK);
+    }
+
+    @Override
+    public List<DefendantPlaintiffDto> updateDefendantPlaintiff(long id, List<DefendantPlaintiffDto> defendantPlaintiffDto, JwtAuthenticationToken token) throws IllegalAccessException {
+        return defendantPlaintiffMapper.toDefendantPlaintiffDto(defendantPlaintiffService.updateDefendantPlaintiff(id, defendantPlaintiffMapper.toDefendantPlaintiff(defendantPlaintiffDto), token));
+//    return null;
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<DefendantPlaintiffDto>> getAllDefendantPlaintiff(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                DefendantPlaintiffDto.class, uriBuilder, response, pageable.getPageNumber(), defendantPlaintiffService.getAllDefendantPlaintiff(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<DefendantPlaintiffDto>>(assembler.toModel(defendantPlaintiffService.getAllDefendantPlaintiff(pageable, token).map(defendantPlaintiffMapper::toAdvocateDto)), HttpStatus.OK);
     }
 }

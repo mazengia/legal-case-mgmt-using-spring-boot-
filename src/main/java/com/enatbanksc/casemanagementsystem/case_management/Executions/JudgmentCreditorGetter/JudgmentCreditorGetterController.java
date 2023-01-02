@@ -34,19 +34,30 @@ private  final JudgmentCreditorGetterRepository respondentRepository;
 //    }
 
     @Override
-    public JudgmentCreditorGetterDro getAdvocate(long id) {
-        return judgmentCreditorGetterMapper.toAdvocateDto(judgmentCreditorGetterService.getAdvocate(id));
+    public JudgmentCreditorGetterDto getJudgmentCreditorGetterById(long id) {
+        return judgmentCreditorGetterMapper.toAdvocateDto(judgmentCreditorGetterService.getJudgmentCreditorGetterById(id));
     }
 
-    @Override
-    public JudgmentCreditorGetterDro updateAdvocate(long id, JudgmentCreditorGetterDro judgmentCreditorGetterDro, JwtAuthenticationToken token) throws IllegalAccessException {
-        return judgmentCreditorGetterMapper.toAdvocateDto(judgmentCreditorGetterService.updateAdvocate(id, judgmentCreditorGetterMapper.toAdvocate(judgmentCreditorGetterDro), token));
-    }
+
 
     @Override
-    public ResponseEntity<PagedModel<JudgmentCreditorGetterDro>> getAdvocates(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<JudgmentCreditorGetterDto>> getJudgmentCreditorGetter(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                JudgmentCreditorGetterDro.class, uriBuilder, response, pageable.getPageNumber(), judgmentCreditorGetterService.getAdvocates(pageable, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<JudgmentCreditorGetterDro>>(assembler.toModel(judgmentCreditorGetterService.getAdvocates(pageable, token).map(judgmentCreditorGetterMapper::toAdvocateDto)), HttpStatus.OK);
+                JudgmentCreditorGetterDto.class, uriBuilder, response, pageable.getPageNumber(), judgmentCreditorGetterService.getJudgmentCreditorGetter(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<JudgmentCreditorGetterDto>>(assembler.toModel(judgmentCreditorGetterService.getJudgmentCreditorGetter(pageable, token).map(judgmentCreditorGetterMapper::toAdvocateDto)), HttpStatus.OK);
     }
+
+
+    @Override
+    public ResponseEntity<PagedModel<JudgmentCreditorGetterDto>> getJudgmentCreditorGetterByExecutionId(long id, Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                JudgmentCreditorGetterDto.class, uriBuilder, response, pageable.getPageNumber(), judgmentCreditorGetterService.getJudgmentCreditorGetterByExecutionId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<JudgmentCreditorGetterDto>>(assembler.toModel(judgmentCreditorGetterService.getJudgmentCreditorGetterByExecutionId(pageable,id, token).map(judgmentCreditorGetterMapper::toAdvocateDto)), HttpStatus.OK);
+    }
+    @Override
+    public List<JudgmentCreditorGetterDto> updateJudgmentCreditorGetter(long id, List<JudgmentCreditorGetterDto> judgmentCreditorGetterDtos, JwtAuthenticationToken token) throws IllegalAccessException {
+        return judgmentCreditorGetterMapper.toJudgmentCreditorGetterDto(judgmentCreditorGetterService.updateJudgmentCreditorGetter(id, judgmentCreditorGetterMapper.toJudgmentCreditorGetter(judgmentCreditorGetterDtos), token));
+//    return null;
+    }
+
 }

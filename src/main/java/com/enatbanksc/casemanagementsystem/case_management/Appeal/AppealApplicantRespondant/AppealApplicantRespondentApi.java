@@ -1,5 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplicantRespondant;
 
+import com.enatbanksc.casemanagementsystem.case_management.Litigation.defendantPlaintiff.DefendantPlaintiffDto;
+import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 public interface AppealApplicantRespondentApi {
 
@@ -26,7 +29,7 @@ public interface AppealApplicantRespondentApi {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    AppealApplicantRespondentDto updateAdvocate(@PathVariable("id") long id, @RequestBody @Valid AppealApplicantRespondentDto appealApplicantRespondentDto, JwtAuthenticationToken token) throws IllegalAccessException;
+     List<AppealApplicantRespondentDto> updateApplicantRespondent( @PathVariable("id") long id,@RequestBody @Valid  List<AppealApplicantRespondentDto> appealApplicantRespondentDtos, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -37,4 +40,8 @@ public interface AppealApplicantRespondentApi {
                                                                           JwtAuthenticationToken token,
                                                                           UriComponentsBuilder uriBuilder,
                                                                           final HttpServletResponse response);
+
+    @GetMapping("/appeal/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<AppealApplicantRespondentDto>> getApplicantRespondentAppealId(@PathVariable("id") long id, Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
 }

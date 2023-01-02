@@ -18,8 +18,9 @@ import java.util.List;
 public class Executions extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long executionsId;
+    private Long  executionsId;
     private String fileNumber;
+    private String courtAdjudicating;
     private String judgmentGetter;
     private String caseStage;
     private String attorneyHandlingTheCase;

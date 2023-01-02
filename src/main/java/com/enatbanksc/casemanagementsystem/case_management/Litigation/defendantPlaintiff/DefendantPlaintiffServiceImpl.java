@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
 @Service
@@ -32,24 +34,34 @@ public class DefendantPlaintiffServiceImpl implements DefendantPlaintiffService 
 //    }
 
     @Override
-    public DefendantPlaintiff updateAdvocate(long id, DefendantPlaintiff defendantPlaintiff, JwtAuthenticationToken token) throws IllegalAccessException {
-        var a = getAdvocate(id);
-//        var employeeId = getEmployeeID(token);
-//        if(!a.getMaintained_by().getEmployeeId().equals(employeeId)){
-//            throw new IllegalAccessException("You are not allowed to modify this advocate information!");
-//        }
-        BeanUtils.copyProperties(defendantPlaintiff, a, getNullPropertyNames(defendantPlaintiff));
-        return defendantPlaintiffRepository.save(a);
-
+    public List<DefendantPlaintiff> updateDefendantPlaintiff(long id, List<DefendantPlaintiff> defendantPlaintiff, JwtAuthenticationToken token) throws IllegalAccessException {
+        System.out.println("plentiff");
+        System.out.println(defendantPlaintiff);
+        System.out.println("plentiff");
+        for (DefendantPlaintiff defendantPlaintiff1 : defendantPlaintiff) {
+            var defendantPlaintiffId = defendantPlaintiff1.getDefendantPlaintiffId();
+            var a = getDefendantPlaintiffById(defendantPlaintiffId);
+            BeanUtils.copyProperties(defendantPlaintiff1, a, getNullPropertyNames(defendantPlaintiff1));
+            defendantPlaintiffRepository.save(a);
+        }
+//        return (List<DefendantPlaintiff>) defendantPlaintiffRepository.saveAll(a);
+        return null;
     }
 
     @Override
-    public DefendantPlaintiff getAdvocate(long id) {
-        return defendantPlaintiffRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(DefendantPlaintiff.class, "Advocate with an id " + id + " was not found!"));
+    public DefendantPlaintiff getDefendantPlaintiffById(long id) {
+        return defendantPlaintiffRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(DefendantPlaintiff.class, "Advocate with an id " + id + " was not found!"));
     }
 
     @Override
-    public Page<DefendantPlaintiff> getAdvocates(Pageable pageable, JwtAuthenticationToken token) {
+    public Page<DefendantPlaintiff> getDefendantPlaintiffByLitigationId(Pageable pageable,
+                                                                        long litigationId,
+                                                                        JwtAuthenticationToken token) {
+        return defendantPlaintiffRepository.findAllByLitigationLitigationIdOrderByCreatedAtDesc(litigationId, pageable);
+    }
+
+    @Override
+    public Page<DefendantPlaintiff> getAllDefendantPlaintiff(Pageable pageable, JwtAuthenticationToken token) {
         return defendantPlaintiffRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +18,8 @@ import javax.validation.Valid;
 
 public interface LitigationApi {
     @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    LitigationDto createLitigation(@RequestBody @Valid LitigationDto litigationDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    @ResponseStatus(HttpStatus.OK)
+    LitigationDto createLitigation(@RequestBody @Valid  LitigationDto litigationDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

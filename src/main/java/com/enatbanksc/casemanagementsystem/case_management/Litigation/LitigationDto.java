@@ -25,6 +25,7 @@ public class LitigationDto extends   RepresentationModel<LitigationDto> {
     private String attorneyHandlingTheCase;
     private String status;
     private Intervene intervene;
+    private String content;
     private  String  caseType;
     private List<JudicialAppointment> judicialAppointment;
 

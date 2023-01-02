@@ -58,10 +58,10 @@ public class ExpenseDetailController implements ExpenseDetailApi {
     }
 
     @Override
-    public ResponseEntity<PagedModel<ExpenseDetailDto>> getExpensesDetail(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<ExpenseDetailDto>> getALLExpensesDetailByLitigation(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.getExpensesDetail(pageable, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.getExpensesDetail(pageable, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
+                ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.getExpensesDetailByLitigation(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.getExpensesDetailByLitigation(pageable, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
     }
 
 
@@ -72,4 +72,34 @@ public class ExpenseDetailController implements ExpenseDetailApi {
         return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.findExpenseDetailByLitigationId(pageable,id, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
 
     }
+
+    @Override
+    public ResponseEntity<PagedModel<ExpenseDetailDto>>
+    findExpenseDetailByForeClosureId(Pageable pageable, long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.findExpenseDetailByLitigationId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.findExpenseDetailByForeclosureId(pageable,id, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<ExpenseDetailDto>>
+    findExpenseDetailByExecutionId(Pageable pageable, long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.findExpenseDetailByLitigationId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.findExpenseDetailByExecutionId(pageable,id, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<ExpenseDetailDto>> getALLExpensesDetailByExecution(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.getExpensesDetailByExecution(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.getExpensesDetailByExecution(pageable, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity<PagedModel<ExpenseDetailDto>> getALLExpensesDetailByForeclosure(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.getExpensesDetailByForeclosure(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.getExpensesDetailByForeclosure(pageable, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplicantRespondant;
 
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudiciaryReportRepository;
+import com.enatbanksc.casemanagementsystem.case_management.Litigation.defendantPlaintiff.DefendantPlaintiff;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
 import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
@@ -32,19 +35,20 @@ public class AppealApplicantRespondentServiceImpl implements AppealApplicantResp
 //    }
 
     @Override
-    public AppealApplicantRespondent updateAdvocate(long id, AppealApplicantRespondent appealApplicantRespondent, JwtAuthenticationToken token) throws IllegalAccessException {
-        var a = getAdvocate(id);
-//        var employeeId = getEmployeeID(token);
-//        if(!a.getMaintained_by().getEmployeeId().equals(employeeId)){
-//            throw new IllegalAccessException("You are not allowed to modify this advocate information!");
-//        }
-        BeanUtils.copyProperties(appealApplicantRespondent, a, getNullPropertyNames(appealApplicantRespondent));
-        return appealApplicantRespondentRepository.save(a);
+    public List<AppealApplicantRespondent> updateAppealApplicantRespondent(long id, List<AppealApplicantRespondent> appealApplicantRespondents, JwtAuthenticationToken token) throws IllegalAccessException {
 
+        for (AppealApplicantRespondent appealApplicantRespondent : appealApplicantRespondents) {
+            var appealApplicantRespondentId = appealApplicantRespondent.getAppealApplicantRespondentId();
+            var a = getApplicantRespondentById( appealApplicantRespondentId);
+            BeanUtils.copyProperties(appealApplicantRespondent, a, getNullPropertyNames(appealApplicantRespondent));
+            appealApplicantRespondentRepository.save(a);
+        }
+//        return (List<DefendantPlaintiff>) defendantPlaintiffRepository.saveAll(a);
+        return null;
     }
 
     @Override
-    public AppealApplicantRespondent getAdvocate(long id) {
+    public AppealApplicantRespondent getApplicantRespondentById(long id) {
         return appealApplicantRespondentRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(AppealApplicantRespondent.class, "Advocate with an id " + id + " was not found!"));
     }
 
@@ -60,5 +64,12 @@ public class AppealApplicantRespondentServiceImpl implements AppealApplicantResp
 
     private Employee getEmployee(String employeeId) {
         return employeeMapper.employeeDtoToEmployee(employeeClient.getEmployeeById(employeeId));
+    }
+
+    @Override
+    public Page<AppealApplicantRespondent> getApplicantRespondentByAppealId(Pageable pageable,
+                                                                            long id,
+                                                                            JwtAuthenticationToken token) {
+        return appealApplicantRespondentRepository.findAllByAppealAppealIdOrderByCreatedAtDesc(id, pageable);
     }
 }

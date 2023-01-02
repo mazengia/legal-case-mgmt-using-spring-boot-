@@ -29,7 +29,7 @@ public class ExecutionsServiceImpl implements ExecutionsService {
 
 
     @Override
-    public Executions createLitigation(Executions executions, JwtAuthenticationToken token) throws IllegalAccessException {
+    public Executions createExecutions(Executions executions, JwtAuthenticationToken token) throws IllegalAccessException {
         var branch = getBranchById(executions.getBranch().getId());
         executions.setBranch(branch);
 
@@ -41,18 +41,18 @@ public class ExecutionsServiceImpl implements ExecutionsService {
     }
 
     @Override
-    public Executions getLitigation(long id) {
+    public Executions getExecutionsById(long id) {
         return executionsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Executions.class, "Litigation with an Id " + id + "was not found!"));
     }
 
     @Override
-    public Page<Executions> getLitigations(Pageable pageable) {
+    public Page<Executions> getExecutions(Pageable pageable) {
         return executionsRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override
-    public Executions updateLitigation(long id, Executions executions, JwtAuthenticationToken token) throws IllegalAccessException {
-        var l = getLitigation(id);
+    public Executions updateExecutions(long id, Executions executions, JwtAuthenticationToken token) throws IllegalAccessException {
+        var l = getExecutionsById(id);
 //        var branch = getBranchById(litigation.getBranch().getId());
 //        litigation.setBranch(branch);
         BeanUtils.copyProperties(executions, l, getNullPropertyNames(executions));
@@ -67,17 +67,17 @@ public class ExecutionsServiceImpl implements ExecutionsService {
     }
 
     @Override
-    public Page<Executions> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token) {
+    public Page<Executions> getExecutionsByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token) {
 //        return  executionsRepository.findLitigationByCaseStageOrderByCreatedAtDesc(pageable,caseStage);
         return null;
     }
     @Override
-    public Page<Executions> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+    public Page<Executions> findExecutionsByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
 //        return  executionsRepository.findLitigationByAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
         return null;
     }
     @Override
-    public Page<Executions> findLitigationByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {
+    public Page<Executions> findExecutionsByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {
 //        return  executionsRepository.findLitigationOrderByCreatedAtDesc(pageable,status);
         return null;
     }
@@ -85,31 +85,31 @@ public class ExecutionsServiceImpl implements ExecutionsService {
 
 
     @Override
-    public Page<Executions> findLitigationByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
+    public Page<Executions> findExecutionsByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
 //        return  executionsRepository.findLitigationByBranchIdOrderByCreatedAtDesc(pageable,branchId);
         return null;
     }
 
     @Override
-    public Page<Executions> findLitigationByFilter(Pageable pageable, String filterValue , JwtAuthenticationToken token) {
+    public Page<Executions> findExecutionsByFilter(Pageable pageable, String filterValue , JwtAuthenticationToken token) {
 //        return  executionsRepository.findByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,filterValue);
         return null;
     }
 
     @Override
-    public Page<Executions> findLitigationByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token) {
+    public Page<Executions> findExecutionsByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token) {
 //        return executionsRepository.findAllByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,filterValue,status);
     return  null;
     }
 
     @Override
-    public Page<Executions> findLitigationByFilterByattorney(Pageable pageable, String filterValue, String attorney, JwtAuthenticationToken token) {
+    public Page<Executions> findExecutionsByFilterByattorney(Pageable pageable, String filterValue, String attorney, JwtAuthenticationToken token) {
 //        return executionsRepository.findAllByLitigationTypeOrCourtAdjudicatingAndAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,filterValue,attorney);
 return  null;
     }
 
     @Override
-    public Page<Executions> findLitigationByFilterByBranch(Pageable pageable, String filterValue, Long branchId, JwtAuthenticationToken token) {
+    public Page<Executions> findExecutionsByFilterByBranch(Pageable pageable, String filterValue, Long branchId, JwtAuthenticationToken token) {
 
 //        return executionsRepository.findByLitigationTypeOrCourtAdjudicatingOrOrAttorneyHandlingTheCaseAndBranchIdOrderByCreatedAtDesc(pageable,filterValue,branchId);
    return null;

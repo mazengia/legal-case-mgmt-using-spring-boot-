@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Executions.JudgmentCreditorGetter;
 
-import com.enatbanksc.casemanagementsystem.case_management.Appeal.Appeal;
 import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,7 +17,7 @@ import javax.persistence.*;
 public class JudgmentCreditorGetter extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long appealApplicantRespondentId;
+    private Long judgmentCreditorGetterId;
     private String judgmentCreditor;
     private String judgmentGetter;
     @ManyToOne(fetch = FetchType.EAGER  )

@@ -12,5 +12,11 @@ import org.springframework.stereotype.Repository;
 public interface ExpenseDetailRepository  extends PagingAndSortingRepository<ExpenseDetail, Long>, JpaSpecificationExecutor<ExpenseDetail> {
 
     Page<ExpenseDetail> findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, Long id);
-    Page<ExpenseDetail> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<ExpenseDetail> findExpenseDetailByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+
+    Page<ExpenseDetail> findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+
 }

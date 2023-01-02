@@ -5,11 +5,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface JudgmentCreditorGetterService {
 //    AppealApplicantRespondent createAdvocate(AppealApplicantRespondent appealApplicantRespondent, JwtAuthenticationToken token);
-    JudgmentCreditorGetter updateAdvocate(long id, JudgmentCreditorGetter judgmentCreditorGetter, JwtAuthenticationToken token) throws IllegalAccessException;
-    JudgmentCreditorGetter getAdvocate(long id);
-    Page<JudgmentCreditorGetter> getAdvocates(Pageable pageable, JwtAuthenticationToken token);
-    void deleteAdvocate(long id);
+     JudgmentCreditorGetter getJudgmentCreditorGetterById(long id);
+    Page<JudgmentCreditorGetter> getJudgmentCreditorGetter(Pageable pageable, JwtAuthenticationToken token);
+    void deleteJudgmentCreditorGetter(long id);
+
+    List<JudgmentCreditorGetter> updateJudgmentCreditorGetter(long id, List<JudgmentCreditorGetter> judgmentCreditorGetters, JwtAuthenticationToken token) throws IllegalAccessException;
+
+    Page<JudgmentCreditorGetter> getJudgmentCreditorGetterByExecutionId(Pageable pageable,
+                                                                        long litigationId,
+                                                                        JwtAuthenticationToken token);
 }
