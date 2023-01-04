@@ -33,6 +33,6 @@ public class Executions extends Auditable {
     })
     private CaseOwnerBranchDto branch;
 
-    @OneToMany(mappedBy = "executions")
-    private List<JudicialAppointment> judicialAppointment;
+//    @OneToMany(mappedBy = "executions")
+//    private List<JudicialAppointment> judicialAppointment;
 }

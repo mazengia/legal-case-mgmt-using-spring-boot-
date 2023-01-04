@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder;
 
+import com.enatbanksc.casemanagementsystem.case_management.Files.AttachedFiles;
 import lombok.SneakyThrows;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -12,6 +13,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -29,7 +31,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
 
     @Override
-    public Object save(MultipartFile file) {
+    public AttachedFiles save(MultipartFile file) {
         try {
             Files.copy(
                     file.getInputStream(),
@@ -54,6 +56,11 @@ public class FilesStorageServiceImpl implements FilesStorageService {
         } catch (MalformedURLException e) {
             throw new RuntimeException("Error: " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<Resource> loadFile(String filename) {
+        return null;
     }
 
     @Override

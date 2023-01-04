@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplicantRespondant;
 
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.defendantPlaintiff.DefendantPlaintiff;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;

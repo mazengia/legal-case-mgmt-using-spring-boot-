@@ -1,6 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail;
 
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import lombok.Data;
@@ -42,7 +43,13 @@ public class MortgageDetail extends Auditable {
     })
     private Employee maintained_by;
 
-
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "branch.id", column = @Column(name = "branch_id")),
+            @AttributeOverride(name = "branch.code", column = @Column(name = "branch_code")),
+            @AttributeOverride(name = "branch.name", column = @Column(name = "branch_name")),
+    })
+    private CaseOwnerBranchDto branch;
 //    @Embedded
 //    @AttributeOverrides({
 //            @AttributeOverride(name = "plateNumber", column = @Column(name = "plateNumber")),

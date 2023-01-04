@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +25,8 @@ public class AttachedFilesController implements AttachedFilesApi {
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
-    public AttachedFilesDto createFiles(AttachedFilesDto attachedFilesDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return attachedFilesMapper.toFilesDto(attachedFilesService.createFiles(attachedFilesMapper.toFiles(attachedFilesDto), token));
+    public AttachedFilesDto createFiles(long litigationId,String fileCategory, MultipartFile file , JwtAuthenticationToken token) throws IllegalAccessException {
+        return attachedFilesMapper.toFilesDto(attachedFilesService.createFiles(litigationId,fileCategory,file, token));
     }
 
     @Override
@@ -33,15 +34,16 @@ public class AttachedFilesController implements AttachedFilesApi {
         return attachedFilesMapper.toFilesDto(attachedFilesService.getFilesById(id));
     }
     @Override
-    public ResponseEntity<PagedModel<AttachedFilesDto>> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorneyHandlingTheCase, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                AttachedFilesDto.class, uriBuilder, response, pageable.getPageNumber(), attachedFilesService.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<AttachedFilesDto>>(assembler.toModel(attachedFilesService.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase, token).map(attachedFilesMapper::toFilesDto)), HttpStatus.OK);
+    public ResponseEntity<PagedModel<AttachedFilesDto>> findAllByFileCategory(Pageable pageable, String fileCategory, long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+//        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+//                AttachedFilesDto.class, uriBuilder, response, pageable.getPageNumber(), attachedFilesService.findAllByFileCategory(pageable,fileCategory,id, token).getTotalPages(), pageable.getPageSize()));
+//        return new ResponseEntity<PagedModel<AttachedFilesDto>>(assembler.toModel(attachedFilesService.findAllByFileCategory(pageable,fileCategory,id, token).map(attachedFilesMapper::toFilesDto)), HttpStatus.OK);
+   return null;
     }
 
     @Override
-    public AttachedFilesDto updateAppeal(long id, AttachedFilesDto attachedFilesDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return attachedFilesMapper.toFilesDto(attachedFilesService.updateFiles(id, attachedFilesMapper.toFiles(attachedFilesDto), token));
+    public AttachedFilesDto updateAppeal(long id, MultipartFile file ,  AttachedFilesDto attachedFilesDto, JwtAuthenticationToken token) throws IllegalAccessException {
+        return attachedFilesMapper.toFilesDto(attachedFilesService.updateFiles(id, attachedFilesMapper.toFiles(attachedFilesDto),file, token));
     }
 
     @Override

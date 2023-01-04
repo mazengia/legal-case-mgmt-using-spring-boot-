@@ -5,11 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public interface LitigationService {
-    Litigation createLitigation(Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException;
+//    ,Litigation litigation
+    Litigation createLitigation(Litigation litigation , JwtAuthenticationToken token) throws IllegalAccessException;
     Litigation getLitigation(long id);
     Page<Litigation> getLitigations(Pageable pageable);
     Litigation updateLitigation(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException;

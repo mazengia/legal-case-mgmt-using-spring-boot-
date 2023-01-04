@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments;
 
+import com.enatbanksc.casemanagementsystem.case_management.Expense.ExpenseDetails.ExpenseDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,4 +13,13 @@ import org.springframework.stereotype.Repository;
 public interface JudicialAppointmentRepository extends PagingAndSortingRepository<JudicialAppointment, Long>, JpaSpecificationExecutor<JudicialAppointment> {
     Page<JudicialAppointment> findJudicialAppointmentByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, Long id);
     Page<JudicialAppointment> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<JudicialAppointment> findJudicialAppointmentByExecutionsExecutionsIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<JudicialAppointment> findJudicialAppointmentByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<JudicialAppointment> findJudicialAppointmentByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<JudicialAppointment> findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+    Page<JudicialAppointment> findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+
+
+    //    Page<JudicialAppointment> findJudicialAppointmentByLitigationExists
+//    Page<JudicialAppointment> findJudicialAppointmentByExecutionsExists
 }

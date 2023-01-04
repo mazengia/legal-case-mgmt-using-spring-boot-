@@ -22,18 +22,18 @@ public class AttachedFiles extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fileId;
     private String fileName;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "litigationId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "litigationId",nullable = true)
     @JsonIgnoreProperties(value = {"attachedFiles"})
     private Litigation litigation;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "mortgageDetailId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "mortgageDetailId",nullable = true)
     @JsonIgnoreProperties(value = {"attachedFiles"})
-    private MortgageDetail mortgageDetail;
+    private MortgageDetail   mortgageDetail;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "appealId")
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "appealId",nullable = true)
     @JsonIgnoreProperties(value = {"attachedFiles"})
     private Appeal appeal;
 

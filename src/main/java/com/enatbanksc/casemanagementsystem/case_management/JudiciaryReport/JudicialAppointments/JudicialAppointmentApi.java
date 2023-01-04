@@ -17,34 +17,65 @@ import javax.validation.Valid;
 public interface JudicialAppointmentApi {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    JudicialAppointmentDto createJudiciaryReport(@RequestBody @Valid JudicialAppointmentDto judicialAppointmentDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    JudicialAppointmentDto createJudiciaryAppointment(@RequestBody @Valid JudicialAppointmentDto judicialAppointmentDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    JudicialAppointmentDto getJudiciaryReport(@PathVariable("id") long id);
+    JudicialAppointmentDto getJudiciaryAppointmentById(@PathVariable("id") long id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    JudicialAppointmentDto updateJudiciaryReportDto(@PathVariable("id") long id, @RequestBody @Valid JudicialAppointmentDto judicialAppointmentDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    JudicialAppointmentDto updateJudiciaryAppointment(@PathVariable("id") long id, @RequestBody @Valid JudicialAppointmentDto judicialAppointmentDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<JudicialAppointmentDto>> getJudiciaryReports(@Parameter(
+    ResponseEntity<PagedModel<JudicialAppointmentDto>> getAllJudiciaryAppointment(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
-                                                                           PagedResourcesAssembler assembler,
-                                                                           JwtAuthenticationToken token,
-                                                                           UriComponentsBuilder uriBuilder,
-                                                                           HttpServletResponse response);
+                                                                                  PagedResourcesAssembler assembler,
+                                                                                  JwtAuthenticationToken token,
+                                                                                  UriComponentsBuilder uriBuilder,
+                                                                                  HttpServletResponse response);
 
-    @GetMapping("/litigation-appointment/{id}")
-    ResponseEntity<PagedModel<JudicialAppointmentDto>> getJudiciaryReportByLitigationId(@Parameter(
+    @GetMapping("/litigation-id/{id}")
+    ResponseEntity<PagedModel<JudicialAppointmentDto>> getJudicialAppointmentDtoByLitigationId(@Parameter(
             description = "pagination object",
             schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
-                                                                                        @PathVariable("id") long id,
-                                                                                        PagedResourcesAssembler assembler,
-                                                                                        JwtAuthenticationToken token,
-                                                                                        UriComponentsBuilder uriBuilder,
-                                                                                        HttpServletResponse response);
+                                                                                               @PathVariable("id") long id,
+                                                                                               PagedResourcesAssembler assembler,
+                                                                                               JwtAuthenticationToken token,
+                                                                                               UriComponentsBuilder uriBuilder,
+                                                                                               HttpServletResponse response);
 
+    @GetMapping("/execution-id/{id}")
+    ResponseEntity<PagedModel<JudicialAppointmentDto>>
+    getJudicialAppointmentDtoByExecutionId(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                           @PathVariable("id") long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
+
+    @GetMapping("/execution-attorney/{attorney}")
+    ResponseEntity<PagedModel<JudicialAppointmentDto>>
+    getJudicialAppointmentByExecutionsAttorneyHandlingTheCase(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                              @PathVariable("attorney")   String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
+
+    @GetMapping("/litigation-attorney/{attorney}")
+    ResponseEntity<PagedModel<JudicialAppointmentDto>>
+    getJudiciaryAppointmentByLitigationAttorneyHandlingTheCase(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                               @PathVariable("attorney")   String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
+    @GetMapping("/execution")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<JudicialAppointmentDto>> getALLAppointmentByExecution(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
+
+    @GetMapping("/litigation")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<JudicialAppointmentDto>> getALLAppointmentByLitigation(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
 }

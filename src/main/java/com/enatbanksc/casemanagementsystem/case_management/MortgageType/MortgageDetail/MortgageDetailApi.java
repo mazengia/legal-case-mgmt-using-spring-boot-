@@ -21,7 +21,7 @@ public interface MortgageDetailApi {
 
     @GetMapping("/{mortgageDetailId}")
     @ResponseStatus(HttpStatus.OK)
-    MortgageDetailDto getMortgageDetail(@PathVariable("mortgageDetailId") long mortgageDetailId);
+    MortgageDetailDto getMortgageDetailById(@PathVariable("mortgageDetailId") long mortgageDetailId);
 
     @PutMapping("/{mortgageDetailId}")
     @ResponseStatus(HttpStatus.OK)
@@ -29,12 +29,34 @@ public interface MortgageDetailApi {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<MortgageDetailDto>> getMortgageDetail(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<MortgageDetailDto>> getAllMortgageDetail(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                              @Valid Pageable pageable,
-                                                                    PagedResourcesAssembler assembler,
-                                                                    JwtAuthenticationToken token,
-                                                                    UriComponentsBuilder uriBuilder,
-                                                                    final HttpServletResponse response);
+                                                                        PagedResourcesAssembler assembler,
+                                                                        JwtAuthenticationToken token,
+                                                                        UriComponentsBuilder uriBuilder,
+                                                                        final HttpServletResponse response);
+    @GetMapping("/status/{status}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<MortgageDetailDto>> getMortgageDetailByStatus(@Parameter(description = "pagination object",
+            schema = @Schema(implementation = Pageable.class))
+                                                                        @Valid Pageable pageable,
+                                                                            @PathVariable("status") String status,
+                                                                        PagedResourcesAssembler assembler,
+                                                                        JwtAuthenticationToken token,
+                                                                        UriComponentsBuilder uriBuilder,
+                                                                        final HttpServletResponse response);
+
+    @GetMapping("/branch-id/{branchId}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<MortgageDetailDto>> getMortgageDetailByBranch(@Parameter(description = "pagination object",
+            schema = @Schema(implementation = Pageable.class))
+                                                                            @Valid Pageable pageable,
+                                                                            @PathVariable("branchId") long branchId,
+                                                                            PagedResourcesAssembler assembler,
+                                                                            JwtAuthenticationToken token,
+                                                                            UriComponentsBuilder uriBuilder,
+                                                                            final HttpServletResponse response);
+
 }
 

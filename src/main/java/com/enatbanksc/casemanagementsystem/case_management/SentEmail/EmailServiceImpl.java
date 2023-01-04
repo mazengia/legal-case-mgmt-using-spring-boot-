@@ -20,10 +20,10 @@ public class EmailServiceImpl  implements EmailService{
 
     private final EmailRepository emailRepository;
 
-    public JavaMailSender javaMailSender;
+    public final JavaMailSender javaMailSender;
     @Value("${spring.mail.username}")
     private String sender;
-    public boolean sendSimpleMail(EmailDetails details)
+    public String sendSimpleMail(EmailDetails details)
     {
 
         try {
@@ -32,13 +32,15 @@ public class EmailServiceImpl  implements EmailService{
             mailMessage.setTo(details.getRecipient());
             mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
+            // Sending the mail
             javaMailSender.send(mailMessage);
-//            return "Mail Sent Successfully...";
+            System.out.println("Mail Sent Successfully...");
+            return "Mail Sent Successfully...";
         }
         catch (Exception e) {
-//            return "Error while Sending Mail";
+            System.out.println("Error while Sending Mail"+e.getMessage());
+            return "Error while Sending Mail";
         }
-        return false;
     }
     public String sendMailWithAttachment(EmailDetails details)
     {

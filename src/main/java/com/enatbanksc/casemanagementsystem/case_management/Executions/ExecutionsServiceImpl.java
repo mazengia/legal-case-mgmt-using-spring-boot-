@@ -73,8 +73,8 @@ public class ExecutionsServiceImpl implements ExecutionsService {
     }
     @Override
     public Page<Executions> findExecutionsByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-//        return  executionsRepository.findLitigationByAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
-        return null;
+        return  executionsRepository.findExecutionsByAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+//        return null;
     }
     @Override
     public Page<Executions> findExecutionsByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {

@@ -11,5 +11,12 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource
 public interface AttachedFilesRepository extends PagingAndSortingRepository<AttachedFiles, Long>, JpaSpecificationExecutor<AttachedFiles> {
     Page<AttachedFiles> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    Page<AttachedFiles> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorneyHandlingTheCase);
+    boolean existsAttachedFilesByFileName(String fileName);
+
+    Page<AttachedFiles> findAllByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, long id);
+    Page<AttachedFiles> findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(Pageable pageable,   long id);
+    Page<AttachedFiles> findAllByAppealAppealIdOrderByCreatedAtDesc(Pageable pageable,   long id);
+
+
+
 }

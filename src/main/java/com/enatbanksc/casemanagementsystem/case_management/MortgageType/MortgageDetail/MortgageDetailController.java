@@ -28,7 +28,7 @@ public class MortgageDetailController implements MortgageDetailApi {
     }
 
     @Override
-    public MortgageDetailDto getMortgageDetail(long mortgageDetailId) {
+    public MortgageDetailDto getMortgageDetailById(long mortgageDetailId) {
         return mortgageDetailMapper.toMortgageDetailDto(mortgageDetailService.getMortgageDetail(mortgageDetailId));
     }
 
@@ -38,9 +38,25 @@ public class MortgageDetailController implements MortgageDetailApi {
     }
 
     @Override
-    public ResponseEntity<PagedModel<MortgageDetailDto>> getMortgageDetail(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<MortgageDetailDto>> getAllMortgageDetail(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
                 MortgageDetailDto.class, uriBuilder, response, pageable.getPageNumber(), mortgageDetailService.getMortgageDetail(pageable, token).getTotalPages(), pageable.getPageSize()));
         return new ResponseEntity<PagedModel<MortgageDetailDto>>(assembler.toModel(mortgageDetailService.getMortgageDetail(pageable, token).map(mortgageDetailMapper::toMortgageDetailDto)), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<MortgageDetailDto>> getMortgageDetailByStatus(Pageable pageable, String status, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                MortgageDetailDto.class, uriBuilder, response, pageable.getPageNumber(), mortgageDetailService.findMortgageDetailByStatus(pageable,status, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<MortgageDetailDto>>(assembler.toModel(mortgageDetailService.findMortgageDetailByStatus(pageable,status, token).map(mortgageDetailMapper::toMortgageDetailDto)), HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<PagedModel<MortgageDetailDto>> getMortgageDetailByBranch(Pageable pageable, long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                MortgageDetailDto.class, uriBuilder, response, pageable.getPageNumber(), mortgageDetailService.findMortgageDetailByBranchId(pageable,branchId, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<MortgageDetailDto>>(assembler.toModel(mortgageDetailService.findMortgageDetailByBranchId(pageable,branchId, token).map(mortgageDetailMapper::toMortgageDetailDto)), HttpStatus.OK);
+
     }
 }

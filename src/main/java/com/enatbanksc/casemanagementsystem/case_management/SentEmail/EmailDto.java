@@ -1,6 +1,8 @@
 package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 import com.enatbanksc.casemanagementsystem.case_management.ForeClosure.ForeClosure;
+import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import lombok.Data;
 
@@ -12,5 +14,6 @@ public class EmailDto extends Auditable {
     private String subject;
     private String attachment;
     private boolean sent;
-    private ForeClosure foreClosure;
+    private MortgageDetail mortgageDetail;
+    private Litigation litigation;
 }

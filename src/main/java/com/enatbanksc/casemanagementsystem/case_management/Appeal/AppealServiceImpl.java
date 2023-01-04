@@ -23,7 +23,9 @@ public class AppealServiceImpl implements AppealService {
     private final EmployeeClient employeeClient;
     @Override
     public Appeal createAppeal(Appeal appeal, JwtAuthenticationToken token) throws IllegalAccessException {
-
+        System.out.println("appeal");
+        System.out.println(appeal);
+        System.out.println("appeal");
         var employeeId = getEmployeeID(token);
         var maintainer = getEmployee(employeeId);
         appeal.setMaintained_by(maintainer);

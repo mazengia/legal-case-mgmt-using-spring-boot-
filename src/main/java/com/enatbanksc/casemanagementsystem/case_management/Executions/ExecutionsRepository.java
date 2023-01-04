@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Executions;
 
+import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -27,5 +28,7 @@ public interface ExecutionsRepository extends PagingAndSortingRepository<Executi
 //    Page<Executions> findAllByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, @Param("value") String value, @Param("status") String status);
 
     Page<Executions> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<Executions> findExecutionsByAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+
 
 }

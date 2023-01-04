@@ -1,6 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail;
 
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class MortgageDetailDto   extends Auditable {
     private String dateCollateralIsEstimated;
     private Boolean isWrittenLegalNoticeServed;
     private String dateLegalNoticeServed;
+    private CaseOwnerBranchDto branch;
     private String mortgagor;
     private String borrower;
     private String status;

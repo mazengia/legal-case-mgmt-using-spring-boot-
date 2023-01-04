@@ -66,4 +66,34 @@ public class JudicialAppointmentServiceImpl implements JudicialAppointmentServic
     private Employee getEmployee(String employeeId) {
         return employeeMapper.employeeDtoToEmployee(employeeClient.getEmployeeById(employeeId));
     }
+
+
+
+
+
+
+
+
+
+    @Override
+    public Page<JudicialAppointment> getJudiciaryReportByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
+        return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsExecutionsIdOrderByCreatedAtDesc(pageable,id);
+    }
+    @Override
+    public Page<JudicialAppointment> getJudiciaryReportByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+        return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+    }
+    @Override
+    public Page<JudicialAppointment> getJudiciaryReportByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+        return  judicialAppointmentRepository.findJudicialAppointmentByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+    }
+
+    @Override
+    public Page<JudicialAppointment> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token) {
+        return judicialAppointmentRepository.findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable);
+    }
+    @Override
+    public Page<JudicialAppointment> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token) {
+        return judicialAppointmentRepository.findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable);
+    }
 }

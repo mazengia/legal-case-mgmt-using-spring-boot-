@@ -21,6 +21,6 @@ public class ExecutionsDto extends Auditable {
     private String attorneyHandlingTheCase;
     private  String  caseType;
     private CaseOwnerBranchDto branch;
-    private List<JudicialAppointment> judicialAppointment;
+//    private List<JudicialAppointment> judicialAppointment;
 
 }

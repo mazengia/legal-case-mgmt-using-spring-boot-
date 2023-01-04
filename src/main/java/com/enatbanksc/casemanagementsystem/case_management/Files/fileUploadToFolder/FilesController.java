@@ -1,6 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,17 +15,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/api/v1/filess")
+@RequestMapping("/api/v1/filessf")
+@RequiredArgsConstructor
 public class FilesController {
-    @Autowired
-    FilesStorageService storageService;
+    private final FilesStorageService storageService;
+    private final LitigationServiceImpl litigationService;
 
-    @PostMapping()
-    public Object uploadFile(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/{litigationId}")
+    @ResponseBody
+    public Object uploadFile(@PathVariable("litigationId") long litigationId, @RequestParam("file") MultipartFile file) {
+        var litigation = litigationService.getLitigation(litigationId);
         String message = "";
         try {
             message = file.getOriginalFilename();
-             return storageService.save(file);
+            return storageService.save(file);
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
@@ -35,8 +39,10 @@ public class FilesController {
     public ResponseEntity<List<FileInfo>> getListFiles() {
         List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
+            String url = MvcUriComponentsBuilder.fromMethodName(
+                    FilesController.class,
+                    "getFile",
+                    path.getFileName().toString()).build().toString();
             return new FileInfo(filename, url);
         }).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
@@ -46,8 +52,9 @@ public class FilesController {
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = storageService.load(filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        return ResponseEntity.ok().header(
+                HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @DeleteMapping("/{filename:.+}")

@@ -9,33 +9,35 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 public interface AttachedFilesApi {
-    @PostMapping()
+    @PostMapping("/{fileCategory}/{litigationId}")
     @ResponseStatus(HttpStatus.CREATED)
-    AttachedFilesDto createFiles(@RequestBody @Valid AttachedFilesDto attachedFilesDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    AttachedFilesDto createFiles(@PathVariable("litigationId") long litigationId,@PathVariable("fileCategory") String fileCategory, @RequestParam("file") MultipartFile file , JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     AttachedFilesDto getFilesById(@PathVariable("id") long id);
 
-    @GetMapping("/attorney/{attorneyHandlingTheCase}")
+    @GetMapping("/{fileCategory}/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<AttachedFilesDto>> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
+    ResponseEntity<PagedModel<AttachedFilesDto>> findAllByFileCategory(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
                                                                                                          @Valid Pageable pageable,
-                                                                                                                @PathVariable("attorneyHandlingTheCase")   String attorneyHandlingTheCase,
-                                                                                                                PagedResourcesAssembler assembler,
-                                                                                                                JwtAuthenticationToken token,
-                                                                                                                UriComponentsBuilder uriBuilder,
-                                                                                                                final HttpServletResponse response);
+                                                                       @PathVariable("fileCategory") String fileCategory,
+                                                                       @PathVariable("id")   long id,
+                                                                       PagedResourcesAssembler assembler,
+                                                                       JwtAuthenticationToken token,
+                                                                       UriComponentsBuilder uriBuilder,
+                                                                       final HttpServletResponse response);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    AttachedFilesDto updateAppeal(@PathVariable("id") long expenseId, @RequestBody @Valid AttachedFilesDto attachedFilesDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    AttachedFilesDto updateAppeal(@PathVariable("id") long expenseId, @RequestParam("file") MultipartFile file, @RequestBody @Valid AttachedFilesDto attachedFilesDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)

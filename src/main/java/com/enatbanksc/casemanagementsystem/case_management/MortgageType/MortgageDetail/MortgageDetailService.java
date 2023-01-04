@@ -16,4 +16,8 @@ public interface MortgageDetailService {
     MortgageDetail updateMortgageDetail(long id, MortgageDetail mortgageDetail, JwtAuthenticationToken token) throws IllegalAccessException;
 
     void deleteMortgageDetail(long id, JwtAuthenticationToken token);
+
+    Page<MortgageDetail> findMortgageDetailByStatus(Pageable pageable, String status, JwtAuthenticationToken token);
+
+    Page<MortgageDetail> findMortgageDetailByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token);
 }

@@ -43,4 +43,17 @@ public class MortgageDetailServiceImpl implements MortgageDetailService {
 
     }
 
+    @Override
+    public Page<MortgageDetail> findMortgageDetailByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {
+        return mortgageDetailRepository.findMortgageDetailByStatusOrderByCreatedAtDesc(pageable, status);
+
+    }
+
+
+    @Override
+    public Page<MortgageDetail> findMortgageDetailByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
+        return mortgageDetailRepository.findMortgageDetailByBranchIdOrderByCreatedAtDesc(pageable, branchId);
+
+    }
+
 }

@@ -17,6 +17,8 @@ import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNot
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.json.JsonParseException;
+import org.springframework.boot.json.JsonParser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
@@ -35,7 +40,6 @@ public class LitigationServiceImpl implements LitigationService {
     private final LitigationRepository litigationRepository;
     private final EmployeeClient employeeClient;
     private final EmployeeMapper employeeMapper;
-    private final FilesStorageService storageService;
     private final CaseOwnerBranchClient caseOwnerBranchClient;
     private final CommentRepository commentRepository;
 
@@ -47,15 +51,20 @@ public class LitigationServiceImpl implements LitigationService {
 
         var branch = getBranchById(litigation.getBranch().getId());
         EmailDetails details = new EmailDetails();
+        Comment comment =new Comment();
         litigation.setBranch(branch);
         var employeeId = getEmployeeID(token);
         var postLitigation = litigationRepository.save(litigation);
         if (postLitigation.getLitigationId() != null) {
+            comment.setLitigation(postLitigation);
+            comment.setContent(postLitigation.getContent());
+            commentRepository.save(comment);
             details.setRecipient("mz.tesfa@gmail.com");
-            details.setMsgBody("I try to check emil");
+            details.setMsgBody("I'm from Litigation");
             details.setSubject("I'm from cron job");
-            emailService.sendSimpleMail(details);
-            if (emailService.sendSimpleMail(details)) {
+//            emailService.sendSimpleMail(details);
+            if (!emailService.sendSimpleMail(details).isEmpty()) {
+                details.setLitigation(postLitigation);
                 details.setSent(true);
                 emailRepository.save(details);
             }
