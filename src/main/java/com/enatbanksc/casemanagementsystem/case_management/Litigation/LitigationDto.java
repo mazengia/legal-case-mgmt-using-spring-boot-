@@ -8,7 +8,6 @@ import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditab
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 

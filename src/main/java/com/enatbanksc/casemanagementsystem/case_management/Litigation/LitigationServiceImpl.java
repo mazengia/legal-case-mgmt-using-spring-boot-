@@ -2,8 +2,6 @@ package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
 import com.enatbanksc.casemanagementsystem.case_management.Comment.Comment;
 import com.enatbanksc.casemanagementsystem.case_management.Comment.CommentRepository;
-import com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder.FilesStorageService;
-import com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder.ResponseMessage;
 import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailDetails;
 import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailRepository;
 import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailService;
@@ -17,18 +15,12 @@ import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNot
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.boot.json.JsonParseException;
-import org.springframework.boot.json.JsonParser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
@@ -43,6 +35,7 @@ public class LitigationServiceImpl implements LitigationService {
     private final CaseOwnerBranchClient caseOwnerBranchClient;
     private final CommentRepository commentRepository;
 
+    EmailDetails details = new EmailDetails();
     private final EmailService emailService;
     private final EmailRepository emailRepository;
 
@@ -50,7 +43,6 @@ public class LitigationServiceImpl implements LitigationService {
     public Litigation createLitigation(Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
 
         var branch = getBranchById(litigation.getBranch().getId());
-        EmailDetails details = new EmailDetails();
         Comment comment =new Comment();
         litigation.setBranch(branch);
         var employeeId = getEmployeeID(token);
@@ -60,8 +52,8 @@ public class LitigationServiceImpl implements LitigationService {
             comment.setContent(postLitigation.getContent());
             commentRepository.save(comment);
             details.setRecipient("mz.tesfa@gmail.com");
-            details.setMsgBody("I'm from Litigation");
-            details.setSubject("I'm from cron job");
+            details.setMsgBody("Litigation is created");
+            details.setSubject("I'm from Litigation");
 //            emailService.sendSimpleMail(details);
             if (!emailService.sendSimpleMail(details).isEmpty()) {
                 details.setLitigation(postLitigation);
@@ -90,7 +82,36 @@ public class LitigationServiceImpl implements LitigationService {
     public Litigation updateLitigation(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
         var l = getLitigation(id);
         BeanUtils.copyProperties(litigation, l, getNullPropertyNames(litigation));
-        return litigationRepository.save(l);
+
+
+
+        var updateLitigation = litigationRepository.save(l);
+        if (Objects.equals(updateLitigation.getStatus(), "Approved") && !Objects.equals(l.getStatus(), "Approved")) {
+            details.setRecipient("mz.tesfa@gmail.com");
+            details.setMsgBody("  Litigation is Approved");
+            details.setSubject("I'm from Litigation");
+            if (!emailService.sendSimpleMail(details).isEmpty()) {
+                details.setLitigation(updateLitigation);
+                details.setSent(true);
+                emailRepository.save(details);
+            }
+
+        }
+        if (!Objects.equals(updateLitigation.getAttorneyHandlingTheCase(), l.getAttorneyHandlingTheCase())) {
+            details.setRecipient("mz.tesfa@gmail.com");
+            details.setMsgBody("  Litigation is assigned to"+updateLitigation.getAttorneyHandlingTheCase());
+            details.setSubject("I'm from Litigation");
+            if (!emailService.sendSimpleMail(details).isEmpty()) {
+                details.setLitigation(updateLitigation);
+                details.setSent(true);
+                emailRepository.save(details);
+            }
+        }
+
+        return updateLitigation;
+
+
+//        return litigationRepository.save(l);
     }
 
 

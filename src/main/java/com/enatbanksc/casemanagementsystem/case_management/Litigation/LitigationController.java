@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Litigation;
 
-import com.enatbanksc.casemanagementsystem.case_management.Files.AttachedFilesMapper;
 import com.enatbanksc.casemanagementsystem.case_management._config.Common.CaseStage;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;

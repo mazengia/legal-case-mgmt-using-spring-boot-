@@ -61,35 +61,35 @@ public class JudicialAppointmentController implements JudicialAppointmentApi{
     @Override
     public ResponseEntity<PagedModel<JudicialAppointmentDto>>
     getJudicialAppointmentDtoByExecutionId(Pageable pageable, long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getJudiciaryReportByExecutionId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getJudiciaryReportByExecutionId(pageable,id, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getAppointmentByExecutionId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getAppointmentByExecutionId(pageable,id, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
 
     }
     @Override
     public ResponseEntity<PagedModel<JudicialAppointmentDto>>
     getJudicialAppointmentByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getJudiciaryReportByExecutionsAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getJudiciaryReportByExecutionsAttorneyHandlingTheCase(pageable,attorney, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getAppointmentByExecutionsAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getAppointmentByExecutionsAttorneyHandlingTheCase(pageable,attorney, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
 
     }
     @Override
     public ResponseEntity<PagedModel<JudicialAppointmentDto>>
     getJudiciaryAppointmentByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getJudiciaryReportByLitigationAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getJudiciaryReportByLitigationAttorneyHandlingTheCase(pageable,attorney, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getAppointmentByLitigationAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getAppointmentByLitigationAttorneyHandlingTheCase(pageable,attorney, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
 
     }
 
     @Override
     public ResponseEntity<PagedModel<JudicialAppointmentDto>> getALLAppointmentByExecution(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getExpensesDetailByExecution(pageable, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getExpensesDetailByExecution(pageable, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
+                JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getAppointmentByExecution(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getAppointmentByExecution(pageable, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
     }
     @Override
     public ResponseEntity<PagedModel<JudicialAppointmentDto>> getALLAppointmentByLitigation(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getExpensesDetailByLitigation(pageable, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getExpensesDetailByLitigation(pageable, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
+                JudicialAppointmentDto.class, uriBuilder, response, pageable.getPageNumber(), judicialAppointmentService.getAppointmentByLitigation(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<JudicialAppointmentDto>>(assembler.toModel(judicialAppointmentService.getAppointmentByLitigation(pageable, token).map(judicialAppointmentMapper::toJudicialAppointmentDto)), HttpStatus.OK);
     }
 }

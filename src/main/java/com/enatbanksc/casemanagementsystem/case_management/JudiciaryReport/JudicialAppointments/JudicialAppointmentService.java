@@ -15,13 +15,13 @@ public interface JudicialAppointmentService {
     JudicialAppointment updateJudicialAppointment(long id, JudicialAppointment judicialAppointment, JwtAuthenticationToken token) throws IllegalAccessException;
     void deleteJudicialAppointment(long id, JwtAuthenticationToken token);
 
-    Page<JudicialAppointment> getJudiciaryReportByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token);
+    Page<JudicialAppointment> getAppointmentByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token);
 
-    Page<JudicialAppointment> getJudiciaryReportByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
+    Page<JudicialAppointment> getAppointmentByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
 
-    Page<JudicialAppointment> getJudiciaryReportByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
+    Page<JudicialAppointment> getAppointmentByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
 
-    Page<JudicialAppointment> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token);
+    Page<JudicialAppointment> getAppointmentByExecution(Pageable pageable, JwtAuthenticationToken token);
 
-    Page<JudicialAppointment> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token);
+    Page<JudicialAppointment> getAppointmentByLitigation(Pageable pageable, JwtAuthenticationToken token);
 }

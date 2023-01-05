@@ -1,6 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 
+import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
@@ -9,10 +10,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -38,5 +37,9 @@ public class EmailDetails extends Auditable {
     @JoinColumn(name = "litigationId",nullable = true)
     @JsonIgnoreProperties(value={"emailDetails"} )
     private Litigation litigation;
+    @OneToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "executionsId",nullable = true)
+    @JsonIgnoreProperties(value={"emailDetails"} )
+    private Executions executions;
 
 }

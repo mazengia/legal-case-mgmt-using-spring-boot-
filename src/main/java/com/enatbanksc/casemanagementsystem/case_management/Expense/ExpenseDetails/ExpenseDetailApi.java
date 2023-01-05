@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 public interface ExpenseDetailApi {
-//    @PostMapping()
-//    @ResponseStatus(HttpStatus.CREATED)
-//    ExpenseDetailDto createExpenseDetail(@RequestBody @Valid ExpenseDetailDto expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException;
-
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     ExpenseDetailDto getExpenseDetail(@PathVariable("id") long id);
@@ -88,5 +84,16 @@ public interface ExpenseDetailApi {
                                                                                  JwtAuthenticationToken token,
                                                                                  UriComponentsBuilder uriBuilder,
                                                                                  final HttpServletResponse response);
-
+    @GetMapping("/execution-attorney/{attorney}")
+    ResponseEntity<PagedModel<ExpenseDetailDto>>
+    findAllByExecutionsAttorneyHandlingTheCase(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                               @PathVariable("attorney")   String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
+    @GetMapping("/litigation-attorney/{attorney}")
+    ResponseEntity<PagedModel<ExpenseDetailDto>>
+    findAllByLitigationAttorneyHandlingTheCase(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                               @PathVariable("attorney")   String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
 }

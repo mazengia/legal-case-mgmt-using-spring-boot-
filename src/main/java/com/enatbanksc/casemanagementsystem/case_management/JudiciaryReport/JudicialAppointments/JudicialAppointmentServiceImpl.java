@@ -76,24 +76,24 @@ public class JudicialAppointmentServiceImpl implements JudicialAppointmentServic
 
 
     @Override
-    public Page<JudicialAppointment> getJudiciaryReportByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
+    public Page<JudicialAppointment> getAppointmentByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
         return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsExecutionsIdOrderByCreatedAtDesc(pageable,id);
     }
     @Override
-    public Page<JudicialAppointment> getJudiciaryReportByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+    public Page<JudicialAppointment> getAppointmentByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
         return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
     }
     @Override
-    public Page<JudicialAppointment> getJudiciaryReportByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+    public Page<JudicialAppointment> getAppointmentByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
         return  judicialAppointmentRepository.findJudicialAppointmentByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
     }
 
     @Override
-    public Page<JudicialAppointment> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token) {
+    public Page<JudicialAppointment> getAppointmentByExecution(Pageable pageable, JwtAuthenticationToken token) {
         return judicialAppointmentRepository.findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable);
     }
     @Override
-    public Page<JudicialAppointment> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token) {
+    public Page<JudicialAppointment> getAppointmentByLitigation(Pageable pageable, JwtAuthenticationToken token) {
         return judicialAppointmentRepository.findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable);
     }
 }

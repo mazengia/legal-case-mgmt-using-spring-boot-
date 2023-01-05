@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail;
 
-import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

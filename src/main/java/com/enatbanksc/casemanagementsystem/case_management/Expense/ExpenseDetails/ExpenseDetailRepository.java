@@ -18,5 +18,7 @@ public interface ExpenseDetailRepository  extends PagingAndSortingRepository<Exp
     Page<ExpenseDetail> findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(Pageable pageable);
     Page<ExpenseDetail> findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable);
    Page<ExpenseDetail> findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
 
 }

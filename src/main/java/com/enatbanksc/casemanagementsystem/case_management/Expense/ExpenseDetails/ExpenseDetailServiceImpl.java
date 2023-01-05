@@ -16,13 +16,6 @@ import static com.enatbanksc.casemanagementsystem.case_management._config.utils.
 @RequiredArgsConstructor
 public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     private final ExpenseDetailRepository expenseDetailRepository;
-//    @Override
-//    public  ExpenseDetail createExpenseDetail(ExpenseDetail expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException {
-//        ExpenseDetail expenseDetail1=new ExpenseDetail();
-//        System.out.println(expenseDetail.getAmount());
-//        BeanUtils.copyProperties(expenseDetail,expenseDetail1);
-//        return expenseDetailRepository.save(expenseDetail1);
-//    }
 
     @Override
     public ExpenseDetail getExpenseDetail(long id) {
@@ -67,5 +60,13 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     @Override
     public Page<ExpenseDetail> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(pageable,id);
+    }
+    @Override
+    public Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+        return  expenseDetailRepository.findAllByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+    }
+    @Override
+    public Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+        return  expenseDetailRepository.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
     }
 }

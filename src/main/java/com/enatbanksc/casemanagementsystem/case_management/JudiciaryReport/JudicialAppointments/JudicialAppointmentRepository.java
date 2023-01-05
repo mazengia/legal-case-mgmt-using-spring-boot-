@@ -1,6 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments;
 
-import com.enatbanksc.casemanagementsystem.case_management.Expense.ExpenseDetails.ExpenseDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

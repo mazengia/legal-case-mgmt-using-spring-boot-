@@ -1,5 +1,8 @@
 package com.enatbanksc.casemanagementsystem.case_management.Executions;
 
+import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailDetails;
+import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailRepository;
+import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailService;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.LitigationEmployee;
@@ -15,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
@@ -26,7 +31,9 @@ public class ExecutionsServiceImpl implements ExecutionsService {
     private final EmployeeClient employeeClient;
     private final EmployeeMapper employeeMapper;
     private final CaseOwnerBranchClient caseOwnerBranchClient;
-
+    EmailDetails details = new EmailDetails();
+    private final EmailService emailService;
+    private final EmailRepository emailRepository;
 
     @Override
     public Executions createExecutions(Executions executions, JwtAuthenticationToken token) throws IllegalAccessException {
@@ -56,7 +63,26 @@ public class ExecutionsServiceImpl implements ExecutionsService {
 //        var branch = getBranchById(litigation.getBranch().getId());
 //        litigation.setBranch(branch);
         BeanUtils.copyProperties(executions, l, getNullPropertyNames(executions));
-        return executionsRepository.save(l);
+
+
+        var updateExecution = executionsRepository.save(l);
+        if (!Objects.equals(updateExecution.getAttorneyHandlingTheCase(), l.getAttorneyHandlingTheCase())) {
+            details.setRecipient("mz.tesfa@gmail.com");
+            details.setMsgBody("  Execution is assigned to"+updateExecution.getAttorneyHandlingTheCase());
+            details.setSubject("I'm from Execution");
+            if (!emailService.sendSimpleMail(details).isEmpty()) {
+                details.setExecutions(updateExecution);
+                details.setSent(true);
+                emailRepository.save(details);
+            }
+        }
+
+
+        return updateExecution;
+
+//        return executionsRepository.save(l);
+
+
     }
 
 
@@ -74,7 +100,6 @@ public class ExecutionsServiceImpl implements ExecutionsService {
     @Override
     public Page<Executions> findExecutionsByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
         return  executionsRepository.findExecutionsByAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
-//        return null;
     }
     @Override
     public Page<Executions> findExecutionsByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {

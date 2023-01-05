@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Expense.ExpenseDetails;
 
-import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
+ import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;
@@ -28,24 +28,8 @@ public class ExpenseDetailController implements ExpenseDetailApi {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
-//        System.out.println("dfdf");
-//        System.out.println(expenseDetail);
-//        System.out.println("dfdf");
         return (ResponseEntity<?> )expenseDetailRepository.saveAll(expenseDetail);
     }
-//    @PutMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<?> updateExpenseDetail(@PathVariable("id") long id, @RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
-//        var et = getExpenseDetail(id);
-//        BeanUtils.copyProperties(expenseDetail, et, getNullPropertyNames(expenseDetail));
-//        return expenseDetailRepository.save(et);
-//    }
-
-//
-//    @Override
-//    public  ExpenseDetailDto createExpenseDetail( ExpenseDetailDto  expenseDetailDto, JwtAuthenticationToken token) throws IllegalAccessException {
-//        return expenseDetailMapper.toExpenseDetailDto(expenseDetailService.createExpenseDetail(expenseDetailMapper.toExpenseDetail( expenseDetailDto), token));
-//    }
 
     @Override
     public ExpenseDetailDto getExpenseDetail(long id) {
@@ -101,5 +85,18 @@ public class ExpenseDetailController implements ExpenseDetailApi {
                 ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.getExpensesDetailByForeclosure(pageable, token).getTotalPages(), pageable.getPageSize()));
         return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.getExpensesDetailByForeclosure(pageable, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
     }
+    @Override
+    public ResponseEntity<PagedModel<ExpenseDetailDto>>
+    findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.findAllByExecutionsAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.findAllByExecutionsAttorneyHandlingTheCase(pageable,attorney, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
 
+    }
+    @Override
+    public ResponseEntity<PagedModel<ExpenseDetailDto>>
+    findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(ExpenseDetailDto.class, uriBuilder, response, pageable.getPageNumber(), expenseDetailService.findAllByLitigationAttorneyHandlingTheCase(pageable,attorney, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<ExpenseDetailDto>>(assembler.toModel(expenseDetailService.findAllByLitigationAttorneyHandlingTheCase(pageable,attorney, token).map(expenseDetailMapper::toExpenseDetailDto)), HttpStatus.OK);
+
+    }
 }

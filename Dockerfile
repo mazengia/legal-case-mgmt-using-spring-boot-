@@ -1,5 +1,6 @@
 FROM openjdk:17-alpine
 ARG JAR_FILE=target/*.jar
+RUN  mkdir /uploads
 COPY ${JAR_FILE} app.jar
 ENV SPRING_PROFILES_ACTIVE develop
 ENV PORT 8080
