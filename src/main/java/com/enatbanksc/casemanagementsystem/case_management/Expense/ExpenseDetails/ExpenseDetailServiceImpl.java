@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
 
@@ -69,4 +71,15 @@ public class ExpenseDetailServiceImpl implements ExpenseDetailService {
     public Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
     }
+
+//    @Override
+//    public Iterable<ExpenseDetail> createExpense(List<ExpenseDetail> expenseDetails, JwtAuthenticationToken token) throws IllegalAccessException {
+//
+////      for(ExpenseDetail expenseDetail:expenseDetails){
+////          expenseDetailRepository.save(expenseDetail);
+////      }
+////         return null;
+//        return (Iterable<ExpenseDetail>) expenseDetailRepository.saveAll(expenseDetails);
+//
+//    }
 }

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.util.List;
+ import javax.validation.Valid;
+ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/expense-detail")
@@ -27,9 +27,18 @@ public class ExpenseDetailController implements ExpenseDetailApi {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException{
-        return (ResponseEntity<?> )expenseDetailRepository.saveAll(expenseDetail);
+    public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expenseDetail ) {
+
+           return (ResponseEntity<?>) expenseDetailRepository.saveAll(expenseDetail);
+
+
     }
+
+//    @Override
+//    public List<ExpenseDetailDto> createExpenseDetail(List<ExpenseDetailDto> expenseDetailDtos, JwtAuthenticationToken token) throws IllegalAccessException {
+//        return expenseDetailMapper.toDefendantPlaintiffDto(expenseDetailService.createExpense(expenseDetailMapper.toDefendantPlaintiff(expenseDetailDtos), token));
+//
+//    }
 
     @Override
     public ExpenseDetailDto getExpenseDetail(long id) {

@@ -43,6 +43,10 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
     public Page<AuctionType> getAuctionTypes(Pageable pageable, JwtAuthenticationToken token) {
         return auctionTypeRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
+    @Override
+    public Page<AuctionType> getAuctionTypesByMortgageDetail(Pageable pageable,long id, JwtAuthenticationToken token) {
+        return auctionTypeRepository.findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable,id);
+    }
 
     @Override
     public AuctionType updateAuctionType(long auctionTypeId, AuctionType auctionType, JwtAuthenticationToken token) throws IllegalAccessException {

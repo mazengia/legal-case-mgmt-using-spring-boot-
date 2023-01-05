@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public interface ExpenseDetailService {
@@ -27,6 +29,8 @@ public interface ExpenseDetailService {
     Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
 
     Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
+
+//    Iterable<ExpenseDetail> createExpense(List<ExpenseDetail> expenseDetails, JwtAuthenticationToken token) throws IllegalAccessException;
 }
 
 

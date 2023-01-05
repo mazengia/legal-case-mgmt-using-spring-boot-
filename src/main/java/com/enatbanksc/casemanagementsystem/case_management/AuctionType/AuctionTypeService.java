@@ -10,6 +10,9 @@ public interface AuctionTypeService {
     AuctionType createAuctionType(AuctionType auctionType, JwtAuthenticationToken token) throws IllegalAccessException;
     AuctionType getAuctionType(long auctionTypeId);
     Page<AuctionType> getAuctionTypes(Pageable pageable, JwtAuthenticationToken token);
+
+    Page<AuctionType> getAuctionTypesByMortgageDetail(Pageable pageable, long id, JwtAuthenticationToken token);
+
     AuctionType updateAuctionType(long auctionTypeId, AuctionType auctionType, JwtAuthenticationToken token) throws IllegalAccessException;
     void deleteExpense(long auctionTypeId, JwtAuthenticationToken token);
 }

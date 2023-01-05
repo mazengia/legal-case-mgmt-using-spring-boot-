@@ -29,11 +29,16 @@ public interface AuctionTypeApi {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<AuctionTypeDto>> getAuctionTypes(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<AuctionTypeDto>> getAllAuctionTypes(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                        @Valid Pageable pageable,
-                                                       PagedResourcesAssembler assembler,
-                                                       JwtAuthenticationToken token,
-                                                       UriComponentsBuilder uriBuilder,
-                                                       final HttpServletResponse response);
+                                                                  PagedResourcesAssembler assembler,
+                                                                  JwtAuthenticationToken token,
+                                                                  UriComponentsBuilder uriBuilder,
+                                                                  final HttpServletResponse response);
+    @GetMapping("/foreclosure/{foreclosureId}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<AuctionTypeDto>> getAuctionTypesByMortgageDetail(@Parameter(description = "pagination object",
+            schema = @Schema(implementation = Pageable.class))
+                                                                               @Valid Pageable pageable,@PathVariable("foreclosureId") long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
 }

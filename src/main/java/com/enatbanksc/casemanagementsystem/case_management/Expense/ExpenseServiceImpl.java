@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Expense;
 
+import com.enatbanksc.casemanagementsystem.case_management.Litigation.defendantPlaintiff.DefendantPlaintiff;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Util;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;

@@ -39,9 +39,15 @@ public class AuctionTypeController  implements AuctionTypeApi{
     }
 
     @Override
-    public ResponseEntity<PagedModel<AuctionTypeDto>> getAuctionTypes(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<AuctionTypeDto>> getAllAuctionTypes(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
                 AuctionTypeDto.class, uriBuilder, response, pageable.getPageNumber(), auctionTypeService.getAuctionTypes(pageable, token).getTotalPages(), pageable.getPageSize()));
         return new ResponseEntity<PagedModel<AuctionTypeDto>>(assembler.toModel(auctionTypeService.getAuctionTypes(pageable, token).map(auctionTypeMapper::toAuctionTypeDto)), HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity<PagedModel<AuctionTypeDto>> getAuctionTypesByMortgageDetail(Pageable pageable,long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                AuctionTypeDto.class, uriBuilder, response, pageable.getPageNumber(), auctionTypeService.getAuctionTypesByMortgageDetail(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<AuctionTypeDto>>(assembler.toModel(auctionTypeService.getAuctionTypesByMortgageDetail(pageable,id, token).map(auctionTypeMapper::toAuctionTypeDto)), HttpStatus.OK);
     }
 }
