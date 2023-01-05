@@ -42,7 +42,7 @@ public class AttachedFilesServiceImpl implements AttachedFilesService {
             throw new IllegalAccessException("File is already exist ");
         } else {
             if (Objects.equals(fileCategory, "appeal")) {
-                if (appealService.getAppealById(id) == null) {
+                if (appealService.getAppealById(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for Appeal ");
                 } else {
                     attachedFiles.setFileName(file.getOriginalFilename());
@@ -57,7 +57,7 @@ public class AttachedFilesServiceImpl implements AttachedFilesService {
                 }
             }
             if (Objects.equals(fileCategory, "foreclosure")) {
-                if (mortgageDetailService.getMortgageDetail(id) == null) {
+                if (mortgageDetailService.getMortgageDetail(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for foreclosure ");
                 } else {
                     attachedFiles.setFileName(file.getOriginalFilename());
@@ -72,7 +72,7 @@ public class AttachedFilesServiceImpl implements AttachedFilesService {
                 }
             }
             if (Objects.equals(fileCategory, "litigation")) {
-                if (litigationService.getLitigation(id) == null) {
+                if (litigationService.getLitigation(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for litigation ");
                 } else {
                     attachedFiles.setFileName(file.getOriginalFilename());
