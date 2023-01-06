@@ -1,4 +1,4 @@
-package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments;
+package com.enatbanksc.casemanagementsystem.case_management.JudicialAppointments;
 
 import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;

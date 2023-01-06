@@ -32,7 +32,15 @@ public interface AppealApi {
                                                                                                          JwtAuthenticationToken token,
                                                                                                          UriComponentsBuilder uriBuilder,
                                                                                                          final HttpServletResponse response);
-
+    @GetMapping("/litigation/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<PagedModel<AppealDto>> findAllByLitigationId(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
+                                                                @Valid Pageable pageable,
+                                                                @PathVariable("id")   long id,
+                                                                PagedResourcesAssembler assembler,
+                                                                JwtAuthenticationToken token,
+                                                                UriComponentsBuilder uriBuilder,
+                                                                final HttpServletResponse response);
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     AppealDto updateAppeal(@PathVariable("id") long expenseId, @RequestBody @Valid AppealDto appealDto, JwtAuthenticationToken token) throws IllegalAccessException;

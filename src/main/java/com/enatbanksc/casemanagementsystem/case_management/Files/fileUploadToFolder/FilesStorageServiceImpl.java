@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder;
 
-import com.enatbanksc.casemanagementsystem.case_management.Files.AttachedFiles;
+import com.enatbanksc.casemanagementsystem.case_management.Files.Files;
 import lombok.SneakyThrows;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -24,16 +23,16 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void init() {
         try {
-            Files.createDirectory(root);
+            java.nio.file.Files.createDirectory(root);
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize folder for upload!");
         }
     }
 
     @Override
-    public AttachedFiles save(MultipartFile file) {
+    public Files save(MultipartFile file) {
         try {
-            Files.copy(
+            java.nio.file.Files.copy(
                     file.getInputStream(),
                     this.root.resolve(Objects.requireNonNull(file.getOriginalFilename()))
             );
@@ -72,13 +71,14 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     @Override
     public void deleteByFileName(String filename) {
         FileSystemUtils.deleteRecursively(root.resolve(filename));
+//        return filename;
     }
 
 
     @Override
     public Stream<Path> loadAll() {
         try {
-            return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
+            return java.nio.file.Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
         } catch (IOException e) {
             throw new RuntimeException("Could not load the files!");
         }

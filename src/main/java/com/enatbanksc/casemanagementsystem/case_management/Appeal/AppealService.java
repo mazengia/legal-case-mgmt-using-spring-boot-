@@ -12,6 +12,9 @@ public interface AppealService {
     Appeal createAppeal(Appeal appeal, JwtAuthenticationToken token) throws IllegalAccessException;
     Appeal getAppealById(long id);
     Page<Appeal> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorneyHandlingTheCase,JwtAuthenticationToken token);
+
+    Page<Appeal> findAllByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token);
+
     Page<Appeal> getAllAppeal(Pageable pageable, JwtAuthenticationToken token);
     Appeal updateAppeal(long id, Appeal appeal, JwtAuthenticationToken token) throws IllegalAccessException;
     void deleteAppeal(long id, JwtAuthenticationToken token);

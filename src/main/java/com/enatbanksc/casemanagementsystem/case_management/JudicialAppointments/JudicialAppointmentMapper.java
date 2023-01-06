@@ -1,4 +1,4 @@
-package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments;
+package com.enatbanksc.casemanagementsystem.case_management.JudicialAppointments;
 
 import org.mapstruct.Mapper;
 

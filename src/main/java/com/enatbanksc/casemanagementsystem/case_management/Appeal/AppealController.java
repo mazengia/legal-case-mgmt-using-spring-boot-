@@ -38,7 +38,12 @@ public class AppealController implements AppealApi {
                 AppealDto.class, uriBuilder, response, pageable.getPageNumber(), appealService.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase, token).getTotalPages(), pageable.getPageSize()));
         return new ResponseEntity<PagedModel<AppealDto>>(assembler.toModel(appealService.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase, token).map(appealMapper::toAppealDto)), HttpStatus.OK);
     }
-
+    @Override
+    public ResponseEntity<PagedModel<AppealDto>> findAllByLitigationId(Pageable pageable,long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                AppealDto.class, uriBuilder, response, pageable.getPageNumber(), appealService.findAllByLitigationId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<AppealDto>>(assembler.toModel(appealService.findAllByLitigationId(pageable,id, token).map(appealMapper::toAppealDto)), HttpStatus.OK);
+    }
     @Override
     public AppealDto updateAppeal(long id, AppealDto appealDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return appealMapper.toAppealDto(appealService.updateAppeal(id, appealMapper.toAppeal(appealDto), token));

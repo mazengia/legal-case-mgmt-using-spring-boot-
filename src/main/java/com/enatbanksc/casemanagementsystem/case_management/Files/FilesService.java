@@ -1,0 +1,29 @@
+package com.enatbanksc.casemanagementsystem.case_management.Files;
+
+import com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder.FileInfo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
+
+@Service
+public interface FilesService {
+    Files createFiles(long litigationId, String fileCategory, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException;
+    Files getFilesById(long id);
+    Page<Files>  findAllByFileCategory(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token);
+    Page<Files> getAllFiles(Pageable pageable, JwtAuthenticationToken token);
+    Files updateFiles(long id, Files files, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException;
+//     void deleteFiles(String fileName);
+void deleteFilesById(long id);
+}
+
+
+
+
+
+

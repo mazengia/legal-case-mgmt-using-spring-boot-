@@ -1,13 +1,12 @@
 package com.enatbanksc.casemanagementsystem.case_management.Files;
 
 import com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealServiceImpl;
-import com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder.FileInfo;
+import com.enatbanksc.casemanagementsystem.case_management.Executions.ExecutionsService;
 import com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder.FilesStorageService;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetailServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
-import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -16,8 +15,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,28 +29,31 @@ import static com.enatbanksc.casemanagementsystem.case_management._config.utils.
 
 @Service
 @RequiredArgsConstructor
-public class AttachedFilesServiceImpl implements AttachedFilesService {
-    private final AttachedFilesRepository attachedFilesRepository;
+public class FilesServiceImpl implements FilesService {
+    private final FilesRepository filesRepository;
+
+    private final Path root = Paths.get("uploads");
     private final FilesStorageService storageService;
     private final EmployeeMapper employeeMapper;
     private final LitigationServiceImpl litigationService;
+    private final ExecutionsService executionsService;
     private final MortgageDetailServiceImpl mortgageDetailService;
     private final AppealServiceImpl appealService;
     private final EmployeeClient employeeClient;
 
     @Override
-    public AttachedFiles createFiles(long id, String fileCategory, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException {
-        AttachedFiles attachedFiles = new AttachedFiles();
-        if (attachedFilesRepository.existsAttachedFilesByFileName(file.getOriginalFilename())) {
+    public Files createFiles(long id, String fileCategory, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException {
+        Files files = new Files();
+        if (filesRepository.existsAttachedFilesByFileName(file.getOriginalFilename())) {
             throw new IllegalAccessException("File is already exist ");
         } else {
             if (Objects.equals(fileCategory, "appeal")) {
                 if (appealService.getAppealById(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for Appeal ");
                 } else {
-                    attachedFiles.setFileName(file.getOriginalFilename());
-                    attachedFiles.setAppeal(appealService.getAppealById(id));
-                    attachedFilesRepository.save(attachedFiles);
+                    files.setFileName(file.getOriginalFilename());
+                    files.setAppeal(appealService.getAppealById(id));
+                    filesRepository.save(files);
                     try {
                         return storageService.save(file);
                     } catch (Exception e) {
@@ -60,10 +66,10 @@ public class AttachedFilesServiceImpl implements AttachedFilesService {
                 if (mortgageDetailService.getMortgageDetail(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for foreclosure ");
                 } else {
-                    attachedFiles.setFileName(file.getOriginalFilename());
-                    attachedFiles.setMortgageDetail(mortgageDetailService.getMortgageDetail(id));
+                    files.setFileName(file.getOriginalFilename());
+                    files.setMortgageDetail(mortgageDetailService.getMortgageDetail(id));
 
-                    attachedFilesRepository.save(attachedFiles);
+                    filesRepository.save(files);
                     try {
                         return storageService.save(file);
                     } catch (Exception e) {
@@ -75,9 +81,24 @@ public class AttachedFilesServiceImpl implements AttachedFilesService {
                 if (litigationService.getLitigation(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for litigation ");
                 } else {
-                    attachedFiles.setFileName(file.getOriginalFilename());
-                    attachedFiles.setLitigation(litigationService.getLitigation(id));
-                    attachedFilesRepository.save(attachedFiles);
+                    files.setFileName(file.getOriginalFilename());
+                    files.setLitigation(litigationService.getLitigation(id));
+                    filesRepository.save(files);
+                    try {
+                        return storageService.save(file);
+                    } catch (Exception e) {
+                        throw new IllegalAccessException(e.getMessage().toString());
+                    }
+
+                }
+            }
+            if (Objects.equals(fileCategory, "executions")) {
+                if (executionsService.getExecutionsById(id) == null || file.isEmpty()) {
+                    throw new IllegalAccessException("You are not allowed to upload files for litigation ");
+                } else {
+                    files.setFileName(file.getOriginalFilename());
+                    files.setExecutions(executionsService.getExecutionsById(id));
+                    filesRepository.save(files);
                     try {
                         return storageService.save(file);
                     } catch (Exception e) {
@@ -91,47 +112,64 @@ public class AttachedFilesServiceImpl implements AttachedFilesService {
     }
 
     @Override
-    public AttachedFiles getFilesById(long id) {
-        return attachedFilesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(AttachedFiles.class, "  Type with an id: " + id + " was not found!"));
+    public Files getFilesById(long id) {
+        return filesRepository.getByFileId(id)  ;
     }
 
     @Override
-    public ResponseEntity<List<FileInfo>> findAllByFileCategory(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token) {
-        Page<AttachedFiles> returnValue = null;
+    public Page<Files> findAllByFileCategory(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token) {
+        Page<Files> returnValue = null;
         if (Objects.equals(fileCategory, "appeal")) {
-            returnValue = attachedFilesRepository.findAllByAppealAppealIdOrderByCreatedAtDesc(pageable, id);
+            returnValue = filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(pageable, id);
         }
         if (Objects.equals(fileCategory, "foreclosure")) {
-            returnValue = attachedFilesRepository.findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable, id);
+            returnValue = filesRepository.findAllByMortgageDetailMortgageDetailIdAndMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(pageable, id);
         }
         if (Objects.equals(fileCategory, "litigation")) {
 
-            returnValue=  attachedFilesRepository.findAllByLitigationLitigationIdOrderByCreatedAtDesc(pageable, id);
+            returnValue=  filesRepository.findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable, id);
         }
-        return (ResponseEntity<List<FileInfo>>) returnValue;
+        if (Objects.equals(fileCategory, "executions")) {
+
+            returnValue=  filesRepository.findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable, id);
+        }
+        return  returnValue;
     }
 
     @Override
-    public Page<AttachedFiles> getAllFiles(Pageable pageable, JwtAuthenticationToken token) {
-        return attachedFilesRepository.findAllByOrderByCreatedAtDesc(pageable);
+    public Page<Files> getAllFiles(Pageable pageable, JwtAuthenticationToken token) {
+        return filesRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override
-    public AttachedFiles updateFiles(long id, AttachedFiles attachedFiles, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException {
+    public Files updateFiles(long id, Files files, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException {
         var et = getFilesById(id);
         var employeeId = getEmployeeID(token);
         if (!et.getMaintained_by().getEmployeeId().equals(employeeId)) {
             throw new IllegalAccessException("You are not allowed to update this object.");
         }
         BeanUtils.copyProperties(file, et, getNullPropertyNames(file));
-        return attachedFilesRepository.save(et);
+        return filesRepository.save(et);
     }
 
-    @Override
-    public void deleteFiles(long id, JwtAuthenticationToken token) {
-        attachedFilesRepository.deleteById(id);
-    }
+//    @Override
+//    public void deleteFiles(String fileName ) {
+//          attachedFilesRepository.deleteByFileName(fileName);
+////        return null;
+//    }
+@Override
+public void deleteFilesById(long id) {
+    Files files =  getFilesById(id);
+        String fileName = files.getFileName();
+        try {
+            if (FileSystemUtils.deleteRecursively(root.resolve(fileName))){
+                filesRepository.deleteByFileId(id);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+}
     private Employee getEmployee(String employeeId) {
         return employeeMapper.employeeDtoToEmployee(employeeClient.getEmployeeById(employeeId));
     }

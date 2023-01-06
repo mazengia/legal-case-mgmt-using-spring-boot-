@@ -42,7 +42,11 @@ public class AppealServiceImpl implements AppealService {
         return appealRepository.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase);
 
     }
+    @Override
+    public Page<Appeal> findAllByLitigationId(Pageable pageable,long id,JwtAuthenticationToken token) {
+        return appealRepository.findAllByLitigationLitigationIdOrderByCreatedAtDesc(pageable,id);
 
+    }
     @Override
     public Page<Appeal> getAllAppeal(Pageable pageable, JwtAuthenticationToken token) {
         return appealRepository.findAllByOrderByCreatedAtDesc(pageable);

@@ -1,7 +1,9 @@
-package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments;
+package com.enatbanksc.casemanagementsystem.case_management.Files;
 
+import com.enatbanksc.casemanagementsystem.case_management.Appeal.Appeal;
 import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,19 +12,35 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "judicial_appointments")
+@Table(name = "files")
 @Data
 @Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE judicial_appointments SET deleted = 1 WHERE id=? and version=?")
-public class JudicialAppointment extends Auditable {
+@SQLDelete(sql = "UPDATE files SET deleted = 1 WHERE fileId=? and version=?")
+public class Files extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long appointmentId;
-    private LocalDateTime appointmentDate;
-    private String appointmentReason;
+    private Long fileId;
+    private String fileName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "litigationId",nullable = true)
+    @JsonIgnoreProperties(value = {"files"})
+    private Litigation litigation;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "mortgageDetailId",nullable = true)
+    @JsonIgnoreProperties(value = {"files"})
+    private MortgageDetail   mortgageDetail;
+
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "appealId",nullable = true)
+    @JsonIgnoreProperties(value = {"files"})
+    private Appeal appeal;
+    @ManyToOne(fetch = FetchType.EAGER )
+    @JoinColumn(name = "executionsId",nullable = true)
+    @JsonIgnoreProperties(value = {"files"})
+    private Executions executions;
 
     @Embedded
     @AttributeOverrides({
@@ -32,16 +50,5 @@ public class JudicialAppointment extends Auditable {
             @AttributeOverride(name = "branch.name", column = @Column(name = "maintainer_branch_name"))
     })
     private Employee maintained_by;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "litigationId")
-    @JsonIgnoreProperties(value = {"judicialAppointment"})
-    private Litigation litigation;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "executionsId")
-    @JsonIgnoreProperties(value = {"judicialAppointment"})
-    private Executions executions;
 
-
-//    @OneToMany(mappedBy = "judicialAppointment")
-//    private List<ExpenseDetail> expenseDetails;
 }

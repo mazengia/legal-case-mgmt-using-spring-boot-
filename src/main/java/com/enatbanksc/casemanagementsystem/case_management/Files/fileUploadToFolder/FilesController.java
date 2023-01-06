@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder;
 
+import com.enatbanksc.casemanagementsystem.case_management.Files.FilesServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -15,11 +16,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/api/v1/filessf")
+@RequestMapping("/api/v1/view-files")
 @RequiredArgsConstructor
 public class FilesController {
     private final FilesStorageService storageService;
     private final LitigationServiceImpl litigationService;
+    private final FilesServiceImpl deleteAttachedFilesByFileName;
 
     @PostMapping("/{litigationId}")
     @ResponseBody
@@ -50,18 +52,33 @@ public class FilesController {
 
     @GetMapping("/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
         Resource file = storageService.load(filename);
         return ResponseEntity.ok().header(
                 HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+    @GetMapping("/_/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> readFile(@PathVariable String filename) {
+        Resource file = storageService.load(filename);
+        ;
+
+        return ResponseEntity.ok().header(
+                HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+
     @DeleteMapping("/{filename:.+}")
     @ResponseBody
     public void deleteFileByFileName(@PathVariable String filename) {
-        storageService.deleteByFileName(filename);
-    }
+//        if(deleteAttachedFilesByFileName.deleteFiles(filename)!=null) {
+
+          storageService.deleteByFileName(filename);
+//        deleteAttachedFilesByFileName.deleteFiles(filename);
+//    }
+
+}
 
     @DeleteMapping()
     @ResponseBody

@@ -1,4 +1,4 @@
-package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.JudicialAppointments;
+package com.enatbanksc.casemanagementsystem.case_management.JudicialAppointments;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
