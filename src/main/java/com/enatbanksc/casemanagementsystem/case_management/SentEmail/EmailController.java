@@ -4,8 +4,8 @@ package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionTypeRepository;
 import com.enatbanksc.casemanagementsystem.case_management.MailNotificationType.MailNotificationTypeRepository;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetailRepository;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetailRepository;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -64,7 +64,7 @@ public class EmailController implements EmailApi {
         var mail = mailNotificationTypeRepository.findById(1L);
 
         for (AuctionType auctionTypeList : auctions) {
-            LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionWillBeConducted());
+            LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionAnnounced());
             LocalDate created_at = LocalDate.from(date.minusDays(mail.get().getNumberOfDays())
             );
             if (today.equals(created_at) && !auctionTypeList.getMortgageDetail().getMaintained_by().getEmail().isEmpty()) {

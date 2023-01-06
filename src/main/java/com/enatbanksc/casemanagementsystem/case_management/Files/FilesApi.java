@@ -25,11 +25,10 @@ public interface FilesApi {
     @ResponseStatus(HttpStatus.OK)
     FilesDto getFilesById(@PathVariable("id") long id);
 
-    @GetMapping("/{fileCategory}/{id}")
+    @GetMapping("/foreclosure/{id}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<PagedModel<FilesDto>> findAllByFileCategory(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
-                                                                       @Valid Pageable pageable,
-                                                               @PathVariable("fileCategory") String fileCategory,
+                                                               @Valid Pageable pageable,
                                                                @PathVariable("id") long id,
                                                                PagedResourcesAssembler assembler,
                                                                JwtAuthenticationToken token,
@@ -47,7 +46,7 @@ public interface FilesApi {
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<PagedModel<FilesDto>> getAllFiles(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
-                                                              @Valid Pageable pageable,
+                                                     @Valid Pageable pageable,
                                                      PagedResourcesAssembler assembler,
                                                      JwtAuthenticationToken token,
                                                      UriComponentsBuilder uriBuilder,

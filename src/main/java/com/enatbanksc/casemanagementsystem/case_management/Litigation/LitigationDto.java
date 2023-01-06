@@ -18,15 +18,14 @@ public class LitigationDto extends Auditable {
     private Long litigationId;
     private String fileNumber;
     private String courtAdjudicating;
-    private String litigationType;
-    private Boolean isBankPlaintiff  ;
+    private String disputedAmount;
+    private Boolean isBankPlaintiff;
     private String caseStage;
     private CaseOwnerBranchDto branch;
     private String attorneyHandlingTheCase;
     private String status;
     private Intervene intervene;
     private String content;
-    private  String  caseType;
-    private List<JudicialAppointment> judicialAppointment;
+    private String caseType;
 
 }

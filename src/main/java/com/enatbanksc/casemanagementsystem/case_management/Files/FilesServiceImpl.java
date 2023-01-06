@@ -4,7 +4,7 @@ import com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealServiceI
 import com.enatbanksc.casemanagementsystem.case_management.Executions.ExecutionsService;
 import com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder.FilesStorageService;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationServiceImpl;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetailServiceImpl;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetailServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
@@ -21,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Objects;
 
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
@@ -117,23 +115,24 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-    public Page<Files> findAllByFileCategory(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token) {
-        Page<Files> returnValue = null;
-        if (Objects.equals(fileCategory, "appeal")) {
-            returnValue = filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(pageable, id);
-        }
-        if (Objects.equals(fileCategory, "foreclosure")) {
-            returnValue = filesRepository.findAllByMortgageDetailMortgageDetailIdAndMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(pageable, id);
-        }
-        if (Objects.equals(fileCategory, "litigation")) {
-
-            returnValue=  filesRepository.findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable, id);
-        }
-        if (Objects.equals(fileCategory, "executions")) {
-
-            returnValue=  filesRepository.findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable, id);
-        }
-        return  returnValue;
+    public Page<Files> findAllExecutionFilesByExecutionId(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token) {
+//        Page<Files> returnValue = null;
+//        if (Objects.equals(fileCategory, "appeal")) {
+//            return filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(pageable, id);
+//        }
+//        if (Objects.equals(fileCategory, "foreclosure")) {
+            return filesRepository.findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable, id);
+//        }
+//        if (Objects.equals(fileCategory, "litigation")) {
+//
+//            return  filesRepository.findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable, id);
+//        }
+//        if (Objects.equals(fileCategory, "executions")) {
+//
+//            return  filesRepository.findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable, id);
+//        }
+////        return  returnValue;
+//        return returnValue;
     }
 
     @Override

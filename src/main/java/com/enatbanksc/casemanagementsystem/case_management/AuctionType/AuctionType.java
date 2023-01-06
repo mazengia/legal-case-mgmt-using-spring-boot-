@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.AuctionType;
 
-import com.enatbanksc.casemanagementsystem.case_management.MortgageType.MortgageDetail.MortgageDetail;
+import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,7 +27,6 @@ public class AuctionType extends Auditable {
     @Schema(hidden = true)
     @Column(name = "dateAuctionAnnounced", nullable = false, updatable = false)
     private String dateAuctionAnnounced;
-    private String dateAuctionWillBeConducted;
     private String dateAuctionConducted;
     @ManyToOne(fetch = FetchType.EAGER, optional = false )
     @JoinColumn(name = "mortgageDetailId",nullable = false)

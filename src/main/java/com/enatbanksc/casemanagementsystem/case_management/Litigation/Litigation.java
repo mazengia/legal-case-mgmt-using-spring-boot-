@@ -25,23 +25,12 @@ public class Litigation extends Auditable {
     private String fileNumber;
     private String courtAdjudicating;
     private String status;
-    private String litigationType;
+    private String disputedAmount;
     private Boolean isBankPlaintiff;
     private String caseStage;
     private String attorneyHandlingTheCase;
     private String caseType;
     private String content;
-
-//    @OneToOne (fetch = FetchType.EAGER)
-//    @JoinColumn(name = "case_type_id",nullable = true)
-//    @JsonIgnoreProperties(value={"litigation"} )
-//    private CaseType caseType;
-
-
-//    @ManyToOne(fetch = FetchType.EAGER )
-//    @JoinColumn(name = "advocate_id",nullable = true)
-//    @JsonIgnoreProperties(value={"litigation"} )
-//    private Advocate advocate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "intervene_id", nullable = true)
@@ -56,33 +45,4 @@ public class Litigation extends Auditable {
     })
     private CaseOwnerBranchDto branch;
 
-//    @Embedded
-//    @AttributeOverrides({
-//            @AttributeOverride(name = "firstName", column = @Column(name = "plaintiff_first_name")),
-//            @AttributeOverride(name = "middleName", column = @Column(name = "plaintiff_middle_name")),
-//            @AttributeOverride(name = "lastName", column = @Column(name = "plaintiff_last_name")),
-//            @AttributeOverride(name = "accountNumber", column = @Column(name = "plaintiff_account_number")),
-//            @AttributeOverride(name = "phoneNumber", column = @Column(name = "plaintiff_phone_number")),
-//    })
-//    private PlaintiffDefendant plaintiff;
-//
-//    @Embedded
-//    @AttributeOverrides({
-//            @AttributeOverride(name = "firstName", column = @Column(name = "defendant_first_name")),
-//            @AttributeOverride(name = "middleName", column = @Column(name = "defendant_middle_name")),
-//            @AttributeOverride(name = "lastName", column = @Column(name = "defendant_last_name")),
-//            @AttributeOverride(name = "accountNumber", column = @Column(name = "defendant_account_number")),
-//            @AttributeOverride(name = "phoneNumber", column = @Column(name = "defendant_phone_number")),
-//    })
-//    private PlaintiffDefendant defendant;
-
-    @OneToMany(mappedBy = "litigation")
-    private List<JudicialAppointment> judicialAppointment;
-//    @JsonManagedReference
-//    @OneToMany(mappedBy = "litigation")
-//    private List<Appeal> appeal;
-//    @OneToMany(mappedBy = "litigation")
-//    private List<Appeal> appeals;
-//    @OneToMany(mappedBy = "litigation")
-//    private List<Comment> comments;
 }

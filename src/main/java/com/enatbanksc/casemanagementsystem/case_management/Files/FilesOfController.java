@@ -22,7 +22,6 @@ public class FilesOfController implements FilesApi {
     private final FilesService filesService;
     private final FilesMapper filesMapper;
     private final ApplicationEventPublisher eventPublisher;
-private final FilesRepository filesRepository;
     @Override
     public FilesDto createFiles(long litigationId, String fileCategory, MultipartFile file , JwtAuthenticationToken token) throws IllegalAccessException {
         return filesMapper.toFilesDto(filesService.createFiles(litigationId,fileCategory,file, token));
@@ -39,7 +38,9 @@ private final FilesRepository filesRepository;
         return filesMapper.toFilesDto(filesService.getFilesById(id));
     }
     @Override
-    public ResponseEntity<PagedModel<FilesDto>> findAllByFileCategory(Pageable pageable, String fileCategory, long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<FilesDto>> findAllByFileCategory(Pageable pageable,
+//                                                                      String fileCategory,
+                                                                      long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
 //        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
 //                AttachedFilesDto.class, uriBuilder, response, pageable.getPageNumber(), attachedFilesService.findAllByFileCategory(pageable,fileCategory,id, token).getTotalPages(), pageable.getPageSize()));
 //        return new ResponseEntity<PagedModel<AttachedFilesDto>>(assembler.toModel(attachedFilesService.findAllByFileCategory(pageable,fileCategory,id, token).map(attachedFilesMapper::toFilesDto)), HttpStatus.OK);

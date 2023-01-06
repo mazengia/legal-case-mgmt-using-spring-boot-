@@ -1,4 +1,4 @@
-package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
+package com.enatbanksc.casemanagementsystem.case_management.ExpenseDetails;
 
 import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
@@ -7,14 +7,10 @@ import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditab
 import lombok.Data;
 
 @Data
-public class EmailDto extends Auditable {
-    private Long id;
-    private String recipient;
-    private String msgBody;
-    private String subject;
-    private String attachment;
-    private boolean sent;
-    private MortgageDetail mortgageDetail;
+public class ExpenseDto extends Auditable {
+    private Long expense_detail_id;
+    private String amount;
     private Litigation litigation;
     private Executions executions;
+    private MortgageDetail mortgageDetail;
 }
