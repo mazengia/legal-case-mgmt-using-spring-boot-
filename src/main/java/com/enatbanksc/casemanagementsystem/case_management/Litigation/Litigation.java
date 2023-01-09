@@ -24,6 +24,7 @@ public class Litigation extends Auditable {
     private Long   litigationId;
     private String fileNumber;
     private String courtAdjudicating;
+    @Column(columnDefinition = "varchar(255) default 'Pending'")
     private String status;
     private String disputedAmount;
     private Boolean isBankPlaintiff;

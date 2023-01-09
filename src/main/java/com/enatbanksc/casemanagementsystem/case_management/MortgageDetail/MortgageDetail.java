@@ -36,6 +36,7 @@ public class MortgageDetail extends Auditable {
     private String attorneyHandlingTheCase;
     private String mortgagor;
     private String borrower;
+    @Column(columnDefinition = "varchar(255) default 'Pending'")
     private String status;
     private String mortgageTypeName;
     @Embedded
