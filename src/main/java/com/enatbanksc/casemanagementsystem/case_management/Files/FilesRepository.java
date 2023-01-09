@@ -20,8 +20,8 @@ public interface FilesRepository extends PagingAndSortingRepository<Files, Long>
 
     Page<Files> findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(Pageable pageable, long id);
     Page<Files> findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable, long id);
-
     void deleteByFileId(long id);
-    Files getByFileId(long id);
+          Files getByFileId(long id) ;
 
+    void deleteByFileName(String fileName);
 }

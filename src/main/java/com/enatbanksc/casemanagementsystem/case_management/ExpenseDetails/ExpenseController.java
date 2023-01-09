@@ -23,14 +23,21 @@ public class ExpenseController implements ExpenseApi {
     private final ExpenseService expenseService;
     private final ExpenseMapper expenseMapper;
     private final ExpenseDetailRepository expenseDetailRepository;
-    private final ApplicationEventPublisher eventPublisher;
+    private final ApplicationEventPublisher eventPublisher; 
 
+   
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Iterable<Expense> createExpenseDetail(@RequestBody @Valid List<Expense> expense) throws IllegalAccessException {
-        return expenseDetailRepository.saveAll(expense);
+    public ResponseEntity<?> createExpenseDetail(@RequestBody @Valid List<ExpenseDetail> expense ) { 
+        for(ExpenseDetail edDetail:expense){
+        expenseDetailRepository.save(edDetail);
+        }
+        //    return (ResponseEntity<?>) expenseDetailRepository.saveAll(expense);
+        return null;
 
     }
+
+
 
 //    @Override
 //    public List<ExpenseDetailDto> createExpenseDetail(List<ExpenseDetailDto> expenseDetailDtos, JwtAuthenticationToken token) throws IllegalAccessException {

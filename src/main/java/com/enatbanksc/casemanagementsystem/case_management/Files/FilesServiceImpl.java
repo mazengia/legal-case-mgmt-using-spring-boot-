@@ -14,10 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -111,28 +109,27 @@ public class FilesServiceImpl implements FilesService {
 
     @Override
     public Files getFilesById(long id) {
-        return filesRepository.getByFileId(id)  ;
+        return filesRepository.getByFileId(id);
     }
 
     @Override
     public Page<Files> findAllExecutionFilesByExecutionId(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token) {
-//        Page<Files> returnValue = null;
-//        if (Objects.equals(fileCategory, "appeal")) {
-//            return filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(pageable, id);
-//        }
-//        if (Objects.equals(fileCategory, "foreclosure")) {
+        Page<Files> returnValue = null;
+        if (Objects.equals(fileCategory, "appeal")) {
+            return filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(pageable, id);
+        }
+        if (Objects.equals(fileCategory, "foreclosure")) {
             return filesRepository.findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable, id);
-//        }
-//        if (Objects.equals(fileCategory, "litigation")) {
-//
-//            return  filesRepository.findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable, id);
-//        }
-//        if (Objects.equals(fileCategory, "executions")) {
-//
-//            return  filesRepository.findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable, id);
-//        }
-////        return  returnValue;
-//        return returnValue;
+        }
+        if (Objects.equals(fileCategory, "litigation")) {
+
+            return filesRepository.findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable, id);
+        }
+        if (Objects.equals(fileCategory, "executions")) {
+
+            return filesRepository.findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable, id);
+        }
+        return returnValue;
     }
 
     @Override
@@ -149,26 +146,33 @@ public class FilesServiceImpl implements FilesService {
         }
         BeanUtils.copyProperties(file, et, getNullPropertyNames(file));
         return filesRepository.save(et);
+//        return null;
     }
 
-//    @Override
-//    public void deleteFiles(String fileName ) {
-//          attachedFilesRepository.deleteByFileName(fileName);
-////        return null;
-//    }
-@Override
-public void deleteFilesById(long id) {
-    Files files =  getFilesById(id);
-        String fileName = files.getFileName();
-        try {
-            if (FileSystemUtils.deleteRecursively(root.resolve(fileName))){
-                filesRepository.deleteByFileId(id);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public void deleteFiles(String fileName) {
+        filesRepository.deleteByFileName(fileName);
+//        return null;
+    }
 
-}
+    @Override
+    public void deleteFilesById(long id) {
+        System.out.println("id");
+        System.out.println(id);
+        System.out.println("id");
+        filesRepository.deleteByFileId(id);
+//        Files files = getFilesById(id);
+//        String fileName = files.getFileName();
+//        try {
+//            if (FileSystemUtils.deleteRecursively(root.resolve(fileName))) {
+//                filesRepository.deleteByFileId(id);
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+    }
+
     private Employee getEmployee(String employeeId) {
         return employeeMapper.employeeDtoToEmployee(employeeClient.getEmployeeById(employeeId));
     }

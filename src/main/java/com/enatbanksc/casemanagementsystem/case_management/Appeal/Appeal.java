@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Appeal;
 
+import com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplicantRespondant.AppealApplicantRespondent;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "appeal")
@@ -20,12 +22,13 @@ public class Appeal extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appealId;
     private String fileNumber;
+    private String disputedAmount;
     private String courtAdjudicating;
     private String reason;
 //    @OneToMany(mappedBy = "appeal")
 //    private List<AppealApplicantRespondent> appealApplicantRespondents;
 
-//    @JsonBackReference
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "litigationId")
     @JsonIgnoreProperties(value = {"appeal"})

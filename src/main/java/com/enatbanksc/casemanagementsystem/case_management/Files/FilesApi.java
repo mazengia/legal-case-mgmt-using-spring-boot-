@@ -1,5 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.Files;
 
+import com.enatbanksc.casemanagementsystem.case_management.Executions.ExecutionsDto;
 import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,14 +22,15 @@ public interface FilesApi {
     @ResponseStatus(HttpStatus.CREATED)
     FilesDto createFiles(@PathVariable("litigationId") long litigationId, @PathVariable("fileCategory") String fileCategory, @RequestParam("file") MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException;
 
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    FilesDto getFilesById(@PathVariable("id") long id);
+     @GetMapping("/{id}")
+     @ResponseStatus(HttpStatus.OK)
+     FilesDto getFilesById(@PathVariable("id") long id);
 
-    @GetMapping("/foreclosure/{id}")
+    @GetMapping("/{category}/{id}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<PagedModel<FilesDto>> findAllByFileCategory(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))
                                                                @Valid Pageable pageable,
+                                                               @PathVariable("category") String category,
                                                                @PathVariable("id") long id,
                                                                PagedResourcesAssembler assembler,
                                                                JwtAuthenticationToken token,

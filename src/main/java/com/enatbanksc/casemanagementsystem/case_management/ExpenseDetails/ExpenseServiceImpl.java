@@ -17,25 +17,25 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final ExpenseDetailRepository expenseDetailRepository;
 
     @Override
-    public Expense getExpenseDetail(long id) {
-        return expenseDetailRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(Expense.class, "ExpenseDetail Type with an id: " + id + " was not found!"));
+    public ExpenseDetail getExpenseDetail(long id) {
+        return expenseDetailRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(ExpenseDetail.class, "ExpenseDetail Type with an id: " + id + " was not found!"));
     }
 
     @Override
-    public Page<Expense> getExpensesDetailByForeclosure(Pageable pageable, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> getExpensesDetailByForeclosure(Pageable pageable, JwtAuthenticationToken token) {
         return expenseDetailRepository.findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(pageable);
     }
     @Override
-    public Page<Expense> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token) {
         return expenseDetailRepository.findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable);
     }
     @Override
-    public Page<Expense> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token) {
         return expenseDetailRepository.findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable);
     }
 
     @Override
-    public Expense updateExpenseDetail(long id, Expense expense, JwtAuthenticationToken token) throws IllegalAccessException {
+    public ExpenseDetail updateExpenseDetail(long id, ExpenseDetail expense, JwtAuthenticationToken token) throws IllegalAccessException {
         var et = getExpenseDetail(id);
         BeanUtils.copyProperties(expense, et, getNullPropertyNames(expense));
         return expenseDetailRepository.save(et);
@@ -46,26 +46,26 @@ public class ExpenseServiceImpl implements ExpenseService {
         expenseDetailRepository.deleteById(expenseId);
     }
     @Override
-    public Page<Expense> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(pageable,id);
     }
 
     @Override
-    public Page<Expense> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findExpenseDetailByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable,id);
     }
 
 
     @Override
-    public Page<Expense> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(pageable,id);
     }
     @Override
-    public Page<Expense> findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findAllByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
     }
     @Override
-    public Page<Expense> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
+    public Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
         return  expenseDetailRepository.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
     }
 

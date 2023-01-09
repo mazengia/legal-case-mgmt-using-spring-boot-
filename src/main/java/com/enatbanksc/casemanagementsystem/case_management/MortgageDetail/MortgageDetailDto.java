@@ -14,6 +14,10 @@ import java.util.List;
 public class MortgageDetailDto   extends Auditable {
     private Long mortgageDetailId;
     private String machineryType;
+    private String machineryTypeTwo;
+    private String machineryTypeThree;
+    private String machineryTypeFour;
+//    private String machineryTypeFive;
     private String numberOfTitleIndeed;
     private String plateNumber;
     private String shansiNumber;

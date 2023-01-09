@@ -9,16 +9,16 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RepositoryRestResource
-public interface ExpenseDetailRepository  extends PagingAndSortingRepository<Expense, Long>, JpaSpecificationExecutor<Expense> {
+public interface ExpenseDetailRepository  extends PagingAndSortingRepository<ExpenseDetail, Long>, JpaSpecificationExecutor<ExpenseDetail> {
 
-    Page<Expense> findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, Long id);
-    Page<Expense> findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(Pageable pageable, Long id);
-    Page<Expense> findExpenseDetailByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<ExpenseDetail> findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<ExpenseDetail> findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<ExpenseDetail> findExpenseDetailByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(Pageable pageable, Long id);
 
-    Page<Expense> findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(Pageable pageable);
-    Page<Expense> findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable);
-   Page<Expense> findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable);
-    Page<Expense> findAllByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
-    Page<Expense> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<ExpenseDetail> findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+   Page<ExpenseDetail> findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
 
 }

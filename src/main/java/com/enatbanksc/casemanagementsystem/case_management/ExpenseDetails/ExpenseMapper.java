@@ -6,10 +6,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ExpenseMapper {
-    Expense toExpenseDetail(ExpenseDto expenseDto);
-    ExpenseDto toExpenseDetailDto(Expense expense);
+    ExpenseDetail toExpenseDetail(ExpenseDto expenseDto);
+    ExpenseDto toExpenseDetailDto(ExpenseDetail expense);
 
-    List<ExpenseDto> toDefendantPlaintiffDto(Iterable<Expense> expenseDetails
+    List<ExpenseDto> toDefendantPlaintiffDto(Iterable<ExpenseDetail> expenseDetails
     );
-    List<Expense> toDefendantPlaintiff(List<ExpenseDto> expenseDtos);
+    List<ExpenseDetail> toDefendantPlaintiff(List<ExpenseDto> expenseDtos);
 }

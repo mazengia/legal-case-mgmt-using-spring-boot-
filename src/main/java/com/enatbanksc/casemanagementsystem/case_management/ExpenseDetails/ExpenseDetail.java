@@ -5,30 +5,35 @@ import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation
 import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 import javax.persistence.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name = "expense")
+@Table(name = "expenseDetail")
 @Data
-public class Expense extends Auditable {
+@Where(clause = "deleted=0")
+@SQLDelete(sql = "UPDATE expenseDetail SET deleted = 1 WHERE id=? and version=?")
+public class ExpenseDetail extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long expense_detail_id;
     private String amount;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "litigationId")
-    @JsonIgnoreProperties(value = {"expense"})
+    @JoinColumn(name = "litigationId",nullable =true)
+    @JsonIgnoreProperties(value = {"expenseDetail"})
     private Litigation litigation;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "executionsId")
-    @JsonIgnoreProperties(value = {"expense"})
+    @JoinColumn(name = "executionsId",nullable =true)
+    @JsonIgnoreProperties(value = {"expenseDetail"})
     private Executions executions;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "foreClosureId")
-    @JsonIgnoreProperties(value = {"expense"})
+    @JoinColumn(name = "foreClosureId",nullable =true)
+    @JsonIgnoreProperties(value = {"expenseDetail"})
     private MortgageDetail mortgageDetail;
 
 

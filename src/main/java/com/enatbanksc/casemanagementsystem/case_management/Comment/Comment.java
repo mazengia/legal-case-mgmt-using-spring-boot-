@@ -10,7 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 
 @Entity(name="Comment")
-@Table(name="comments")
+@Table(name="comments") 
 @Data
 @Where(clause = "deleted=0")
 @SQLDelete(sql = "UPDATE comments SET deleted = 1 WHERE id=? and version=?")

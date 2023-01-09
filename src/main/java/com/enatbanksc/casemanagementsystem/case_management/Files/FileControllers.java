@@ -2,6 +2,7 @@ package com.enatbanksc.casemanagementsystem.case_management.Files;
 
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -18,13 +19,22 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/api/v1/files")
 @RequiredArgsConstructor
-public class FilesOfController implements FilesApi {
+public class FileControllers implements FilesApi {
     private final FilesService filesService;
     private final FilesMapper filesMapper;
     private final ApplicationEventPublisher eventPublisher;
+    private final FilesRepository filesRepository;
+
+//    @GetMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//      void getFilesById(@PathVariable("id") long id) {
+//          filesRepository.getByFileId(id);
+//    }
+
+
     @Override
-    public FilesDto createFiles(long litigationId, String fileCategory, MultipartFile file , JwtAuthenticationToken token) throws IllegalAccessException {
-        return filesMapper.toFilesDto(filesService.createFiles(litigationId,fileCategory,file, token));
+    public FilesDto createFiles(long litigationId, String fileCategory, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException {
+        return filesMapper.toFilesDto(filesService.createFiles(litigationId, fileCategory, file, token));
     }
 
     @Override
@@ -33,23 +43,22 @@ public class FilesOfController implements FilesApi {
     }
 
 
-    @Override
-    public FilesDto getFilesById(long id) {
-        return filesMapper.toFilesDto(filesService.getFilesById(id));
-    }
+     @Override
+     public FilesDto getFilesById(long id) {
+         return filesMapper.toFilesDto(filesService.getFilesById(id));
+     }
     @Override
     public ResponseEntity<PagedModel<FilesDto>> findAllByFileCategory(Pageable pageable,
-//                                                                      String fileCategory,
+                                                                      String fileCategory,
                                                                       long id, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
-//        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-//                AttachedFilesDto.class, uriBuilder, response, pageable.getPageNumber(), attachedFilesService.findAllByFileCategory(pageable,fileCategory,id, token).getTotalPages(), pageable.getPageSize()));
-//        return new ResponseEntity<PagedModel<AttachedFilesDto>>(assembler.toModel(attachedFilesService.findAllByFileCategory(pageable,fileCategory,id, token).map(attachedFilesMapper::toFilesDto)), HttpStatus.OK);
-   return null;
-    }
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                FilesDto.class, uriBuilder, response, pageable.getPageNumber(), filesService.findAllExecutionFilesByExecutionId(pageable,fileCategory,id, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<FilesDto>>(assembler.toModel(filesService.findAllExecutionFilesByExecutionId(pageable,fileCategory,id, token).map(filesMapper::toFilesDto)), HttpStatus.OK);
+     }
 
     @Override
-    public FilesDto updateFile(long id, MultipartFile file , FilesDto filesDto, JwtAuthenticationToken token) throws IllegalAccessException {
-        return filesMapper.toFilesDto(filesService.updateFiles(id, filesMapper.toFiles(filesDto),file, token));
+    public FilesDto updateFile(long id, MultipartFile file, FilesDto filesDto, JwtAuthenticationToken token) throws IllegalAccessException {
+        return filesMapper.toFilesDto(filesService.updateFiles(id, filesMapper.toFiles(filesDto), file, token));
     }
 
 //    @Override

@@ -10,12 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface FilesService {
     Files createFiles(long litigationId, String fileCategory, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException;
-    Files getFilesById(long id);
+
+     Files getFilesById(long id);
     Page<Files> findAllExecutionFilesByExecutionId(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token);
+
     Page<Files> getAllFiles(Pageable pageable, JwtAuthenticationToken token);
+
     Files updateFiles(long id, Files files, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException;
-//     void deleteFiles(String fileName);
-void deleteFilesById(long id);
+
+         void deleteFiles(String fileName);
+    void deleteFilesById(long id);
 }
 
 

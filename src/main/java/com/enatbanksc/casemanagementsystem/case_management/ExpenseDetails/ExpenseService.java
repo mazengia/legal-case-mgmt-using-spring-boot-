@@ -9,24 +9,24 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ExpenseService {
 //    ExpenseDetail createExpenseDetail(ExpenseDetail expenseDetail, JwtAuthenticationToken token) throws IllegalAccessException;
-    Expense getExpenseDetail(long id);
-    Page<Expense> getExpensesDetailByForeclosure(Pageable pageable, JwtAuthenticationToken token);
+    ExpenseDetail getExpenseDetail(long id);
+    Page<ExpenseDetail> getExpensesDetailByForeclosure(Pageable pageable, JwtAuthenticationToken token);
 
-    Page<Expense> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token);
+    Page<ExpenseDetail> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token);
 
-    Page<Expense> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token);
+    Page<ExpenseDetail> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token);
 
-    Expense updateExpenseDetail(long id, Expense expense, JwtAuthenticationToken token) throws IllegalAccessException;
+    ExpenseDetail updateExpenseDetail(long id, ExpenseDetail expense, JwtAuthenticationToken token) throws IllegalAccessException;
     void deleteExpenseDetail(long id, JwtAuthenticationToken token);
-    Page<Expense> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token);
+    Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token);
 
-    Page<Expense> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token);
+    Page<ExpenseDetail> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token);
 
-    Page<Expense> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token);
+    Page<ExpenseDetail> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token);
 
-    Page<Expense> findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
+    Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
 
-    Page<Expense> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
+    Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
 
 //    Iterable<ExpenseDetail> createExpense(List<ExpenseDetail> expenseDetails, JwtAuthenticationToken token) throws IllegalAccessException;
 }
