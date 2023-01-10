@@ -11,9 +11,8 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class LitigationDto extends Auditable {
     private Long litigationId;
     private String fileNumber;
