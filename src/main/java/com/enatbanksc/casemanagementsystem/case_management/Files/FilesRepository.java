@@ -19,6 +19,7 @@ public interface FilesRepository extends PagingAndSortingRepository<Files, Long>
     Page<Files> findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(Pageable pageable, long id);
 
     Page<Files> findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(Pageable pageable, long id);
+
     Page<Files> findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable, long id);
     void deleteByFileId(long id);
           Files getByFileId(long id) ;

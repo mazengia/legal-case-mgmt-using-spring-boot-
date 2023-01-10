@@ -22,6 +22,7 @@ public class Executions extends Auditable {
     private String judgmentGetter;
     private String caseStage;
     private String attorneyHandlingTheCase;
+    private String disputedAmount;
     private  String  caseType;
     @Embedded
     @AttributeOverrides({

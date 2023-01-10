@@ -4,7 +4,9 @@ import com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplican
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -25,8 +27,6 @@ public class Appeal extends Auditable {
     private String disputedAmount;
     private String courtAdjudicating;
     private String reason;
-//    @OneToMany(mappedBy = "appeal")
-//    private List<AppealApplicantRespondent> appealApplicantRespondents;
 
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
@@ -41,5 +41,14 @@ public class Appeal extends Auditable {
             @AttributeOverride(name = "branch.name", column = @Column(name = "maintainer_branch_name"))
     })
     private Employee maintained_by;
+
+//    @JsonBackReference
+
+    @JsonManagedReference
+    @OneToMany(fetch=FetchType.EAGER,mappedBy = "appeal")
+    private List<AppealApplicantRespondent> appealApplicantRespondents;
+
+//    @JsonManagedReference
+//    private AppealApplicantRespondent appealApplicantRespondents;
 
 }

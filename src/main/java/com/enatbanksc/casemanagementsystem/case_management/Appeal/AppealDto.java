@@ -4,6 +4,7 @@ import com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplican
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class AppealDto extends Auditable {
     private String courtAdjudicating;
     private Litigation litigation;
     private String disputedAmount;
-//    private List<AppealApplicantRespondent> appealApplicantRespondents;
     private Employee maintained_by;
+//    @JsonManagedReference
+//    private AppealApplicantRespondent appealApplicantRespondents;
+    private List<AppealApplicantRespondent> appealApplicantRespondents;
 }

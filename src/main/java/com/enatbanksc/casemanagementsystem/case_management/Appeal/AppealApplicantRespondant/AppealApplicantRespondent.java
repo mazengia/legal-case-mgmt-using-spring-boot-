@@ -2,7 +2,9 @@ package com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplica
 
 import com.enatbanksc.casemanagementsystem.case_management.Appeal.Appeal;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -20,8 +22,10 @@ public class AppealApplicantRespondent extends Auditable {
     private Long appealApplicantRespondentId;
     private String applicant;
     private String respondent;
-    @ManyToOne(fetch = FetchType.EAGER  )
-    @JoinColumn(name = "appealId",nullable = false)
-    @JsonIgnoreProperties(value={"appealApplicantRespondent"} )
-    private Appeal appeal ;
+    //    @JsonManagedReference
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "appealId", nullable = false)
+    @JsonIgnoreProperties(value = {"appealApplicantRespondent"})
+    private Appeal appeal;
 }
