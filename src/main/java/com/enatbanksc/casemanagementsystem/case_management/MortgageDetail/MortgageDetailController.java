@@ -65,4 +65,13 @@ public class MortgageDetailController implements MortgageDetailApi {
         return new ResponseEntity<PagedModel<MortgageDetailDto>>(assembler.toModel(mortgageDetailService.findMortgageDetailByBranchId(pageable,branchId, token).map(mortgageDetailMapper::toMortgageDetailDto)), HttpStatus.OK);
 
     }
+    @Override
+    public ResponseEntity<PagedModel<MortgageDetailDto>> findAllByBranchIdIsNotContaining(Pageable pageable, long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
+                MortgageDetailDto.class, uriBuilder, response, pageable.getPageNumber(), mortgageDetailService.findAllByBranchIdIsNotContaining(pageable,branchId, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<MortgageDetailDto>>(assembler.toModel(mortgageDetailService.findAllByBranchIdIsNotContaining(pageable,branchId, token).map(mortgageDetailMapper::toMortgageDetailDto)), HttpStatus.OK);
+
+    }
+
+
 }

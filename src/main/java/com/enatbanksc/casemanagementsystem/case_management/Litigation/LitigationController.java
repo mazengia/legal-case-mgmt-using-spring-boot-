@@ -29,8 +29,8 @@ public class LitigationController implements LitigationApi{
 
     }
     @Override
-    public LitigationDto getLitigation(long id) {
-        return litigationMapper.toLitigationDto(litigationService.getLitigation(id));
+    public LitigationDto getLitigationById(long id) {
+        return litigationMapper.toLitigationDto(litigationService.getLitigationById(id));
     }
 
     @Override
@@ -39,10 +39,10 @@ public class LitigationController implements LitigationApi{
     }
 
     @Override
-    public ResponseEntity<PagedModel<LitigationDto>> getLitigations(Pageable pageable, PagedResourcesAssembler assembler, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<LitigationDto>> getAllLitigation(Pageable pageable, PagedResourcesAssembler assembler, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.getLitigations(pageable).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.getLitigations(pageable).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+                LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.getAllLitigation(pageable).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.getAllLitigation(pageable).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
     }
 
     @Override
@@ -57,6 +57,13 @@ public class LitigationController implements LitigationApi{
     public ResponseEntity<PagedModel<LitigationDto>> findLitigationByBranchId(Pageable pageable, Long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.findLitigationByBranchId(pageable,branchId, token).getTotalPages(), pageable.getPageSize()));
         return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.findLitigationByBranchId(pageable,branchId, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
+
+
+    }
+    @Override
+    public ResponseEntity<PagedModel<LitigationDto>> findAllByBranchIdIsNotContaining(Pageable pageable, long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+        eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(LitigationDto.class, uriBuilder, response, pageable.getPageNumber(), litigationService.findAllByBranchIdIsNotContaining(pageable,branchId, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<LitigationDto>>(assembler.toModel(litigationService.findAllByBranchIdIsNotContaining(pageable,branchId, token).map(litigationMapper::toLitigationDto)), HttpStatus.OK);
 
 
     }

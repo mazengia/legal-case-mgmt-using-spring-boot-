@@ -23,7 +23,7 @@ public interface LitigationApi {
 //    ,
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    LitigationDto getLitigation(@PathVariable("id") long id);
+    LitigationDto getLitigationById(@PathVariable("id") long id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -31,12 +31,12 @@ public interface LitigationApi {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<LitigationDto>> getLitigations(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<LitigationDto>> getAllLitigation(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                        @Valid Pageable pageable,
-                                                       PagedResourcesAssembler assembler,
-                                                       UriComponentsBuilder uriBuilder,
-                                                       final HttpServletResponse response);
+                                                               PagedResourcesAssembler assembler,
+                                                               UriComponentsBuilder uriBuilder,
+                                                               final HttpServletResponse response);
 
     @GetMapping("/case-stage/{caseStage}")
     ResponseEntity<PagedModel<LitigationDto>> getLitigationByCaseStage(@Parameter(
@@ -58,6 +58,11 @@ public interface LitigationApi {
                                                                        JwtAuthenticationToken token,
                                                                        UriComponentsBuilder uriBuilder,
                                                                        HttpServletResponse response);
+    @GetMapping("/from-branch/{branchId}")
+    ResponseEntity<PagedModel<LitigationDto>> findAllByBranchIdIsNotContaining(@Parameter(
+            description = "pagination object",
+            schema = @Schema(implementation = Pageable.class)) @Valid Pageable pageable,
+                                                                               @PathVariable("branchId") long branchId, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response);
 
     @GetMapping("/attorney/{attorney}")
     ResponseEntity<PagedModel<LitigationDto>> findLitigationByAttorneyHandlingTheCase(@Parameter(

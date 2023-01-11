@@ -68,18 +68,18 @@ public class LitigationServiceImpl implements LitigationService {
     }
 
     @Override
-    public Litigation getLitigation(long id) {
+    public Litigation getLitigationById(long id) {
         return litigationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(Litigation.class, "Litigation with an Id " + id + "was not found!"));
     }
 
     @Override
-    public Page<Litigation> getLitigations(Pageable pageable) {
+    public Page<Litigation> getAllLitigation(Pageable pageable) {
         return litigationRepository.findAllByOrderByCreatedAtDesc(pageable);
     }
 
     @Override
     public Litigation updateLitigation(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException {
-        var l = getLitigation(id);
+        var l = getLitigationById(id);
         BeanUtils.copyProperties(litigation, l, getNullPropertyNames(litigation));
 
 
@@ -141,6 +141,11 @@ public class LitigationServiceImpl implements LitigationService {
     @Override
     public Page<Litigation> findLitigationByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
         return litigationRepository.findLitigationByBranchIdOrderByCreatedAtDesc(pageable, branchId);
+
+    }
+    @Override
+    public Page<Litigation> findAllByBranchIdIsNotContaining(Pageable pageable, long branchId, JwtAuthenticationToken token) {
+        return litigationRepository.findAllByBranchIdOrderByCreatedAtDesc(pageable, branchId);
 
     }
 

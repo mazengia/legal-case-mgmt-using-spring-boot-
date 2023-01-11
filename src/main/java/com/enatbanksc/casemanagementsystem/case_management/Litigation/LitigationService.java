@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 public interface LitigationService {
 //    ,Litigation litigation
     Litigation createLitigation(Litigation litigation , JwtAuthenticationToken token) throws IllegalAccessException;
-    Litigation getLitigation(long id);
-    Page<Litigation> getLitigations(Pageable pageable);
+    Litigation getLitigationById(long id);
+    Page<Litigation> getAllLitigation(Pageable pageable);
     Litigation updateLitigation(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException;
 
      void deleteLitigation(long id, JwtAuthenticationToken token);
@@ -22,6 +22,8 @@ public interface LitigationService {
     Page<Litigation> findLitigationByStatus(Pageable pageable, String status, JwtAuthenticationToken token);
 
     Page<Litigation> findLitigationByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token);
+
+    Page<Litigation> findAllByBranchIdIsNotContaining(Pageable pageable, long branchId, JwtAuthenticationToken token);
 
     Page<Litigation> findLitigationByFilter(Pageable pageable, String filterValue , JwtAuthenticationToken token);
 

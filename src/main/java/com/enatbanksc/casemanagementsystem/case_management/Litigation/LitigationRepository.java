@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
 public interface LitigationRepository extends PagingAndSortingRepository<Litigation, Long>, JpaSpecificationExecutor<Litigation> {
     Page<Litigation> findLitigationByCaseStageOrderByCreatedAtDesc(Pageable pageable, CaseStage caseStage);
     Page<Litigation> findLitigationByBranchIdOrderByCreatedAtDesc(Pageable pageable, Long branchId);
+    Page<Litigation> findAllByBranchIdIsNotContainingOrderByCreatedAtDesc(Pageable pageable, long branchId);
+    @Query(value = "select * from litigations s where  s.id  !=:branchId" , nativeQuery = true)
+    Page<Litigation> findAllByBranchIdOrderByCreatedAtDesc(Pageable pageable, @Param("branchId") Long branchId);
     Page<Litigation> findLitigationByAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
     Page<Litigation> findLitigationByStatusOrderByCreatedAtDesc(Pageable pageable, String Status);
 

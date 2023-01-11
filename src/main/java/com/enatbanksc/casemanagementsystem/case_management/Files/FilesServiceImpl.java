@@ -74,11 +74,11 @@ public class FilesServiceImpl implements FilesService {
                 }
             }
             if (Objects.equals(fileCategory, "litigation")) {
-                if (litigationService.getLitigation(id) == null || file.isEmpty()) {
+                if (litigationService.getLitigationById(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for litigation ");
                 } else {
                     files.setFileName(file.getOriginalFilename());
-                    files.setLitigation(litigationService.getLitigation(id));
+                    files.setLitigation(litigationService.getLitigationById(id));
                     filesRepository.save(files);
                     try {
                         return storageService.save(file);

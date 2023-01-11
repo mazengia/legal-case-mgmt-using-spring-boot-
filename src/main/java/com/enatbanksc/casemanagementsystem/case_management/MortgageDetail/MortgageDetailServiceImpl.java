@@ -98,5 +98,10 @@ public class MortgageDetailServiceImpl implements MortgageDetailService {
         return mortgageDetailRepository.findMortgageDetailByBranchIdOrderByCreatedAtDesc(pageable, branchId);
 
     }
+    @Override
+    public Page<MortgageDetail> findAllByBranchIdIsNotContaining(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
+        return mortgageDetailRepository.findAllByBranchIdOrderByCreatedAtDesc(pageable, branchId);
+
+    }
 
 }

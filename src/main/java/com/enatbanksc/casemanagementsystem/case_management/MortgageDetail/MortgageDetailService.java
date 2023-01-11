@@ -22,4 +22,6 @@ public interface MortgageDetailService {
     Page<MortgageDetail> findMortgageByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);
 
     Page<MortgageDetail> findMortgageDetailByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token);
+
+    Page<MortgageDetail> findAllByBranchIdIsNotContaining(Pageable pageable, Long branchId, JwtAuthenticationToken token);
 }

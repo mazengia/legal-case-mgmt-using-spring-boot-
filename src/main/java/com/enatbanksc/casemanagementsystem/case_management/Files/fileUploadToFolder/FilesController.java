@@ -26,7 +26,7 @@ public class FilesController {
     @PostMapping("/{litigationId}")
     @ResponseBody
     public Object uploadFile(@PathVariable("litigationId") long litigationId, @RequestParam("file") MultipartFile file) {
-        var litigation = litigationService.getLitigation(litigationId);
+        var litigation = litigationService.getLitigationById(litigationId);
         String message = "";
         try {
             message = file.getOriginalFilename();
