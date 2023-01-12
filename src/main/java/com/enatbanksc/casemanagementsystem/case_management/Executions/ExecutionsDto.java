@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 public class ExecutionsDto extends Auditable {
     private Long executionsId;
     private String fileNumber;
