@@ -151,26 +151,26 @@ public class LitigationServiceImpl implements LitigationService {
 
     @Override
     public Page<Litigation> findLitigationByFilter(Pageable pageable, String filterValue, JwtAuthenticationToken token) {
-        return litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable, filterValue);
+        return litigationRepository.findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable, filterValue);
 
     }
 
     @Override
     public Page<Litigation> findLitigationByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token) {
-        return litigationRepository.findAllByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatusOrderByCreatedAtDesc(pageable, filterValue, status);
+        return litigationRepository.findAllByCaseTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatusOrderByCreatedAtDesc(pageable, filterValue, status);
 //    return  null;
     }
 
     @Override
     public Page<Litigation> findLitigationByFilterByattorney(Pageable pageable, String filterValue, String attorney, JwtAuthenticationToken token) {
-        return litigationRepository.findAllByLitigationTypeOrCourtAdjudicatingOrStatusAndAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable, filterValue, attorney);
+        return litigationRepository.findAllByCaseTypeOrCourtAdjudicatingOrStatusAndAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable, filterValue, attorney);
 //return  null;
     }
 
     @Override
     public Page<Litigation> findLitigationByFilterByBranch(Pageable pageable, String filterValue, Long branchId, JwtAuthenticationToken token) {
 
-        return litigationRepository.findByLitigationTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndBranchIdOrderByCreatedAtDesc(pageable, filterValue, branchId);
+        return litigationRepository.findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndBranchIdOrderByCreatedAtDesc(pageable, filterValue, branchId);
 //   return null;
     }
 
