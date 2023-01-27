@@ -13,7 +13,7 @@ public interface ExecutionsService {
     Page<Executions> getExecutions(Pageable pageable);
     Executions updateExecutions(long id, Executions executions, JwtAuthenticationToken token) throws IllegalAccessException;
 
-     void deleteLitigation(long id, JwtAuthenticationToken token);
+     void deleteExecutions(long id);
     Page<Executions> getExecutionsByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token);
 
     Page<Executions> findExecutionsByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);

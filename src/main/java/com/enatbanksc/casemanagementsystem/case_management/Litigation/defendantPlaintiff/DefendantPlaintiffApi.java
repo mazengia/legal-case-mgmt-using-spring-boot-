@@ -24,6 +24,9 @@ public interface DefendantPlaintiffApi {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     DefendantPlaintiffDto getDefendantPlaintiffById(@PathVariable("id") long id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteDefendantPlaintiffById(@PathVariable("id") long id);
     @GetMapping("/litigation/{id}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<PagedModel<DefendantPlaintiffDto>> getDefendantPlaintiffByLitigationId(@Parameter(description = "pagination object",

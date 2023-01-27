@@ -15,8 +15,8 @@ import org.hibernate.annotations.Where;
 @Entity
 @Table(name = "expenseDetail")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE expenseDetail SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE expense_detail SET deleted = 'true' WHERE expense_detail_id=? and version=?")
 public class ExpenseDetail extends Auditable {
 
     @Id

@@ -57,16 +57,16 @@ public class DefendantPlaintiffServiceImpl implements DefendantPlaintiffService 
     public Page<DefendantPlaintiff> getDefendantPlaintiffByLitigationId(Pageable pageable,
                                                                         long litigationId,
                                                                         JwtAuthenticationToken token) {
-        return defendantPlaintiffRepository.findAllByLitigationLitigationIdOrderByCreatedAtDesc(litigationId, pageable);
+        return defendantPlaintiffRepository.findAllByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(litigationId, pageable);
     }
 
     @Override
     public Page<DefendantPlaintiff> getAllDefendantPlaintiff(Pageable pageable, JwtAuthenticationToken token) {
-        return defendantPlaintiffRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return defendantPlaintiffRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
-    public void deleteAdvocate(long id) {
+    public void deleteDefendantPlaintiffById(long id) {
         defendantPlaintiffRepository.deleteById(id);
     }
 

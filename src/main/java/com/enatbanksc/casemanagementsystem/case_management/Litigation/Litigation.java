@@ -16,8 +16,9 @@ import java.util.List;
 @Entity
 @Table(name = "litigations")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE litigations SET deleted = 1 WHERE id=? and version=?")
+
+@SQLDelete(sql = "UPDATE litigations SET deleted = 'true'  WHERE litigation_id=? and version=?")
+@Where(clause = "deleted=false")
 public class Litigation extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

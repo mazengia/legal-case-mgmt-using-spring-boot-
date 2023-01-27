@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "adjournments")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE adjournments SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE adjournments SET deleted = 'true' WHERE adjournment_id=? and version=?")
 public class Adjournment extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

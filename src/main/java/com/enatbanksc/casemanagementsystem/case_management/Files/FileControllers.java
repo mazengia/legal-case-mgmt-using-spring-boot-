@@ -37,16 +37,18 @@ public class FileControllers implements FilesApi {
         return filesMapper.toFilesDto(filesService.createFiles(litigationId, fileCategory, file, token));
     }
 
-    @Override
-    public void deleteByFileId(long id) {
-        filesService.deleteFilesById(id);
-    }
 
 
      @Override
-     public FilesDto getFilesById(long id) {
-         return filesMapper.toFilesDto(filesService.getFilesById(id));
+     public void getFilesById(long id) {
+         filesService.getFilesById(id);
      }
+
+    @Override
+    public void deleteFilesById(long id) {
+        filesService.deleteFilesById(id);
+    }
+
     @Override
     public ResponseEntity<PagedModel<FilesDto>> findAllByFileCategory(Pageable pageable,
                                                                       String fileCategory,

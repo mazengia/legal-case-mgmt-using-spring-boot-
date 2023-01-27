@@ -10,19 +10,21 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface FilesRepository extends PagingAndSortingRepository<Files, Long>, JpaSpecificationExecutor<Files> {
-    Page<Files> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<Files> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 
     boolean existsAttachedFilesByFileName(String fileName);
 
-    Page<Files> findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable, long id);
+    Page<Files> findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, long id);
 
-    Page<Files> findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(Pageable pageable, long id);
+    Page<Files> findAllByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, long id);
 
-    Page<Files> findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(Pageable pageable, long id);
+    Page<Files> findAllByAppealAppealIdAndAppealAppealIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, long id);
 
-    Page<Files> findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable, long id);
+    Page<Files> findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, long id);
+
     void deleteByFileId(long id);
-          Files getByFileId(long id) ;
+
+    Files getByFileIdAndDeletedIsFalse(long id);
 
     void deleteByFileName(String fileName);
 }

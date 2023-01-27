@@ -39,6 +39,11 @@ public class MortgageDetailController implements MortgageDetailApi {
     }
 
     @Override
+    public void deleteMortgageDetailById(long mortgageDetailId) {
+        mortgageDetailService.deleteMortgageDetailById(mortgageDetailId);
+    }
+
+    @Override
     public MortgageDetailDto updateMortgageDetail(long mortgageDetailId, MortgageDetailDto mortgageDetailDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return mortgageDetailMapper.toMortgageDetailDto(mortgageDetailService.updateMortgageDetail(mortgageDetailId, mortgageDetailMapper.toMortgageDetail(mortgageDetailDto), token));
     }

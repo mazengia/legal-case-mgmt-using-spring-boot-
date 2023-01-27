@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface InterveneRepository extends PagingAndSortingRepository<Intervene, Long>, JpaSpecificationExecutor<Intervene> {
-    Page<Intervene> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<Intervene> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 }

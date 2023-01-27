@@ -13,8 +13,8 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "intervenes")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE intervenes SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE intervenes SET deleted = 'true' WHERE intervene_id=? and version=?")
 public class Intervene extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

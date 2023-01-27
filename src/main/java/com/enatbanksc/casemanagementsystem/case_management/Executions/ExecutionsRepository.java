@@ -26,8 +26,8 @@ public interface ExecutionsRepository extends PagingAndSortingRepository<Executi
 //    @Query(value = "select * from executions s where (s.litigation_type like %:value% or s.court_adjudicating like %:value%   or s.attorney_handling_the_case like %:value% ) and  s.status  =:status" , nativeQuery = true)
 //    Page<Executions> findAllByLitigationTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, @Param("value") String value, @Param("status") String status);
 
-    Page<Executions> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    Page<Executions> findExecutionsByAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<Executions> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<Executions> findExecutionsByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String attorney);
 
 
 }

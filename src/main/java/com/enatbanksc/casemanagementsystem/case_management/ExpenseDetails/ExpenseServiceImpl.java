@@ -23,15 +23,15 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Page<ExpenseDetail> getExpensesDetailByForeclosure(Pageable pageable, JwtAuthenticationToken token) {
-        return expenseDetailRepository.findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(pageable);
+        return expenseDetailRepository.findAllByMortgageDetailMortgageDetailIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
     @Override
     public Page<ExpenseDetail> getExpensesDetailByExecution(Pageable pageable, JwtAuthenticationToken token) {
-        return expenseDetailRepository.findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable);
+        return expenseDetailRepository.findAllByExecutionsExecutionsIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
     @Override
     public Page<ExpenseDetail> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token) {
-        return expenseDetailRepository.findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable);
+        return expenseDetailRepository.findAllByLitigationLitigationIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
@@ -42,31 +42,31 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public void deleteExpenseDetail(long expenseId, JwtAuthenticationToken token) {
+    public void deleteExpenseDetail(long expenseId) {
         expenseDetailRepository.deleteById(expenseId);
     }
     @Override
     public Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  expenseDetailRepository.findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(pageable,id);
+        return  expenseDetailRepository.findExpenseDetailByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
     }
 
     @Override
     public Page<ExpenseDetail> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  expenseDetailRepository.findExpenseDetailByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable,id);
+        return  expenseDetailRepository.findExpenseDetailByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
     }
 
 
     @Override
     public Page<ExpenseDetail> findExpenseDetailByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  expenseDetailRepository.findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(pageable,id);
+        return  expenseDetailRepository.findExpenseDetailByExecutionsExecutionsIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
     }
     @Override
     public Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-        return  expenseDetailRepository.findAllByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+        return  expenseDetailRepository.findAllByExecutionsAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(pageable,attorney);
     }
     @Override
     public Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-        return  expenseDetailRepository.findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+        return  expenseDetailRepository.findAllByLitigationAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(pageable,attorney);
     }
 
 //    @Override

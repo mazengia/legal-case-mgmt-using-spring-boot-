@@ -25,6 +25,10 @@ public interface JudgmentCreditorGetterApi {
     @ResponseStatus(HttpStatus.OK)
     JudgmentCreditorGetterDto getJudgmentCreditorGetterById(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteJudgmentCreditorGetterById(@PathVariable("id") long id);
+
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<PagedModel<JudgmentCreditorGetterDto>> getJudgmentCreditorGetter(@Parameter(description = "pagination object",

@@ -34,6 +34,11 @@ public class ExecutionsController implements ExecutionsApi {
     }
 
     @Override
+    public void deleteExecutionsById(long id) {
+        executionsService.deleteExecutions(id);
+    }
+
+    @Override
     public ExecutionsDto updateExecutions(long id, ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return executionsMapper.toExecutionsDto(executionsService.updateExecutions(id, executionsMapper.toExecutions(executionsDto), token));
     }

@@ -11,14 +11,14 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource
 public interface ExpenseDetailRepository  extends PagingAndSortingRepository<ExpenseDetail, Long>, JpaSpecificationExecutor<ExpenseDetail> {
 
-    Page<ExpenseDetail> findExpenseDetailByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, Long id);
-    Page<ExpenseDetail> findExpenseDetailByExecutionsExecutionsIdOrderByCreatedAtDesc(Pageable pageable, Long id);
-    Page<ExpenseDetail> findExpenseDetailByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<ExpenseDetail> findExpenseDetailByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<ExpenseDetail> findExpenseDetailByExecutionsExecutionsIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<ExpenseDetail> findExpenseDetailByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, Long id);
 
-    Page<ExpenseDetail> findAllByMortgageDetailMortgageDetailIdNotNullOrderByCreatedAtDesc(Pageable pageable);
-    Page<ExpenseDetail> findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable);
-   Page<ExpenseDetail> findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable);
-    Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
-    Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<ExpenseDetail> findAllByMortgageDetailMortgageDetailIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findAllByLitigationLitigationIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+   Page<ExpenseDetail> findAllByExecutionsExecutionsIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<ExpenseDetail> findAllByExecutionsAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<ExpenseDetail> findAllByLitigationAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String attorney);
 
 }

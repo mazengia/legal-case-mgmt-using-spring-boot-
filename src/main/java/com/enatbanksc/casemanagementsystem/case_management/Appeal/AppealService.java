@@ -17,7 +17,7 @@ public interface AppealService {
 
     Page<Appeal> getAllAppeal(Pageable pageable, JwtAuthenticationToken token);
     Appeal updateAppeal(long id, Appeal appeal, JwtAuthenticationToken token) throws IllegalAccessException;
-    void deleteAppeal(long id, JwtAuthenticationToken token);
+    void deleteAppealById(long id);
 
 }
 

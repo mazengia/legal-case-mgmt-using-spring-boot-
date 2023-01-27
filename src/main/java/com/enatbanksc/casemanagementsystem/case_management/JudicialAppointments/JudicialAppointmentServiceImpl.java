@@ -39,12 +39,12 @@ public class JudicialAppointmentServiceImpl implements JudicialAppointmentServic
 
     @Override
     public Page<JudicialAppointment> getJudicialAppointments(Pageable pageable, JwtAuthenticationToken token) {
-        return judicialAppointmentRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return judicialAppointmentRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
     public Page<JudicialAppointment> getJudiciaryReportByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  judicialAppointmentRepository.findJudicialAppointmentByLitigationLitigationIdOrderByCreatedAtDesc(pageable,id);
+        return  judicialAppointmentRepository.findJudicialAppointmentByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class JudicialAppointmentServiceImpl implements JudicialAppointmentServic
     }
 
     @Override
-    public void deleteJudicialAppointment(long id, JwtAuthenticationToken token) {
+    public void deleteJudicialAppointment(long id) {
         judicialAppointmentRepository.deleteById(id);
     }
 
@@ -77,23 +77,23 @@ public class JudicialAppointmentServiceImpl implements JudicialAppointmentServic
 
     @Override
     public Page<JudicialAppointment> getAppointmentByExecutionId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsExecutionsIdOrderByCreatedAtDesc(pageable,id);
+        return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsExecutionsIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
     }
     @Override
     public Page<JudicialAppointment> getAppointmentByExecutionsAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-        return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+        return  judicialAppointmentRepository.findJudicialAppointmentByExecutionsAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(pageable,attorney);
     }
     @Override
     public Page<JudicialAppointment> getAppointmentByLitigationAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-        return  judicialAppointmentRepository.findJudicialAppointmentByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+        return  judicialAppointmentRepository.findJudicialAppointmentByLitigationAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(pageable,attorney);
     }
 
     @Override
     public Page<JudicialAppointment> getAppointmentByExecution(Pageable pageable, JwtAuthenticationToken token) {
-        return judicialAppointmentRepository.findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable);
+        return judicialAppointmentRepository.findAllByExecutionsExecutionsIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
     @Override
     public Page<JudicialAppointment> getAppointmentByLitigation(Pageable pageable, JwtAuthenticationToken token) {
-        return judicialAppointmentRepository.findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable);
+        return judicialAppointmentRepository.findAllByLitigationLitigationIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 }

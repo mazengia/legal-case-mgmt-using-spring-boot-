@@ -1,7 +1,5 @@
 package com.enatbanksc.casemanagementsystem.case_management.Files;
 
-import com.enatbanksc.casemanagementsystem.case_management.Executions.ExecutionsDto;
-import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +22,11 @@ public interface FilesApi {
 
      @GetMapping("/{id}")
      @ResponseStatus(HttpStatus.OK)
-     FilesDto getFilesById(@PathVariable("id") long id);
+     void getFilesById(@PathVariable("id") long id);
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteFilesById(@PathVariable("id") long id);
 
     @GetMapping("/{category}/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -41,9 +43,6 @@ public interface FilesApi {
     @ResponseStatus(HttpStatus.OK)
     FilesDto updateFile(@PathVariable("id") long expenseId, @RequestParam("file") MultipartFile file, @RequestBody @Valid FilesDto filesDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    void deleteByFileId(@PathVariable("id") long id) throws EntityNotFoundException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)

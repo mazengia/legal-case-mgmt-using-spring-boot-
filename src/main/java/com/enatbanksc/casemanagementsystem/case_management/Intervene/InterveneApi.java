@@ -28,6 +28,10 @@ public interface InterveneApi {
     @ResponseStatus(HttpStatus.OK)
     InterveneDto getIntervene(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteIntervene(@PathVariable("id") long id);
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     InterveneDto updateIntervene(@PathVariable("id") long id, @RequestBody @Valid InterveneDto interveneDto

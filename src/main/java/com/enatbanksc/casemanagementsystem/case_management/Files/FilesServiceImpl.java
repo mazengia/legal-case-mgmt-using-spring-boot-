@@ -108,45 +108,45 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-    public Files getFilesById(long id) {
-        return filesRepository.getByFileId(id);
+    public void getFilesById(long id) {
+          filesRepository.deleteByFileId(id);
     }
 
     @Override
     public Page<Files> findAllExecutionFilesByExecutionId(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token) {
         Page<Files> returnValue = null;
         if (Objects.equals(fileCategory, "appeal")) {
-            return filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullOrderByCreatedAtDesc(pageable, id);
+            return filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable, id);
         }
         if (Objects.equals(fileCategory, "foreclosure")) {
-            return filesRepository.findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable, id);
+            return filesRepository.findAllByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable, id);
         }
         if (Objects.equals(fileCategory, "litigation")) {
 
-            return filesRepository.findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullOrderByCreatedAtDesc(pageable, id);
+            return filesRepository.findAllByLitigationLitigationIdAndLitigationLitigationIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable, id);
         }
         if (Objects.equals(fileCategory, "executions")) {
 
-            return filesRepository.findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(pageable, id);
+            return filesRepository.findAllByExecutionsExecutionsIdAndExecutionsExecutionsIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable, id);
         }
         return returnValue;
     }
 
     @Override
     public Page<Files> getAllFiles(Pageable pageable, JwtAuthenticationToken token) {
-        return filesRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return filesRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
     public Files updateFiles(long id, Files files, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException {
-        var et = getFilesById(id);
-        var employeeId = getEmployeeID(token);
-        if (!et.getMaintained_by().getEmployeeId().equals(employeeId)) {
-            throw new IllegalAccessException("You are not allowed to update this object.");
-        }
-        BeanUtils.copyProperties(file, et, getNullPropertyNames(file));
-        return filesRepository.save(et);
-//        return null;
+//        var et = getFilesById(id);
+//        var employeeId = getEmployeeID(token);
+//        if (!et.getMaintained_by().getEmployeeId().equals(employeeId)) {
+//            throw new IllegalAccessException("You are not allowed to update this object.");
+//        }
+//        BeanUtils.copyProperties(file, et, getNullPropertyNames(file));
+//        return filesRepository.save(et);
+        return null;
     }
 
     @Override
@@ -160,7 +160,7 @@ public class FilesServiceImpl implements FilesService {
         System.out.println("id");
         System.out.println(id);
         System.out.println("id");
-        filesRepository.deleteByFileId(id);
+        filesRepository.deleteById(id);
 //        Files files = getFilesById(id);
 //        String fileName = files.getFileName();
 //        try {

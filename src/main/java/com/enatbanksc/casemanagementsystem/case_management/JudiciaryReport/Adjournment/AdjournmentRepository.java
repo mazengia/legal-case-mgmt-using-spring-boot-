@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface AdjournmentRepository extends PagingAndSortingRepository<Adjournment, Long>, JpaSpecificationExecutor<Adjournment> {
-    Page<Adjournment> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<Adjournment> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 }

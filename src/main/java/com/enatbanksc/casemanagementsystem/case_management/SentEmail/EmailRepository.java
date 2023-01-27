@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface EmailRepository extends PagingAndSortingRepository<EmailDetails, Long>, JpaSpecificationExecutor<EmailDetails> {
-    Page<EmailDetails> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<EmailDetails> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 }

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface JudiciaryReportRepository extends PagingAndSortingRepository<JudiciaryReport, Long>, JpaSpecificationExecutor<JudiciaryReport> {
-    Page<JudiciaryReport> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<JudiciaryReport> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 }

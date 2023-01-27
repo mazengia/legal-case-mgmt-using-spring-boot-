@@ -32,7 +32,10 @@ public class JudicialAppointmentController implements JudicialAppointmentApi{
         return judicialAppointmentMapper.toJudicialAppointmentDto(judicialAppointmentService.getJudicialAppointment(id));
     }
 
-
+    @Override
+    public void deleteJudiciaryAppointmentById(long id) {
+        judicialAppointmentService.deleteJudicialAppointment(id);
+    }
 
 
     @Override

@@ -28,6 +28,10 @@ public interface ExpenseApi {
     @ResponseStatus(HttpStatus.OK)
     ExpenseDto getExpenseDetail(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteExpenseDetail(@PathVariable("id") long id);
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     ExpenseDto updateExpenseDetail(@PathVariable("id") long id, @RequestBody @Valid ExpenseDto expenseDto, JwtAuthenticationToken token) throws IllegalAccessException;

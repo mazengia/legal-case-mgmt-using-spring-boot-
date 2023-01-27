@@ -17,23 +17,26 @@ import javax.validation.Valid;
 public interface MachineApi {
     @PostMapping("/{mortgageId}")
     @ResponseStatus(HttpStatus.CREATED)
-    MachineDto createCaseType(@PathVariable("mortgageId") long mortgageId,@RequestBody @Valid MachineDto machineDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    MachineDto createMachine(@PathVariable("mortgageId") long mortgageId, @RequestBody @Valid MachineDto machineDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping("/{caseTypeId}")
     @ResponseStatus(HttpStatus.OK)
-    MachineDto getCaseType(@PathVariable("caseTypeId") long caseTypeId);
+    MachineDto getMachineById(@PathVariable("caseTypeId") long caseTypeId);
+    @DeleteMapping("/{caseTypeId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteMachine(@PathVariable("caseTypeId") long caseTypeId);
 
     @PutMapping("/{caseTypeId}")
     @ResponseStatus(HttpStatus.OK)
-    MachineDto updateCaseType(@PathVariable("caseTypeId") long caseTypeId, @RequestBody @Valid MachineDto machineDto, JwtAuthenticationToken token) throws IllegalAccessException;
+    MachineDto updateMachine(@PathVariable("caseTypeId") long caseTypeId, @RequestBody @Valid MachineDto machineDto, JwtAuthenticationToken token) throws IllegalAccessException;
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<MachineDto>> getCaseTypes(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<MachineDto>> getMachine(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                        @Valid Pageable pageable,
-                                                        PagedResourcesAssembler assembler,
-                                                        JwtAuthenticationToken token,
-                                                        UriComponentsBuilder uriBuilder,
-                                                        final HttpServletResponse response);
+                                                      PagedResourcesAssembler assembler,
+                                                      JwtAuthenticationToken token,
+                                                      UriComponentsBuilder uriBuilder,
+                                                      final HttpServletResponse response);
 }

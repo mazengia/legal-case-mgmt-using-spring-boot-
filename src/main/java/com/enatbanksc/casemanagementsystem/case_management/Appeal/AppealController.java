@@ -32,6 +32,12 @@ public class AppealController implements AppealApi {
     public AppealDto getAppealById(long id) {
         return appealMapper.toAppealDto(appealService.getAppealById(id));
     }
+
+    @Override
+    public void deleteAppealById(long id) {
+        appealService.deleteAppealById(id);
+    }
+
     @Override
     public ResponseEntity<PagedModel<AppealDto>> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable,String attorneyHandlingTheCase, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(

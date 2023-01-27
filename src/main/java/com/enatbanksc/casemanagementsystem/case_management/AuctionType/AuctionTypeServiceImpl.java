@@ -41,11 +41,11 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
 
     @Override
     public Page<AuctionType> getAuctionTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return auctionTypeRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return auctionTypeRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
     @Override
     public Page<AuctionType> getAuctionTypesByMortgageDetail(Pageable pageable,long id, JwtAuthenticationToken token) {
-        return auctionTypeRepository.findAllByMortgageDetailMortgageDetailIdOrderByCreatedAtDesc(pageable,id);
+        return auctionTypeRepository.findAllByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
     }
 
     @Override
@@ -55,8 +55,10 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
         return auctionTypeRepository.save(at);
     }
 
+
+
     @Override
-    public void deleteExpense(long id, JwtAuthenticationToken token) {
+    public void deleteExpenseById(long id) {
         auctionTypeRepository.deleteById(id);
     }
 

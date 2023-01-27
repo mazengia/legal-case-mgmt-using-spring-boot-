@@ -23,6 +23,10 @@ public interface AuctionTypeApi {
     @ResponseStatus(HttpStatus.OK)
     AuctionTypeDto getAuctionType(@PathVariable("auctionTypeId") long auctionTypeId);
 
+    @DeleteMapping("/{auctionTypeId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteAuctionType(@PathVariable("auctionTypeId") long auctionTypeId);
+
     @PutMapping("/{auctionTypeId}")
     @ResponseStatus(HttpStatus.OK)
     AuctionTypeDto updateAuctionType(@PathVariable("auctionTypeId") long auctionTypeId, @RequestBody @Valid AuctionTypeDto auctionTypeDto, JwtAuthenticationToken token) throws IllegalAccessException;

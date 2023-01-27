@@ -25,6 +25,7 @@ public interface MailNotificationTypeApi {
     @ResponseStatus(HttpStatus.OK)
     MailNotificationTypeDto getMailNotificationType(@PathVariable("mailNotificationTypeId") long mailNotificationTypeId);
 
+
     @PutMapping("/{mailNotificationTypeId}")
     @ResponseStatus(HttpStatus.OK)
     MailNotificationTypeDto putMailNotificationType(@PathVariable("mailNotificationTypeId") long mailNotificationTypeId, @RequestBody @Valid MailNotificationTypeDto mailNotificationTypeDto, JwtAuthenticationToken token) throws IllegalAccessException;

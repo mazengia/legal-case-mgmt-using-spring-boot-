@@ -3,12 +3,16 @@ package com.enatbanksc.casemanagementsystem.case_management.MailNotificationType
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "mail_notification_types")
 @Data
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE mail_notification_types SET deleted = 'true' WHERE mail_notification_type_id=? and version=?")
 public class MailNotificationType extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

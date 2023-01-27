@@ -25,6 +25,10 @@ public interface LitigationApi {
     @ResponseStatus(HttpStatus.OK)
     LitigationDto getLitigationById(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteLitigationById(@PathVariable("id") long id);
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     LitigationDto updateLitigation(@PathVariable("id") long id, @RequestBody @Valid LitigationDto litigationDto, JwtAuthenticationToken token) throws IllegalAccessException;
@@ -33,8 +37,9 @@ public interface LitigationApi {
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<PagedModel<LitigationDto>> getAllLitigation(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
-                                                       @Valid Pageable pageable,
+                                                         @Valid Pageable pageable,
                                                                PagedResourcesAssembler assembler,
+                                                               JwtAuthenticationToken token,
                                                                UriComponentsBuilder uriBuilder,
                                                                final HttpServletResponse response);
 

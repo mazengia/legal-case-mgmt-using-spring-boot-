@@ -42,6 +42,11 @@ public class AdjournmentController implements AdjournmentApi {
     }
 
     @Override
+    public void deleteAdjournment(long id) {
+        adjournmentService.deleteAdjournment(id);
+    }
+
+    @Override
     public AdjournmentDto updateAdjournment(long id,
                                             AdjournmentDto adjournmentDto,
                                             JwtAuthenticationToken token

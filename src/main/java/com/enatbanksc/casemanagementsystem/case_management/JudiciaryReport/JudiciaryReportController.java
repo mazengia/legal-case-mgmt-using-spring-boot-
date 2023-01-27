@@ -33,6 +33,11 @@ public class JudiciaryReportController implements JudiciaryReportApi{
     }
 
     @Override
+    public void deleteJudiciaryReport(long id) {
+        judiciaryReportService.deleteJudiciaryReport(id);
+    }
+
+    @Override
     public JudiciaryReportDto updateJudiciaryReportDto(long id, JudiciaryReportDto judiciaryReportDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return judiciaryReportMapper.toJudiciaryReportDto(judiciaryReportService.updateJudiciaryReport(id, judiciaryReportMapper.toJudiciaryReport(judiciaryReportDto), token));
     }

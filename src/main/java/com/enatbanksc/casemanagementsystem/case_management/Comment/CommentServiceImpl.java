@@ -39,10 +39,10 @@ public class CommentServiceImpl implements CommentService{
     }
     @Override
     public Page<Comment> getCommentByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token) {
-        return  commentRepository.findCommentByLitigation_LitigationId(pageable,id);
+        return  commentRepository.findCommentByLitigation_LitigationIdAndDeletedIsFalse(pageable,id);
     }
     @Override
-    public void deleteComment(long id, JwtAuthenticationToken token) {
+    public void deleteComment(long id) {
         commentRepository.deleteById(id);
     }
 }

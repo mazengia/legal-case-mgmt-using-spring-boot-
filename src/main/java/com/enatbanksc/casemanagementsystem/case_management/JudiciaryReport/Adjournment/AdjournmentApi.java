@@ -24,6 +24,9 @@ public interface AdjournmentApi {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     AdjournmentDto getAdjournment(@PathVariable("id") long id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteAdjournment(@PathVariable("id") long id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

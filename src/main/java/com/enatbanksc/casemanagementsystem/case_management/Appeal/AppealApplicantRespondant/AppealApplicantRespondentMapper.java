@@ -6,8 +6,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AppealApplicantRespondentMapper {
-    AppealApplicantRespondent toAdvocate(AppealApplicantRespondentDto appealApplicantRespondentDto);
-    AppealApplicantRespondentDto toAdvocateDto(AppealApplicantRespondent appealApplicantRespondent);
+    AppealApplicantRespondent toAppealApplicant(AppealApplicantRespondentDto appealApplicantRespondentDto);
+    AppealApplicantRespondentDto toAppealApplicantDto(AppealApplicantRespondent appealApplicantRespondent);
 
 
     List<AppealApplicantRespondentDto> toAppealApplicantRespondentDto(List<AppealApplicantRespondent> appealApplicantRespondents);

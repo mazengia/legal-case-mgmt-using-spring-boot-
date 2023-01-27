@@ -29,7 +29,7 @@ public class CaseTypeServiceImpl implements CaseTypeService{
 
     @Override
     public Page<CaseType> getCaseTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return caseTypeRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return caseTypeRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CaseTypeServiceImpl implements CaseTypeService{
     }
 
     @Override
-    public void deleteCaseType(long id, JwtAuthenticationToken token) {
+    public void deleteCaseType(long id) {
         caseTypeRepository.deleteById(id);
     }
 }

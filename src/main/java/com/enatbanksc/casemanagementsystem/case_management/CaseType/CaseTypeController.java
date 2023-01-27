@@ -33,6 +33,11 @@ public class CaseTypeController implements CaseTypeApi{
     }
 
     @Override
+    public void deleteCaseType(long caseTypeId) {
+        caseTypeService.deleteCaseType(caseTypeId);
+    }
+
+    @Override
     public CaseTypeDto updateCaseType(long caseTypeId, CaseTypeDto caseTypeDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return caseTypeMapper.toCaseTypeDto(caseTypeService.updateCaseType(caseTypeId, caseTypeMapper.toCaseType(caseTypeDto), token));
     }

@@ -58,7 +58,7 @@ public class JudiciaryReportServiceImpl implements JudiciaryReportService{
 
     @Override
     public Page<JudiciaryReport> getJudiciaryReports(Pageable pageable, JwtAuthenticationToken token) {
-        return judiciaryReportRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return judiciaryReportRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override

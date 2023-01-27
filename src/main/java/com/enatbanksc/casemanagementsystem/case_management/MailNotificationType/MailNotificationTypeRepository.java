@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource
 public interface MailNotificationTypeRepository extends PagingAndSortingRepository<MailNotificationType, Long>, JpaSpecificationExecutor<MailNotificationType> {
     boolean existsByMailTypeName(String mailTypeName);
-    Page<MailNotificationType> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<MailNotificationType> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 }

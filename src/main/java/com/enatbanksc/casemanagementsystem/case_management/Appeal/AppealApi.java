@@ -23,6 +23,10 @@ public interface AppealApi {
     @ResponseStatus(HttpStatus.OK)
     AppealDto getAppealById(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteAppealById(@PathVariable("id") long id);
+
     @GetMapping("/attorney/{attorneyHandlingTheCase}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<PagedModel<AppealDto>> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(@Parameter(description = "pagination object", schema = @Schema(implementation = Pageable.class))

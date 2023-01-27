@@ -14,8 +14,8 @@ public interface AppealApplicantRespondentService {
     List<AppealApplicantRespondent> updateAppealApplicantRespondent(long id, List<AppealApplicantRespondent> appealApplicantRespondents, JwtAuthenticationToken token) throws IllegalAccessException;
 
     AppealApplicantRespondent getApplicantRespondentById(long id);
-    Page<AppealApplicantRespondent> getAdvocates(Pageable pageable, JwtAuthenticationToken token);
-    void deleteAdvocate(long id);
+    Page<AppealApplicantRespondent> getAppealApplicant(Pageable pageable, JwtAuthenticationToken token);
+    void deleteAppealApplicantById(long id);
 
     Page<AppealApplicantRespondent> getApplicantRespondentByAppealId(Pageable pageable,
                                                                      long id,

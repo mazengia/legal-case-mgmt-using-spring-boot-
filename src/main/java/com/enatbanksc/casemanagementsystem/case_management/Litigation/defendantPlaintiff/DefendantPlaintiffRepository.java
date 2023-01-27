@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface DefendantPlaintiffRepository extends PagingAndSortingRepository<DefendantPlaintiff, Long>, JpaSpecificationExecutor<DefendantPlaintiff> {
-    Page<DefendantPlaintiff> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    Page<DefendantPlaintiff> findAllByLitigationLitigationIdOrderByCreatedAtDesc(Long litigationId,Pageable pageable);
+    Page<DefendantPlaintiff> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<DefendantPlaintiff> findAllByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(Long litigationId, Pageable pageable);
 }

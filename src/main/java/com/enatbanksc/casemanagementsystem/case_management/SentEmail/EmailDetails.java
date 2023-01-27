@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -19,6 +21,8 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "emailDetails")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE emailDetails SET deleted = 'true' WHERE id=? and version=?")
 
 public class EmailDetails extends Auditable {
     @Id

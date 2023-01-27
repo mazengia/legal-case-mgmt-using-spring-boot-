@@ -8,14 +8,16 @@ import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Empl
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "files")
 @Data
-//@Where(clause = "deleted=0")
-//@SQLDelete(sql = "UPDATE files SET deleted = 1 WHERE fileId=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE files SET deleted = 'true' WHERE file_id=? and version=?")
 public class Files extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

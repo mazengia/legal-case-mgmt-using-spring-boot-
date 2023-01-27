@@ -23,6 +23,10 @@ public interface CaseTypeApi {
     @ResponseStatus(HttpStatus.OK)
     CaseTypeDto getCaseType(@PathVariable("caseTypeId") long caseTypeId);
 
+    @DeleteMapping("/{caseTypeId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteCaseType(@PathVariable("caseTypeId") long caseTypeId);
+
     @PutMapping("/{caseTypeId}")
     @ResponseStatus(HttpStatus.OK)
     CaseTypeDto updateCaseType(@PathVariable("caseTypeId") long caseTypeId, @RequestBody @Valid CaseTypeDto caseTypeDto, JwtAuthenticationToken token) throws IllegalAccessException;

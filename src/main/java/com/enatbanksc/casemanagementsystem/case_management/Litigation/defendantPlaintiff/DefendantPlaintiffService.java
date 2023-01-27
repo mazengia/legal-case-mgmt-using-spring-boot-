@@ -18,5 +18,5 @@ public interface DefendantPlaintiffService {
                                                                  JwtAuthenticationToken token);
 
     Page<DefendantPlaintiff> getAllDefendantPlaintiff(Pageable pageable, JwtAuthenticationToken token);
-    void deleteAdvocate(long id);
+    void deleteDefendantPlaintiffById(long id);
 }

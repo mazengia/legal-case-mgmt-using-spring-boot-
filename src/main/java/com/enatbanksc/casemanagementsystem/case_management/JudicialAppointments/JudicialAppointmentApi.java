@@ -23,6 +23,10 @@ public interface JudicialAppointmentApi {
     @ResponseStatus(HttpStatus.OK)
     JudicialAppointmentDto getJudiciaryAppointmentById(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteJudiciaryAppointmentById(@PathVariable("id") long id);
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     JudicialAppointmentDto updateJudiciaryAppointment(@PathVariable("id") long id, @RequestBody @Valid JudicialAppointmentDto judicialAppointmentDto, JwtAuthenticationToken token) throws IllegalAccessException;

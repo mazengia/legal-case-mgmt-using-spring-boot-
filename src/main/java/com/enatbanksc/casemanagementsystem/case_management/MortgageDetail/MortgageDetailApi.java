@@ -33,6 +33,10 @@ public interface MortgageDetailApi {
     @ResponseStatus(HttpStatus.OK)
     MortgageDetailDto getMortgageDetailById(@PathVariable("mortgageDetailId") long mortgageDetailId);
 
+    @DeleteMapping("/{mortgageDetailId}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteMortgageDetailById(@PathVariable("mortgageDetailId") long mortgageDetailId);
+
     @PutMapping("/{mortgageDetailId}")
     @ResponseStatus(HttpStatus.OK)
     MortgageDetailDto updateMortgageDetail(@PathVariable("mortgageDetailId") long mortgageDetailId, @RequestBody @Valid MortgageDetailDto mortgageDetailDto, JwtAuthenticationToken token) throws IllegalAccessException;

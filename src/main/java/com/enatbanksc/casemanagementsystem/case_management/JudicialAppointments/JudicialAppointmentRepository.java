@@ -10,13 +10,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface JudicialAppointmentRepository extends PagingAndSortingRepository<JudicialAppointment, Long>, JpaSpecificationExecutor<JudicialAppointment> {
-    Page<JudicialAppointment> findJudicialAppointmentByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable, Long id);
-    Page<JudicialAppointment> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    Page<JudicialAppointment> findJudicialAppointmentByExecutionsExecutionsIdOrderByCreatedAtDesc(Pageable pageable, Long id);
-    Page<JudicialAppointment> findJudicialAppointmentByExecutionsAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
-    Page<JudicialAppointment> findJudicialAppointmentByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable, String attorney);
-    Page<JudicialAppointment> findAllByLitigationLitigationIdNotNullOrderByCreatedAtDesc(Pageable pageable);
-    Page<JudicialAppointment> findAllByExecutionsExecutionsIdNotNullOrderByCreatedAtDesc(Pageable pageable);
+    Page<JudicialAppointment> findJudicialAppointmentByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<JudicialAppointment> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<JudicialAppointment> findJudicialAppointmentByExecutionsExecutionsIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, Long id);
+    Page<JudicialAppointment> findJudicialAppointmentByExecutionsAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<JudicialAppointment> findJudicialAppointmentByLitigationAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<JudicialAppointment> findAllByLitigationLitigationIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<JudicialAppointment> findAllByExecutionsExecutionsIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 
 
     //    Page<JudicialAppointment> findJudicialAppointmentByLitigationExists

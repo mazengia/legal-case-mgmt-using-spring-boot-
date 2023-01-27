@@ -12,7 +12,7 @@ public interface CommentService {
     Comment getCommentById(long id);
     Page<Comment> getComments(Pageable pageable, JwtAuthenticationToken token);
     Comment updateComment(long id, Comment comment, JwtAuthenticationToken token) throws IllegalAccessException;
-    void deleteComment(long id, JwtAuthenticationToken token);
+    void deleteComment(long id);
     Page<Comment> getCommentByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token);
 
 }

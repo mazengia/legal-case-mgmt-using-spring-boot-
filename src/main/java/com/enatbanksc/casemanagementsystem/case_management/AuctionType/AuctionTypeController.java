@@ -34,6 +34,11 @@ public class AuctionTypeController  implements AuctionTypeApi{
     }
 
     @Override
+    public void deleteAuctionType(long auctionTypeId) {
+        auctionTypeService.deleteExpenseById(auctionTypeId);
+    }
+
+    @Override
     public AuctionTypeDto updateAuctionType(long auctionTypeId, AuctionTypeDto auctionTypeDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return auctionTypeMapper.toAuctionTypeDto(auctionTypeService.updateAuctionType(auctionTypeId, auctionTypeMapper.toAuctionType(auctionTypeDto), token));
     }

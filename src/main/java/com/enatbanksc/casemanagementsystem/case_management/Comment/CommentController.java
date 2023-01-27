@@ -45,7 +45,12 @@ public class CommentController implements CommentApi{
         return commentMapper.toCommentDto(commentService.getCommentById(id));
     }
 
-        @Override
+    @Override
+    public void deleteCommentById(long id) {
+        commentService.deleteComment(id);
+    }
+
+    @Override
         public CommentDto updateComment(long id, CommentDto commentDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return commentMapper.toCommentDto(commentService.updateComment(id, commentMapper.toComment(commentDto), token));
     }

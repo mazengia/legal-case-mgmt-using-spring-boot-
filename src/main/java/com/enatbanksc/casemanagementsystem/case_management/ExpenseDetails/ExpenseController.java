@@ -51,6 +51,11 @@ public class ExpenseController implements ExpenseApi {
     }
 
     @Override
+    public void deleteExpenseDetail(long id) {
+        expenseService.deleteExpenseDetail(id);
+    }
+
+    @Override
     public ExpenseDto updateExpenseDetail(long id, ExpenseDto expenseDto, JwtAuthenticationToken token) throws IllegalAccessException {
         return expenseMapper.toExpenseDetailDto(expenseService.updateExpenseDetail(id, expenseMapper.toExpenseDetail(expenseDto), token));
     }

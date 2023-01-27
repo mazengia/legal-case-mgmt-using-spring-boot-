@@ -52,12 +52,12 @@ public class AppealApplicantRespondentServiceImpl implements AppealApplicantResp
     }
 
     @Override
-    public Page<AppealApplicantRespondent> getAdvocates(Pageable pageable, JwtAuthenticationToken token) {
-        return appealApplicantRespondentRepository.findAllByOrderByCreatedAtDesc(pageable);
+    public Page<AppealApplicantRespondent> getAppealApplicant(Pageable pageable, JwtAuthenticationToken token) {
+        return appealApplicantRespondentRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
-    public void deleteAdvocate(long id) {
+    public void deleteAppealApplicantById(long id) {
         appealApplicantRespondentRepository.deleteById(id);
     }
 
@@ -69,6 +69,6 @@ public class AppealApplicantRespondentServiceImpl implements AppealApplicantResp
     public Page<AppealApplicantRespondent> getApplicantRespondentByAppealId(Pageable pageable,
                                                                             long id,
                                                                             JwtAuthenticationToken token) {
-        return appealApplicantRespondentRepository.findAllByAppealAppealIdOrderByCreatedAtDesc(id, pageable);
+        return appealApplicantRespondentRepository.findAllByAppealAppealIdAndDeletedIsFalseOrderByCreatedAtDesc(id, pageable);
     }
 }

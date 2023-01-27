@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface MachineRepository extends PagingAndSortingRepository<MachineType, Long>, JpaSpecificationExecutor<MachineType> {
-    Page<MachineType> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<MachineType> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
 }

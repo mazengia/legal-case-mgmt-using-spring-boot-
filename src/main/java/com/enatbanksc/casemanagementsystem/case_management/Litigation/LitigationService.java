@@ -11,10 +11,10 @@ public interface LitigationService {
 //    ,Litigation litigation
     Litigation createLitigation(Litigation litigation , JwtAuthenticationToken token) throws IllegalAccessException;
     Litigation getLitigationById(long id);
-    Page<Litigation> getAllLitigation(Pageable pageable);
+    Page<Litigation> getAllLitigation(Pageable pageable, JwtAuthenticationToken token);
     Litigation updateLitigation(long id, Litigation litigation, JwtAuthenticationToken token) throws IllegalAccessException;
 
-     void deleteLitigation(long id, JwtAuthenticationToken token);
+     void deleteLitigationById(long id);
     Page<Litigation> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token);
 
     Page<Litigation> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token);

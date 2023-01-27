@@ -35,6 +35,10 @@ public interface CommentApi{
     @ResponseStatus(HttpStatus.OK)
     CommentDto getCommentById(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteCommentById(@PathVariable("id") long id);
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     CommentDto updateComment(@PathVariable("id") long id, @RequestBody @Valid CommentDto commentDto, JwtAuthenticationToken token) throws IllegalAccessException;

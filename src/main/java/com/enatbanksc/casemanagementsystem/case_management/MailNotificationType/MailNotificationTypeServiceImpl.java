@@ -39,7 +39,7 @@ public class MailNotificationTypeServiceImpl implements MailNotificationTypeServ
 
     @Override
     public Page<MailNotificationType> getMailNotificationTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return mailNotificationTypeRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return mailNotificationTypeRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override

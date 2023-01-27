@@ -41,6 +41,11 @@ public class DefendantPlaintiffController implements DefendantPlaintiffApi {
     }
 
     @Override
+    public void deleteDefendantPlaintiffById(long id) {
+        defendantPlaintiffService.deleteDefendantPlaintiffById(id);
+    }
+
+    @Override
     public ResponseEntity<PagedModel<DefendantPlaintiffDto>> getDefendantPlaintiffByLitigationId(long id, Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
                 DefendantPlaintiffDto.class, uriBuilder, response, pageable.getPageNumber(), defendantPlaintiffService.getDefendantPlaintiffByLitigationId(pageable,id, token).getTotalPages(), pageable.getPageSize()));

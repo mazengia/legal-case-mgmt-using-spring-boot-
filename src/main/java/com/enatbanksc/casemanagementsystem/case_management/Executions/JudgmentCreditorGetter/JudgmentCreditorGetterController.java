@@ -40,6 +40,11 @@ public class JudgmentCreditorGetterController implements JudgmentCreditorGetterA
         return judgmentCreditorGetterMapper.toAdvocateDto(judgmentCreditorGetterService.getJudgmentCreditorGetterById(id));
     }
 
+    @Override
+    public void deleteJudgmentCreditorGetterById(long id) {
+        judgmentCreditorGetterService.deleteJudgmentCreditorGetter(id);
+    }
+
 
     @Override
     public ResponseEntity<PagedModel<JudgmentCreditorGetterDto>> getJudgmentCreditorGetter(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {

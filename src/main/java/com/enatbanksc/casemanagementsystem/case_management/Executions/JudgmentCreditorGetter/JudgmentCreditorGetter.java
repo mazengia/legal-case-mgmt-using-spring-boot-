@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "judgmentCreditorGetter")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE judgmentCreditorGetter SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE judgmentCreditorGetter SET deleted = 'true' WHERE judgment_creditor_getter_id=? and version=?")
 public class JudgmentCreditorGetter extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

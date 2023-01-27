@@ -23,6 +23,10 @@ public interface JudiciaryReportApi {
     @ResponseStatus(HttpStatus.OK)
     JudiciaryReportDto getJudiciaryReport(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteJudiciaryReport(@PathVariable("id") long id);
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     JudiciaryReportDto updateJudiciaryReportDto(@PathVariable("id") long id, @RequestBody @Valid JudiciaryReportDto judiciaryReportDto, JwtAuthenticationToken token) throws IllegalAccessException;

@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FilesService {
     Files createFiles(long litigationId, String fileCategory, MultipartFile file, JwtAuthenticationToken token) throws IllegalAccessException;
 
-     Files getFilesById(long id);
+     void getFilesById(long id);
     Page<Files> findAllExecutionFilesByExecutionId(Pageable pageable, String fileCategory, long id, JwtAuthenticationToken token);
 
     Page<Files> getAllFiles(Pageable pageable, JwtAuthenticationToken token);

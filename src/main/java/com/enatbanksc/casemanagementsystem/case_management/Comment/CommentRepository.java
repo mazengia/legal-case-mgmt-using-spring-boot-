@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface CommentRepository extends PagingAndSortingRepository<Comment, Long>, JpaSpecificationExecutor<Comment> {
-  Page<Comment> findCommentByLitigation_LitigationId(Pageable pageable, Long id);
+  Page<Comment> findCommentByLitigation_LitigationIdAndDeletedIsFalse(Pageable pageable, Long id);
 
 }

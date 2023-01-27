@@ -28,14 +28,16 @@ private  final AppealApplicantRespondentRepository respondentRepository;
     public Iterable<AppealApplicantRespondent> createAppealApplicantRespondent(@RequestBody @Valid List<AppealApplicantRespondent> appealApplicantRespondents, JwtAuthenticationToken token) throws IllegalAccessException{
         return   respondentRepository.saveAll(appealApplicantRespondents);
     }
-//    @Override
-//    public AppealApplicantRespondentDto createAdvocate(AppealApplicantRespondentDto appealApplicantRespondentDto, JwtAuthenticationToken token) throws IllegalAccessException {
-//        return appealApplicantRespondentMapper.toAdvocateDto(appealApplicantRespondentService.createAdvocate(appealApplicantRespondentMapper.toAdvocate(appealApplicantRespondentDto), token));
-//    }
+
 
     @Override
-    public AppealApplicantRespondentDto getAdvocate(long id) {
-        return appealApplicantRespondentMapper.toAdvocateDto(appealApplicantRespondentService.getApplicantRespondentById(id));
+    public AppealApplicantRespondentDto getAppealApplicant(long id) {
+        return appealApplicantRespondentMapper.toAppealApplicantDto(appealApplicantRespondentService.getApplicantRespondentById(id));
+    }
+
+    @Override
+    public void deleteAppealApplicant(long id) {
+        appealApplicantRespondentService.deleteAppealApplicantById(id);
     }
 
     @Override
@@ -46,16 +48,16 @@ private  final AppealApplicantRespondentRepository respondentRepository;
 
 
     @Override
-    public ResponseEntity<PagedModel<AppealApplicantRespondentDto>> getAdvocates(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
+    public ResponseEntity<PagedModel<AppealApplicantRespondentDto>> getAppealApplicant(Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
-                AppealApplicantRespondentDto.class, uriBuilder, response, pageable.getPageNumber(), appealApplicantRespondentService.getAdvocates(pageable, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<AppealApplicantRespondentDto>>(assembler.toModel(appealApplicantRespondentService.getAdvocates(pageable, token).map(appealApplicantRespondentMapper::toAdvocateDto)), HttpStatus.OK);
+                AppealApplicantRespondentDto.class, uriBuilder, response, pageable.getPageNumber(), appealApplicantRespondentService.getAppealApplicant(pageable, token).getTotalPages(), pageable.getPageSize()));
+        return new ResponseEntity<PagedModel<AppealApplicantRespondentDto>>(assembler.toModel(appealApplicantRespondentService.getAppealApplicant(pageable, token).map(appealApplicantRespondentMapper::toAppealApplicantDto)), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<PagedModel<AppealApplicantRespondentDto>> getApplicantRespondentAppealId(long id, Pageable pageable, PagedResourcesAssembler assembler, JwtAuthenticationToken token, UriComponentsBuilder uriBuilder, HttpServletResponse response) {
         eventPublisher.publishEvent(new PaginatedResultsRetrievedEvent<>(
                 AppealApplicantRespondentDto.class, uriBuilder, response, pageable.getPageNumber(), appealApplicantRespondentService.getApplicantRespondentByAppealId(pageable,id, token).getTotalPages(), pageable.getPageSize()));
-        return new ResponseEntity<PagedModel<AppealApplicantRespondentDto>>(assembler.toModel(appealApplicantRespondentService.getApplicantRespondentByAppealId(pageable,id, token).map(appealApplicantRespondentMapper::toAdvocateDto)), HttpStatus.OK);
+        return new ResponseEntity<PagedModel<AppealApplicantRespondentDto>>(assembler.toModel(appealApplicantRespondentService.getApplicantRespondentByAppealId(pageable,id, token).map(appealApplicantRespondentMapper::toAppealApplicantDto)), HttpStatus.OK);
     }
 }

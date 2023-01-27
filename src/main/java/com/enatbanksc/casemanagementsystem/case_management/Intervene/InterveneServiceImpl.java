@@ -56,7 +56,7 @@ public class InterveneServiceImpl implements InterveneService{
     public Page<Intervene> getIntervenes(Pageable pageable
             , JwtAuthenticationToken token
     ) {
-        return interveneRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return interveneRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override

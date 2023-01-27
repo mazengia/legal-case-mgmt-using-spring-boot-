@@ -42,7 +42,7 @@ public class JudgmentCreditorGetterServiceImpl implements JudgmentCreditorGetter
 
     @Override
     public Page<JudgmentCreditorGetter> getJudgmentCreditorGetter(Pageable pageable, JwtAuthenticationToken token) {
-        return judgmentCreditorGetterRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return judgmentCreditorGetterRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
@@ -70,6 +70,6 @@ public class JudgmentCreditorGetterServiceImpl implements JudgmentCreditorGetter
     public Page<JudgmentCreditorGetter> getJudgmentCreditorGetterByExecutionId(Pageable pageable,
                                                                                long litigationId,
                                                                                JwtAuthenticationToken token) {
-        return judgmentCreditorGetterRepository.findAllByExecutionsExecutionsIdOrderByCreatedAtDesc(litigationId, pageable);
+        return judgmentCreditorGetterRepository.findAllByExecutionsExecutionsIdAndDeletedIsFalseOrderByCreatedAtDesc(litigationId, pageable);
     }
 }

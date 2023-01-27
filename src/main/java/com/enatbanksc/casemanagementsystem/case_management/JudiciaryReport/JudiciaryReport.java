@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "judiciary_reports")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE judiciary_reports SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE judiciary_reports SET deleted = 'true' WHERE report_id=? and version=?")
 public class JudiciaryReport extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

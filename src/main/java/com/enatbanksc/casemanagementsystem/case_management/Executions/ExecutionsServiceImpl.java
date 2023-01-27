@@ -54,7 +54,7 @@ public class ExecutionsServiceImpl implements ExecutionsService {
 
     @Override
     public Page<Executions> getExecutions(Pageable pageable) {
-        return executionsRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return executionsRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ExecutionsServiceImpl implements ExecutionsService {
 
 
     @Override
-    public void deleteLitigation(long id, JwtAuthenticationToken token) {
+    public void deleteExecutions(long id) {
         executionsRepository.deleteById(id);
     }
 
@@ -99,7 +99,7 @@ public class ExecutionsServiceImpl implements ExecutionsService {
     }
     @Override
     public Page<Executions> findExecutionsByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-        return  executionsRepository.findExecutionsByAttorneyHandlingTheCaseOrderByCreatedAtDesc(pageable,attorney);
+        return  executionsRepository.findExecutionsByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(pageable,attorney);
     }
     @Override
     public Page<Executions> findExecutionsByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {

@@ -32,7 +32,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Override
     public Page<MachineType> getCaseTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return machineRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return machineRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public void deleteCaseType(long id, JwtAuthenticationToken token) {
+    public void deleteCaseType(long id) {
         machineRepository.deleteById(id);
     }
 }

@@ -12,14 +12,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "machineType")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE machineType SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE machineType SET deleted = 'true' WHERE id=? and version=?")
 public class MachineType extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String machineryType;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mortgageDetailId")
     @JsonIgnoreProperties(value = {"machineType"})

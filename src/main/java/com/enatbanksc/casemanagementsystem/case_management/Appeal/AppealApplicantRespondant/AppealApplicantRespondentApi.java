@@ -23,7 +23,10 @@ public interface AppealApplicantRespondentApi {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    AppealApplicantRespondentDto getAdvocate(@PathVariable("id") long id);
+    AppealApplicantRespondentDto getAppealApplicant(@PathVariable("id") long id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteAppealApplicant(@PathVariable("id") long id);
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -31,13 +34,13 @@ public interface AppealApplicantRespondentApi {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<PagedModel<AppealApplicantRespondentDto>> getAdvocates(@Parameter(description = "pagination object",
+    ResponseEntity<PagedModel<AppealApplicantRespondentDto>> getAppealApplicant(@Parameter(description = "pagination object",
             schema = @Schema(implementation = Pageable.class))
                                                            @Valid Pageable pageable,
-                                                                          PagedResourcesAssembler assembler,
-                                                                          JwtAuthenticationToken token,
-                                                                          UriComponentsBuilder uriBuilder,
-                                                                          final HttpServletResponse response);
+                                                                                PagedResourcesAssembler assembler,
+                                                                                JwtAuthenticationToken token,
+                                                                                UriComponentsBuilder uriBuilder,
+                                                                                final HttpServletResponse response);
 
     @GetMapping("/appeal/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface AppealRepository extends PagingAndSortingRepository<Appeal, Long>, JpaSpecificationExecutor<Appeal> {
-    Page<Appeal> findAllByOrderByCreatedAtDesc(Pageable pageable);
-    Page<Appeal> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable,String attorneyHandlingTheCase);
-    Page<Appeal> findAllByLitigationLitigationIdOrderByCreatedAtDesc(Pageable pageable,long id);
+    Page<Appeal> findAllByAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<Appeal> findAllByLitigationAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String attorneyHandlingTheCase);
+    Page<Appeal> findAllByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, long id);
 
 }

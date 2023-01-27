@@ -11,5 +11,5 @@ public interface MachineService {
     MachineType getCaseType(long caseTypeId);
     Page<MachineType> getCaseTypes(Pageable pageable, JwtAuthenticationToken token);
     MachineType updateCaseType(long caseTypeId, MachineType machineType, JwtAuthenticationToken token) throws IllegalAccessException;
-    void deleteCaseType(long caseTypeId, JwtAuthenticationToken token);
+    void deleteCaseType(long caseTypeId);
 }

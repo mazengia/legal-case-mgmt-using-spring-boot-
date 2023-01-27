@@ -17,7 +17,7 @@ public interface ExpenseService {
     Page<ExpenseDetail> getExpensesDetailByLitigation(Pageable pageable, JwtAuthenticationToken token);
 
     ExpenseDetail updateExpenseDetail(long id, ExpenseDetail expense, JwtAuthenticationToken token) throws IllegalAccessException;
-    void deleteExpenseDetail(long id, JwtAuthenticationToken token);
+    void deleteExpenseDetail(long id);
     Page<ExpenseDetail> findExpenseDetailByLitigationId(Pageable pageable, long id, JwtAuthenticationToken token);
 
     Page<ExpenseDetail> findExpenseDetailByForeclosureId(Pageable pageable, long id, JwtAuthenticationToken token);

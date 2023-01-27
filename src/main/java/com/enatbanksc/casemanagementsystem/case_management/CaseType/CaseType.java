@@ -11,8 +11,8 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "case_types")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE case_types SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE case_types SET deleted = 'true' WHERE case_type_id=? and version=?")
 public class CaseType extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

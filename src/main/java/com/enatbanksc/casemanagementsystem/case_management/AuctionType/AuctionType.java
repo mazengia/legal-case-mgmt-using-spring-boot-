@@ -15,8 +15,8 @@ import javax.validation.constraints.NotEmpty;
 @Entity(name="AuctionType")
 @Table(name="auction_types")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE auction_types SET deleted = 1 WHERE id=? and version=?")
+@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE auction_types SET deleted = 'true' WHERE auction_type_id=? and version=?")
 public class AuctionType extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

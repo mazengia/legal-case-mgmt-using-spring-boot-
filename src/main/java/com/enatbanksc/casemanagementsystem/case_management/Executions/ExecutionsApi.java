@@ -24,6 +24,10 @@ public interface ExecutionsApi {
     @ResponseStatus(HttpStatus.OK)
     ExecutionsDto getExecutionsById(@PathVariable("id") long id);
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteExecutionsById(@PathVariable("id") long id);
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     ExecutionsDto updateExecutions(@PathVariable("id") long id, @RequestBody @Valid ExecutionsDto executionsDto, JwtAuthenticationToken token) throws IllegalAccessException;

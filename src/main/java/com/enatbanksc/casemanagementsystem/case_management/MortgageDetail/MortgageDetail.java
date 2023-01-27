@@ -14,8 +14,9 @@ import java.util.List;
 @Entity(name = "MortgageDetail")
 @Table(name = "mortgage_details")
 @Data
-@Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE mortgage_details SET deleted = 1 WHERE id=? and version=?")
+
+@SQLDelete(sql = "UPDATE mortgage_details SET deleted = 'true'  WHERE mortgage_detail_id=? and version=?")
+@Where(clause = "deleted=false")
 public class MortgageDetail extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

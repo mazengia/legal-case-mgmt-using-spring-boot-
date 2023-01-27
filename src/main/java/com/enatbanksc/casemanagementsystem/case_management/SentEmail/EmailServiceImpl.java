@@ -21,7 +21,9 @@ public class EmailServiceImpl  implements EmailService{
     private final EmailRepository emailRepository;
 
     public final JavaMailSender javaMailSender;
-    @Value("${spring.mail.username}")
+//    @Value("${spring.mail.username}")
+    @Value("${support.email}")
+
     private String sender;
     public String sendSimpleMail(EmailDetails details)
     {
@@ -70,6 +72,6 @@ public class EmailServiceImpl  implements EmailService{
 
     @Override
     public Page<EmailDetails> getEmails(Pageable pageable, JwtAuthenticationToken token) {
-        return emailRepository.findAllByOrderByCreatedAtDesc(pageable);
+        return emailRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
     }
 }
