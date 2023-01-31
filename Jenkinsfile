@@ -41,9 +41,9 @@ stages{
             branch "origin/develop"
         }
                  steps{
-                    sshagent(['ebdev']) {
+                    sshagent(['enat-remedy-production']) {
 //                     10.1.22.72 10.1.12.70
-                    sh 'ssh -o StrictHostKeyChecking=no -l  ebdevuat 10.1.22.72      "docker stop case_management_service | true;     docker rm case_management_service | true;     docker run -v /var/case_management_home:/uploads -p 8094:8080 -e "SPRING_PROFILES_ACTIVE=develop" -d --restart=always --name case_management_service 10.1.12.73:5000/case_management_service:${TAG}"'
+                    sh 'ssh -o StrictHostKeyChecking=no -l  administrator 10.1.12.70      "docker stop case_management_service | true;     docker rm case_management_service | true;     docker run -v /var/case_management_home:/uploads -p 8094:8080 -e "SPRING_PROFILES_ACTIVE=develop" -d --restart=always --name case_management_service 10.1.12.73:5000/case_management_service:${TAG}"'
                 }
 
 
