@@ -28,6 +28,7 @@ public class DefendantPlaintiffController implements DefendantPlaintiffApi {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Iterable<DefendantPlaintiff> createDefendantPlaintiff(@RequestBody @Valid List<DefendantPlaintiff> defendantPlaintiffs, JwtAuthenticationToken token) throws IllegalAccessException {
+        System.out.println(defendantPlaintiffs);
         return respondentRepository.saveAll(defendantPlaintiffs);
     }
 //    @Override

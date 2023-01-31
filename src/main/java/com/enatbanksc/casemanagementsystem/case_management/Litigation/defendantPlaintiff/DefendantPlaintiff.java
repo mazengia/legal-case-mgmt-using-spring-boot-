@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "defendantPlaintiff")
 @Data
 @Where(clause = "deleted=0")
-@SQLDelete(sql = "UPDATE defendantPlaintiff SET deleted = 1 WHERE id=? and version=?")
+@SQLDelete(sql = "UPDATE defendantPlaintiff SET deleted = 1 WHERE defendant_plaintiff_id=? and version=?")
 public class DefendantPlaintiff extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
