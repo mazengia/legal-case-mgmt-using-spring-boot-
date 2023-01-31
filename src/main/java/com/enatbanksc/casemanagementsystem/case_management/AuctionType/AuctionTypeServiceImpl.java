@@ -41,11 +41,11 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
 
     @Override
     public Page<AuctionType> getAuctionTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return auctionTypeRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
+        return auctionTypeRepository.findAllByDeletedIsFalseOrderByAuctionTypeIdDesc(pageable);
     }
     @Override
     public Page<AuctionType> getAuctionTypesByMortgageDetail(Pageable pageable,long id, JwtAuthenticationToken token) {
-        return auctionTypeRepository.findAllByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
+        return auctionTypeRepository.findAllByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByAuctionTypeIdDesc(pageable,id);
     }
 
     @Override

@@ -12,13 +12,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface MortgageDetailRepository extends PagingAndSortingRepository<MortgageDetail, Long>, JpaSpecificationExecutor<MortgageDetail> {
-    Page<MortgageDetail> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
-    Page<MortgageDetail> findMortgageDetailByBranchIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, Long branchId);
+    Page<MortgageDetail> findAllByDeletedIsFalseOrderByMortgageDetailIdDesc(Pageable pageable);
+    Page<MortgageDetail> findMortgageDetailByBranchIdAndDeletedIsFalseOrderByMortgageDetailIdDesc(Pageable pageable, Long branchId);
     @Query(value = "select * from mortgage_details l where  l.id  !=:branchId" , nativeQuery = true)
-    Page<MortgageDetail> findAllByBranchIdAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, @Param("branchId") Long branchId);
+    Page<MortgageDetail> findAllByBranchIdAndDeletedIsFalseOrderByMortgageDetailIdDesc(Pageable pageable, @Param("branchId") Long branchId);
 
 //    Page<MortgageDetail> findAllByBranchIdIsNotContainingOrderByCreatedAtDesc(Pageable pageable, Long branchId);
-    Page<MortgageDetail> findMortgageDetailByStatusAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String Status);
-    Page<MortgageDetail> findMortgageDetailByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable, String attorney);
+    Page<MortgageDetail> findMortgageDetailByStatusAndDeletedIsFalseOrderByMortgageDetailIdDesc(Pageable pageable, String Status);
+    Page<MortgageDetail> findMortgageDetailByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByMortgageDetailIdDesc(Pageable pageable, String attorney);
 
 }

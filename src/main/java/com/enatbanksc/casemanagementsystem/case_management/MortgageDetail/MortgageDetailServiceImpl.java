@@ -51,7 +51,7 @@ public class MortgageDetailServiceImpl implements MortgageDetailService {
 
     @Override
     public Page<MortgageDetail> getMortgageDetail(Pageable pageable, JwtAuthenticationToken token) {
-        return mortgageDetailRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
+        return mortgageDetailRepository.findAllByDeletedIsFalseOrderByMortgageDetailIdDesc(pageable);
     }
 
     @Override
@@ -80,27 +80,28 @@ public class MortgageDetailServiceImpl implements MortgageDetailService {
     @Override
     public void deleteMortgageDetailById(long id) {
 
+        mortgageDetailRepository.deleteById(id);
     }
 
     @Override
     public Page<MortgageDetail> findMortgageDetailByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {
-        return mortgageDetailRepository.findMortgageDetailByStatusAndDeletedIsFalseOrderByCreatedAtDesc(pageable, status);
+        return mortgageDetailRepository.findMortgageDetailByStatusAndDeletedIsFalseOrderByMortgageDetailIdDesc(pageable, status);
 
     }
 
     @Override
     public Page<MortgageDetail> findMortgageByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-        return mortgageDetailRepository.findMortgageDetailByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(pageable, attorney);
+        return mortgageDetailRepository.findMortgageDetailByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByMortgageDetailIdDesc(pageable, attorney);
 
     }
     @Override
     public Page<MortgageDetail> findMortgageDetailByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
-        return mortgageDetailRepository.findMortgageDetailByBranchIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable, branchId);
+        return mortgageDetailRepository.findMortgageDetailByBranchIdAndDeletedIsFalseOrderByMortgageDetailIdDesc(pageable, branchId);
 
     }
     @Override
     public Page<MortgageDetail> findAllByBranchIdIsNotContaining(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
-        return mortgageDetailRepository.findAllByBranchIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable, branchId);
+        return mortgageDetailRepository.findAllByBranchIdAndDeletedIsFalseOrderByMortgageDetailIdDesc(pageable, branchId);
 
     }
 

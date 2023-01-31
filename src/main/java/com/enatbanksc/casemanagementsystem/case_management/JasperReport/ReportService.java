@@ -6,11 +6,12 @@ import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.util.*;
 
 @Service

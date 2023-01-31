@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface CaseTypeRepository extends PagingAndSortingRepository<CaseType, Long>, JpaSpecificationExecutor<CaseType> {
-    Page<CaseType> findAllByDeletedIsFalseOrderByCreatedAtDesc(Pageable pageable);
+    Page<CaseType> findAllByDeletedIsFalseOrderByCaseTypeIdDesc(Pageable pageable);
 }

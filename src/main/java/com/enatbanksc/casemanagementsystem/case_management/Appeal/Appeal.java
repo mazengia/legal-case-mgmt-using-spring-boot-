@@ -4,7 +4,6 @@ import com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealApplican
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;

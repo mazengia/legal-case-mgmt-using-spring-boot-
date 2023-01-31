@@ -9,7 +9,6 @@ import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Empl
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -19,9 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
-
-import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
-import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
 @Service
 @RequiredArgsConstructor

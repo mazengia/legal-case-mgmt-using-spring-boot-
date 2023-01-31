@@ -5,12 +5,11 @@ import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation
 import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
-
-import javax.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "expenseDetail")

@@ -39,17 +39,17 @@ public class AppealServiceImpl implements AppealService {
 
     @Override
     public Page<Appeal> findAllByLitigationAttorneyHandlingTheCaseOrderByCreatedAtDesc(Pageable pageable,String attorneyHandlingTheCase,JwtAuthenticationToken token) {
-        return appealRepository.findAllByLitigationAttorneyHandlingTheCaseAndDeletedIsFalseOrderByCreatedAtDesc(pageable,attorneyHandlingTheCase);
+        return appealRepository.findAllByLitigationAttorneyHandlingTheCaseAndDeletedIsFalseOrderByAppealIdDesc(pageable,attorneyHandlingTheCase);
 
     }
     @Override
     public Page<Appeal> findAllByLitigationId(Pageable pageable,long id,JwtAuthenticationToken token) {
-        return appealRepository.findAllByLitigationLitigationIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable,id);
+        return appealRepository.findAllByLitigationLitigationIdAndDeletedIsFalseOrderByAppealIdDesc(pageable,id);
 
     }
     @Override
     public Page<Appeal> getAllAppeal(Pageable pageable, JwtAuthenticationToken token) {
-        return appealRepository.findAllByAndDeletedIsFalseOrderByCreatedAtDesc(pageable);
+        return appealRepository.findAllByAndDeletedIsFalseOrderByAppealIdDesc(pageable);
     }
 
     @Override
