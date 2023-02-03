@@ -2,8 +2,8 @@ package com.enatbanksc.casemanagementsystem.case_management.Files;
 
 import com.enatbanksc.casemanagementsystem.case_management.Appeal.Appeal;
 import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.Foreclosure;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -31,7 +31,7 @@ public class Files extends Auditable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mortgageDetailId",nullable = true)
     @JsonIgnoreProperties(value = {"files"})
-    private MortgageDetail   mortgageDetail;
+    private Foreclosure foreclosure;
 
     @ManyToOne(fetch = FetchType.EAGER )
     @JoinColumn(name = "appealId",nullable = true)

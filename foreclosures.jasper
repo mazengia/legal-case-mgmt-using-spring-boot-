@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="foreclosures" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="51c68a39-6c64-43d1-adaf-e176db39faab">
+	<property name="template.engine" value="tabular_template"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="case_management"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Transparent" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Transparent" forecolor="#B89F7D" backcolor="#70A9C6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Transparent" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="tableDataset" uuid="c2ed32c0-f15e-4a4e-9c4e-11267b3d4a9a">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="case_management"/>
+		<queryString language="SQL">
+			<![CDATA[select * from foreclosure where deleted='false' and enabled='true']]>
+		</queryString>
+		<field name="mortgagor" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="mortgagor"/>
+			<property name="com.jaspersoft.studio.field.label" value="mortgagor"/>
+		</field>
+		<field name="borrower" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="borrower"/>
+			<property name="com.jaspersoft.studio.field.label" value="borrower"/>
+		</field>
+		<field name="name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="name"/>
+			<property name="com.jaspersoft.studio.field.label" value="name"/>
+		</field>
+		<field name="attorney_handling_the_case" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="attorney_handling_the_case"/>
+			<property name="com.jaspersoft.studio.field.label" value="attorney_handling_the_case"/>
+		</field>
+		<field name="date_legal_notice_served" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="date_legal_notice_served"/>
+			<property name="com.jaspersoft.studio.field.label" value="date_legal_notice_served"/>
+		</field>
+		<field name="date_collateral_is_estimated" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="date_collateral_is_estimated"/>
+			<property name="com.jaspersoft.studio.field.label" value="date_collateral_is_estimated"/>
+		</field>
+		<field name="expire_date_legal_notice_served" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="expire_date_legal_notice_served"/>
+			<property name="com.jaspersoft.studio.field.label" value="expire_date_legal_notice_served"/>
+		</field>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="170" y="0" width="263" height="33" forecolor="#0D0707" uuid="e59185d1-6a86-45db-a9af-7de38f04e8d9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Foreclosure Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="abb33244-eb48-4ef5-ab27-35aa4637881d"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="fe52d68f-779b-4d19-9288-969eaa490718"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="69d3edaf-4e7a-49f5-b69c-ff6733ff37d0"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="200" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<componentElement>
+				<reportElement x="0" y="0" width="555" height="200" uuid="fb3d1221-3943-419e-b7cf-3aedac33eeac">
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="tableDataset" uuid="5d86db76-fb48-4d65-ad4f-46eb26005b80">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="79" uuid="25fc55ec-4422-408e-9fd1-9aaff06f5c54">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableFooter style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="30" forecolor="#080303" backcolor="#E6E6E6" uuid="8e282a1c-beec-433b-a632-f4d15d3426fa"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman" size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Mortgagor]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement style="Detail" x="0" y="0" width="79" height="30" uuid="92fce022-e3cc-4c00-8b8c-260b0f8cc7c0"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{mortgagor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79" uuid="6847b104-445c-43c5-85ba-9727038c3473">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableFooter style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="30" forecolor="#080303" backcolor="#E6E6E6" uuid="e4068df1-3b47-4272-bad7-bcfb7ea1c8d7"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman" size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[borrower]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement style="Detail" x="0" y="0" width="79" height="30" uuid="28be6bd4-df44-47fe-86ba-e38b219bf5d5"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{borrower}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79" uuid="b6926c52-e9b3-4268-a2ec-e3bc8a90bfd2">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableFooter style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="30" forecolor="#080303" backcolor="#E6E6E6" uuid="0d1f6705-a161-4357-b9be-a5791bf2f79e"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman" size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Brach]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement style="Detail" x="0" y="0" width="79" height="30" uuid="70127bf5-d0fe-4dd1-8e19-10a5f2bb2a1d"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79" uuid="adf7c7dd-be88-4c87-bc5d-19c7de9cf988">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:tableFooter style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="30" forecolor="#080303" backcolor="#E6E6E6" uuid="e09c3777-c244-4c02-acff-f7f167230091"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman" size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Attorney]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement style="Detail" x="0" y="0" width="79" height="30" uuid="ad225cc9-4204-4067-82fc-d227a810c417"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{attorney_handling_the_case}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79" uuid="232ac9bf-5724-4b42-a85c-6567a2948e08">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:tableFooter style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="30" forecolor="#080303" backcolor="#E6E6E6" uuid="cac635a2-d30c-4a44-8b75-3e23307301b0"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman" size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Served date ]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement style="Detail" x="0" y="0" width="79" height="30" uuid="16f7ca2d-4bb9-4a8d-bce5-b6f2cc00b758"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{date_legal_notice_served}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79" uuid="04725783-47b0-40c5-b5ad-554084be35ff">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:tableFooter style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="30" forecolor="#080303" backcolor="#E6E6E6" uuid="9a5abd01-ecb9-4ec6-9a21-9677fc2ee9c2"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman" size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Estimated date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement style="Detail" x="0" y="0" width="79" height="30" uuid="ca252395-604f-4ee9-ba2d-3973a0c21bf7"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{date_collateral_is_estimated}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79" uuid="42d9b036-a53e-4378-be67-23ab9db1aef7">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:tableFooter style="Table_TH" height="30"/>
+						<jr:columnHeader style="Table_CH" height="30">
+							<staticText>
+								<reportElement mode="Transparent" x="0" y="0" width="79" height="30" forecolor="#080303" backcolor="#E6E6E6" uuid="77b20356-2d99-4902-b717-7582ec427841"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman" size="16" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Expired]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement style="Detail" x="0" y="0" width="79" height="30" uuid="31057fd3-e94d-440a-9379-ad78f1ef9099"/>
+								<textElement textAlignment="Center">
+									<font fontName="Times New Roman"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{expire_date_legal_notice_served}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

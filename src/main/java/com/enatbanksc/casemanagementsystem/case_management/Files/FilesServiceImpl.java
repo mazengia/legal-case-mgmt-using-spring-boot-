@@ -4,7 +4,7 @@ import com.enatbanksc.casemanagementsystem.case_management.Appeal.AppealServiceI
 import com.enatbanksc.casemanagementsystem.case_management.Executions.ExecutionsService;
 import com.enatbanksc.casemanagementsystem.case_management.Files.fileUploadToFolder.FilesStorageService;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationServiceImpl;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetailServiceImpl;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.ForeclosureServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
@@ -29,7 +29,7 @@ public class FilesServiceImpl implements FilesService {
     private final EmployeeMapper employeeMapper;
     private final LitigationServiceImpl litigationService;
     private final ExecutionsService executionsService;
-    private final MortgageDetailServiceImpl mortgageDetailService;
+    private final ForeclosureServiceImpl mortgageDetailService;
     private final AppealServiceImpl appealService;
     private final EmployeeClient employeeClient;
 
@@ -55,11 +55,11 @@ public class FilesServiceImpl implements FilesService {
                 }
             }
             if (Objects.equals(fileCategory, "foreclosure")) {
-                if (mortgageDetailService.getMortgageDetail(id) == null || file.isEmpty()) {
+                if (mortgageDetailService.getForeclosureById(id) == null || file.isEmpty()) {
                     throw new IllegalAccessException("You are not allowed to upload files for foreclosure ");
                 } else {
                     files.setFileName(file.getOriginalFilename());
-                    files.setMortgageDetail(mortgageDetailService.getMortgageDetail(id));
+                    files.setForeclosure(mortgageDetailService.getForeclosureById(id));
 
                     filesRepository.save(files);
                     try {
@@ -115,7 +115,7 @@ public class FilesServiceImpl implements FilesService {
             return filesRepository.findAllByAppealAppealIdAndAppealAppealIdNotNullAndDeletedIsFalseOrderByCreatedAtDesc(pageable, id);
         }
         if (Objects.equals(fileCategory, "foreclosure")) {
-            return filesRepository.findAllByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable, id);
+            return filesRepository.findAllByForeclosureForeclosureIdAndDeletedIsFalseOrderByCreatedAtDesc(pageable, id);
         }
         if (Objects.equals(fileCategory, "litigation")) {
 

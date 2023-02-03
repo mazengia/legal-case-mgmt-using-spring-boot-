@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.AuctionType;
 
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.Foreclosure;
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import lombok.Data;
@@ -15,6 +15,6 @@ public class AuctionTypeDto extends Auditable {
     private String dateAuctionAnnounced;
     private String dateAuctionConducted;
     private String auctionTypeColor;
-    private MortgageDetail mortgageDetail;
+    private Foreclosure foreclosure;
     private Employee maintained_by;
 }

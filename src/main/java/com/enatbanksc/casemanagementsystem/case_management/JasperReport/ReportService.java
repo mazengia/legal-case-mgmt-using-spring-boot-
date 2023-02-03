@@ -1,5 +1,7 @@
 package com.enatbanksc.casemanagementsystem.case_management.JasperReport;
 
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.Foreclosure;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.ForeclosureRepository;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationRepository;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationServiceImpl;
@@ -21,7 +23,7 @@ public class ReportService {
 
     private final SimpleReportExporter exporter;
     private final LitigationRepository litigationRepository;
-    private final LitigationServiceImpl litigationService;
+    private final ForeclosureRepository foreclosureRepository;
 
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
         String path = "C:\\Users\\mtesfa\\Desktop\\Report";
@@ -40,7 +42,7 @@ public class ReportService {
         }
         return "report generated in path : " + path;
     }
-    public void candidate( String reportType, OutputStream outputStream) {
+    public void litigation(String reportType, OutputStream outputStream) {
 
         Map<String, Object> parameters;
         String fileName = null;
@@ -51,9 +53,28 @@ public class ReportService {
         filler.compileReport();
 
         filler.setParameters(parameters);
-        List<Litigation> candidates = new ArrayList<>();
-        litigationRepository.findAll().iterator().forEachRemaining(candidates::add);
-        filler.setDataSource(candidates);
+        List<Litigation> litigations = new ArrayList<>();
+        litigationRepository.findAll().iterator().forEachRemaining(litigations::add);
+        filler.setDataSource(litigations);
+        reportMaker(reportType, outputStream, fileName);
+
+    }
+    public void foreclosure(String reportType, OutputStream outputStream) {
+
+        Map<String, Object> parameters;
+        String fileName = null;
+        parameters = fillParameters("created by", "mtesfa");
+        fileName = "Attended Shareholders";
+
+        filler.setReportFileName("report.jrxml");
+        filler.compileReport();
+
+        filler.setParameters(parameters);
+        System.out.println(foreclosureRepository.report());
+//        System.out.println("foreclosureRepository.findAllByDeletedIsFalseAndEnabledIsTrue()");
+        List<Foreclosure> foreclosures = new ArrayList<>();
+        foreclosureRepository.report().iterator().forEachRemaining(foreclosures::add);
+        filler.setDataSource(foreclosures);
         reportMaker(reportType, outputStream, fileName);
 
     }

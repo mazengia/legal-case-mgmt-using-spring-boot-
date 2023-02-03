@@ -35,7 +35,7 @@ public class LitigationController implements LitigationApi{
         try (OutputStream outputStream = response.getOutputStream()) {
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition", "inline; filename=".concat("by maze"));
-            reportService.candidate("pdf", outputStream);
+            reportService.litigation("pdf", outputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }

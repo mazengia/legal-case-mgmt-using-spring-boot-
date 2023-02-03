@@ -3,9 +3,9 @@ package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionTypeRepository;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.Foreclosure;
 import com.enatbanksc.casemanagementsystem.case_management.MailNotificationType.MailNotificationTypeRepository;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetailRepository;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.ForeclosureRepository;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -37,7 +37,7 @@ public class EmailController implements EmailApi {
     private final EmailService emailService;
     private final EmailRepository emailRepository;
     private final AuctionTypeRepository auctionTypeRepository;
-    private final MortgageDetailRepository mortgageDetailRepository;
+    private final ForeclosureRepository foreclosureRepository;
     private final MailNotificationTypeRepository mailNotificationTypeRepository;
     private final EmailMapper emailMapper;
     private final ApplicationEventPublisher eventPublisher;
@@ -60,38 +60,38 @@ public class EmailController implements EmailApi {
     public String sendToAuctions() throws Exception {
         LocalDate today = LocalDate.now();
         var auctions = auctionTypeRepository.findAll();
-        var mortgageDetails = mortgageDetailRepository.findAll();
+        var mortgageDetails = foreclosureRepository.findAll();
         var mail = mailNotificationTypeRepository.findById(1L);
 
         for (AuctionType auctionTypeList : auctions) {
             LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionAnnounced());
             LocalDate created_at = LocalDate.from(date.minusDays(mail.get().getNumberOfDays())
             );
-            if (today.equals(created_at) && !auctionTypeList.getMortgageDetail().getMaintained_by().getEmail().isEmpty()) {
-                details.setRecipient(auctionTypeList.getMortgageDetail().getMaintained_by().getEmail());
+            if (today.equals(created_at) && !auctionTypeList.getForeclosure().getMaintained_by().getEmail().isEmpty()) {
+                details.setRecipient(auctionTypeList.getForeclosure().getMaintained_by().getEmail());
 //                "mz.tesfa@gmail.com"
                 details.setMsgBody("I try to check emil getDateAuctionWillBeConducted");
                 details.setSubject("I'm from cron job");
                 if (!emailService.sendSimpleMail(details).isEmpty()) {
                     details.setSent(true);
-                    details.setMortgageDetail(auctionTypeList.getMortgageDetail());
+                    details.setForeclosure(auctionTypeList.getForeclosure());
                     emailRepository.save(details);
                 }
                 System.out.println(details);
             }
         }
-        for (MortgageDetail mortgageDetail : mortgageDetails) {
-            if (!mortgageDetail.getDateLegalNoticeServed().isEmpty()) {
-                LocalDate date = LocalDate.parse(mortgageDetail.getDateLegalNoticeServed());
+        for (Foreclosure foreclosure : mortgageDetails) {
+            if (!foreclosure.getDateLegalNoticeServed().isEmpty()) {
+                LocalDate date = LocalDate.parse(foreclosure.getDateLegalNoticeServed());
                 LocalDate created_at = LocalDate.from(date.minusDays(mail.get().getNumberOfDays()));
-                if (today.equals(created_at)&& !mortgageDetail.getMaintained_by().getEmail().isEmpty()) {
-                    details.setRecipient(mortgageDetail.getMaintained_by().getEmail());
+                if (today.equals(created_at)&& !foreclosure.getMaintained_by().getEmail().isEmpty()) {
+                    details.setRecipient(foreclosure.getMaintained_by().getEmail());
 //                "mz.tesfa@gmail.com"
                     details.setMsgBody("I try to check emil getDateLegalNoticeServed");
                     details.setSubject("I'm from cron job");
                     if (!emailService.sendSimpleMail(details).isEmpty()) {
                         details.setSent(true);
-                        details.setMortgageDetail(mortgageDetail);
+                        details.setForeclosure(foreclosure);
                         emailRepository.save(details);
                     }
                     System.out.println(details);

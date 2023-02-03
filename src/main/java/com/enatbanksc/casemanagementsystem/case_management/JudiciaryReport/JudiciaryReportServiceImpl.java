@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport;
 
-import com.enatbanksc.casemanagementsystem.case_management.ExpenseDetails.ExpenseDetailRepository;
+import com.enatbanksc.casemanagementsystem.case_management.Expense.ExpenseDetailRepository;
 import com.enatbanksc.casemanagementsystem.case_management.Intervene.Intervene;
 import com.enatbanksc.casemanagementsystem.case_management.JudiciaryReport.Adjournment.AdjournmentRepository;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.LitigationRepository;

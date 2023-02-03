@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @RepositoryRestResource
 public interface AuctionTypeRepository extends PagingAndSortingRepository<AuctionType, Long>, JpaSpecificationExecutor<AuctionType> {
     Page<AuctionType> findAllByDeletedIsFalseOrderByAuctionTypeIdDesc(Pageable pageable);
-    Page<AuctionType> findAllByMortgageDetailMortgageDetailIdAndDeletedIsFalseOrderByAuctionTypeIdDesc(Pageable pageable, long id);
+    Page<AuctionType> findAllByForeclosureForeclosureIdAndDeletedIsFalseOrderByAuctionTypeIdDesc(Pageable pageable, long id);
 }

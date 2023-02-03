@@ -2,8 +2,8 @@ package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 
 import com.enatbanksc.casemanagementsystem.case_management.Executions.Executions;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.Foreclosure;
 import com.enatbanksc.casemanagementsystem.case_management.Litigation.Litigation;
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -36,7 +36,7 @@ public class EmailDetails extends Auditable {
     @OneToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "mortgageDetailId",nullable = true)
     @JsonIgnoreProperties(value={"emailDetails"} )
-    private MortgageDetail mortgageDetail;
+    private Foreclosure foreclosure;
     @OneToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "litigationId",nullable = true)
     @JsonIgnoreProperties(value={"emailDetails"} )

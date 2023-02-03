@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.machines;
 
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetail;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.Foreclosure;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.Auditable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -22,5 +22,5 @@ public class MachineType extends Auditable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mortgageDetailId")
     @JsonIgnoreProperties(value = {"machineType"})
-    private MortgageDetail mortgageDetail;
+    private Foreclosure foreclosure;
 }

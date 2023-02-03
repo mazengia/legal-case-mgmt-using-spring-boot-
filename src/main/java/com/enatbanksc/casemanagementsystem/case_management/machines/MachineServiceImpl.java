@@ -1,6 +1,6 @@
 package com.enatbanksc.casemanagementsystem.case_management.machines;
 
-import com.enatbanksc.casemanagementsystem.case_management.MortgageDetail.MortgageDetailServiceImpl;
+import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.ForeclosureServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -15,14 +15,13 @@ import static com.enatbanksc.casemanagementsystem.case_management._config.utils.
 @RequiredArgsConstructor
 public class MachineServiceImpl implements MachineService {
     private final MachineRepository machineRepository;
-    private final MortgageDetailServiceImpl mortgageDetailService;
+    private final ForeclosureServiceImpl mortgageDetailService;
 
     @Override
     public MachineType machineType(long mortgageId, MachineType machineType, JwtAuthenticationToken token) throws IllegalAccessException {
-        var md = mortgageDetailService.getMortgageDetail(mortgageId);
-        machineType.setMortgageDetail(md);
+        var md = mortgageDetailService.getForeclosureById(mortgageId);
+        machineType.setForeclosure(md);
         return machineRepository.save(machineType);
-
     }
 
     @Override

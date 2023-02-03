@@ -27,6 +27,7 @@ public class Litigation extends Auditable {
     private String status;
     private String disputedAmount;
     private Boolean isBankPlaintiff;
+    private Boolean enabled= Boolean.FALSE;;
     private String caseStage;
     private String attorneyHandlingTheCase;
     private String caseType;

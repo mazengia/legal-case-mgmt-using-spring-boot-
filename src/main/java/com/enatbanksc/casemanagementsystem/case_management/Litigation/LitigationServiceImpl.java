@@ -74,7 +74,7 @@ public class LitigationServiceImpl implements LitigationService {
 
     @Override
     public Page<Litigation> getAllLitigation(Pageable pageable, JwtAuthenticationToken token) {
-        return litigationRepository.findAllByDeletedIsFalseOrderByLitigationIdDesc(pageable);
+        return litigationRepository.findAllByDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable);
     }
 
     @Override
@@ -122,19 +122,19 @@ public class LitigationServiceImpl implements LitigationService {
 
     @Override
     public Page<Litigation> getLitigationByCaseStage(Pageable pageable, CaseStage caseStage, JwtAuthenticationToken token) {
-        return litigationRepository.findLitigationByCaseStageAndDeletedIsFalseOrderByLitigationIdDesc(pageable, caseStage);
+        return litigationRepository.findLitigationByCaseStageAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, caseStage);
 
     }
 
     @Override
     public Page<Litigation> findLitigationByAttorneyHandlingTheCase(Pageable pageable, String attorney, JwtAuthenticationToken token) {
-        return litigationRepository.findLitigationByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByLitigationIdDesc(pageable, attorney);
+        return litigationRepository.findLitigationByAttorneyHandlingTheCaseAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, attorney);
 
     }
 
     @Override
     public Page<Litigation> findLitigationByStatus(Pageable pageable, String status, JwtAuthenticationToken token) {
-        return litigationRepository.findLitigationByStatusAndDeletedIsFalseOrderByLitigationIdDesc(pageable, status);
+        return litigationRepository.findLitigationByStatusAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, status);
 
     }
 
@@ -147,32 +147,32 @@ public class LitigationServiceImpl implements LitigationService {
 
     @Override
     public Page<Litigation> findAllByBranchIdIsNotContaining(Pageable pageable, long branchId, JwtAuthenticationToken token) {
-        return litigationRepository.findAllByBranchIdAndDeletedIsFalseOrderByLitigationIdDesc(pageable, branchId);
+        return litigationRepository.findAllByBranchIdAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, branchId);
 
     }
 
     @Override
     public Page<Litigation> findLitigationByFilter(Pageable pageable, String filterValue, JwtAuthenticationToken token) {
-        return litigationRepository.findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndDeletedIsFalseOrderByLitigationIdDesc(pageable, filterValue);
+        return litigationRepository.findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, filterValue);
 
     }
 
     @Override
     public Page<Litigation> findLitigationByFilterByStatus(Pageable pageable, String filterValue, String status, JwtAuthenticationToken token) {
-        return litigationRepository.findAllByCaseTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatusAndDeletedIsFalseOrderByLitigationIdDesc(pageable, filterValue, status);
+        return litigationRepository.findAllByCaseTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatusAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, filterValue, status);
 //    return  null;
     }
 
     @Override
     public Page<Litigation> findLitigationByFilterByattorney(Pageable pageable, String filterValue, String attorney, JwtAuthenticationToken token) {
-        return litigationRepository.findAllByCaseTypeOrCourtAdjudicatingOrStatusAndAttorneyHandlingTheCaseAndDeletedIsFalseOrderByLitigationIdDesc(pageable, filterValue, attorney);
+        return litigationRepository.findAllByCaseTypeOrCourtAdjudicatingOrStatusAndAttorneyHandlingTheCaseAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, filterValue, attorney);
 //return  null;
     }
 
     @Override
     public Page<Litigation> findLitigationByFilterByBranch(Pageable pageable, String filterValue, Long branchId, JwtAuthenticationToken token) {
 
-        return litigationRepository.findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndBranchIdAndDeletedIsFalseOrderByLitigationIdDesc(pageable, filterValue, branchId);
+        return litigationRepository.findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndBranchIdAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(pageable, filterValue, branchId);
 //   return null;
     }
 

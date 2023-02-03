@@ -13,25 +13,25 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RepositoryRestResource
 public interface LitigationRepository extends PagingAndSortingRepository<Litigation, Long>, JpaSpecificationExecutor<Litigation> {
-    Page<Litigation> findLitigationByCaseStageAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, CaseStage caseStage);
+    Page<Litigation> findLitigationByCaseStageAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, CaseStage caseStage);
     Page<Litigation> findLitigationByBranchIdAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, Long branchId);
     Page<Litigation> findAllByBranchIdIsNotContainingOrderByCreatedAtDesc(Pageable pageable, long branchId);
     @Query(value = "select * from litigations s where  s.id  !=:branchId" , nativeQuery = true)
-    Page<Litigation> findAllByBranchIdAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, @Param("branchId") Long branchId);
-    Page<Litigation> findLitigationByAttorneyHandlingTheCaseAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, String attorney);
-    Page<Litigation> findLitigationByStatusAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, String Status);
+    Page<Litigation> findAllByBranchIdAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, @Param("branchId") Long branchId);
+    Page<Litigation> findLitigationByAttorneyHandlingTheCaseAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, String attorney);
+    Page<Litigation> findLitigationByStatusAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, String Status);
 
     @Query(value = "select * from litigations sl where (sl.case_type like %:value% or sl.court_adjudicating like %:value% or sl.status like %:value%    or sl.attorney_handling_the_case like %:value% )" , nativeQuery = true)
-    Page<Litigation> findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value);
+    Page<Litigation> findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value);
     @Query(value = "select * from litigations s where (s.case_type like %:value% or s.court_adjudicating like %:value% or s.status like %:value%   or s.attorney_handling_the_case like %:value%) and  s.id  =:branchId" , nativeQuery = true)
-    Page<Litigation> findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndBranchIdAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value, @Param("branchId") Long branchId);
+    Page<Litigation> findByCaseTypeOrCourtAdjudicatingOrStatusOrAttorneyHandlingTheCaseAndBranchIdAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value, @Param("branchId") Long branchId);
 
     @Query(value = "select * from litigations s where (s.case_type like %:value% or s.court_adjudicating like %:value% ) and  s.attorney_handling_the_case  =:attorneyHandlingTheCase" , nativeQuery = true)
-    Page<Litigation> findAllByCaseTypeOrCourtAdjudicatingOrStatusAndAttorneyHandlingTheCaseAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value, @Param("attorneyHandlingTheCase") String attorneyHandlingTheCase);
+    Page<Litigation> findAllByCaseTypeOrCourtAdjudicatingOrStatusAndAttorneyHandlingTheCaseAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value, @Param("attorneyHandlingTheCase") String attorneyHandlingTheCase);
 
     @Query(value = "select * from litigations s where (s.case_type like %:value% or s.court_adjudicating like %:value%   or s.attorney_handling_the_case like %:value% ) and  s.status  =:status" , nativeQuery = true)
-    Page<Litigation> findAllByCaseTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatusAndDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value, @Param("status") String status);
-    Page<Litigation> findAllByDeletedIsFalseOrderByLitigationIdDesc(Pageable pageable);
+    Page<Litigation> findAllByCaseTypeOrCourtAdjudicatingOrAttorneyHandlingTheCaseAndStatusAndDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable, @Param("value") String value, @Param("status") String status);
+    Page<Litigation> findAllByDeletedIsFalseAndEnabledIsTrueOrderByLitigationIdDesc(Pageable pageable);
 
 
 }
