@@ -23,7 +23,7 @@ public interface MailNotificationTypeApi {
 
     @GetMapping("/{mailNotificationTypeId}")
     @ResponseStatus(HttpStatus.OK)
-    MailNotificationTypeDto getMailNotificationType(@PathVariable("mailNotificationTypeId") long mailNotificationTypeId);
+    MailNotificationTypeDto getMailNotificationById(@PathVariable("mailNotificationTypeId") long mailNotificationTypeId);
 
 
     @PutMapping("/{mailNotificationTypeId}")

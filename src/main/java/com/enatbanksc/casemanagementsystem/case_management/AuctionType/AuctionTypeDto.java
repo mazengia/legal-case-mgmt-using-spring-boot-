@@ -9,12 +9,12 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 public class AuctionTypeDto extends Auditable {
-    private Long auctionTypeId;
+    private Long id;
     @NotEmpty(message = "Auction Type Name can not be empty!")
     private String auctionTypeName;
     private String dateAuctionAnnounced;
     private String dateAuctionConducted;
     private String auctionTypeColor;
     private Foreclosure foreclosure;
-    private Employee maintained_by;
+    private Employee maintainer;
 }

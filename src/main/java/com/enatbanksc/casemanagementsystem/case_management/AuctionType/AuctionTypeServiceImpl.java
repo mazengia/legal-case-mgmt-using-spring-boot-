@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
@@ -25,32 +27,34 @@ public class AuctionTypeServiceImpl implements AuctionTypeService{
     public AuctionType createAuctionType(AuctionType auctionType, JwtAuthenticationToken token) throws IllegalAccessException {
         var employeeId = getEmployeeID(token);
         var maintainer = getEmployee(employeeId);
+        var email = token.getTokenAttributes().get("email");
         auctionType.setAuctionTypeColor(Util.getRandomColor());
-        auctionType.setMaintained_by(maintainer);
-//        System.out.println(auctionType.getDateAuctionAnnounced());
-//        var ld=Instant.parse(auctionType.getDateAuctionAnnounced());
-
-        System.out.println(auctionType);
+        auctionType.setMaintainer(maintainer);
+        auctionType.getMaintainer().setEmail((String) email);
         return auctionTypeRepository.save(auctionType);
     }
 
     @Override
-    public AuctionType getAuctionType(long auctionTypeId) {
+    public AuctionType getAuctionById(long auctionTypeId) {
         return auctionTypeRepository.findById(auctionTypeId).orElseThrow(()->new EntityNotFoundException(AuctionType.class, "Auction type with that is " + auctionTypeId + " was not found!"));
     }
 
     @Override
     public Page<AuctionType> getAuctionTypes(Pageable pageable, JwtAuthenticationToken token) {
-        return auctionTypeRepository.findAllByDeletedIsFalseOrderByAuctionTypeIdDesc(pageable);
+        return auctionTypeRepository.findAllByDeletedIsFalseOrderByIdDesc(pageable);
+    }
+    @Override
+    public List<AuctionType> getAllAuctionTypes() {
+        return auctionTypeRepository.findAllByDeletedIsFalse();
     }
     @Override
     public Page<AuctionType> getAuctionTypesByMortgageDetail(Pageable pageable,long id, JwtAuthenticationToken token) {
-        return auctionTypeRepository.findAllByForeclosureForeclosureIdAndDeletedIsFalseOrderByAuctionTypeIdDesc(pageable,id);
+        return auctionTypeRepository.findAllByForeclosureForeclosureIdAndDeletedIsFalseOrderByIdDesc(pageable,id);
     }
 
     @Override
     public AuctionType updateAuctionType(long auctionTypeId, AuctionType auctionType, JwtAuthenticationToken token) throws IllegalAccessException {
-        var at = getAuctionType(auctionTypeId);
+        var at = getAuctionById(auctionTypeId);
         BeanUtils.copyProperties(auctionType, at, getNullPropertyNames(auctionType));
         return auctionTypeRepository.save(at);
     }

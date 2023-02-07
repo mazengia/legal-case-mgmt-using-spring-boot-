@@ -6,5 +6,6 @@ import lombok.Data;
 public class EmployeeDto {
     private String employeeId;
     private String fullName;
+    private String email;
     private BranchDto branch;
 }

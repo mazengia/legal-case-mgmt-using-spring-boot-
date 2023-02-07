@@ -6,10 +6,9 @@ import lombok.Data;
 
 @Data
 public class MailNotificationTypeDto extends Auditable {
-    private Long mailNotificationTypeId;
+    private Long id;
     private String mailTypeName;
     private Integer numberOfDays;
     private String color;
-    private Employee maintained_by;
-//    private MortgageType mortgageType;
+    private Employee maintainer;
 }

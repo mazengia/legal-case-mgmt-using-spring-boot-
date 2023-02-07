@@ -3,7 +3,12 @@ package com.enatbanksc.casemanagementsystem.case_management.Foreclosure;
 import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailDetails;
 import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailRepository;
 import com.enatbanksc.casemanagementsystem.case_management.SentEmail.EmailService;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.CaseOwnerBranchDto;
+import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
+import com.enatbanksc.casemanagementsystem.case_management._config.CaseOwnerBranchClient;
+import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
 import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
+import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getEmployeeID;
 import static com.enatbanksc.casemanagementsystem.case_management._config.utils.Util.getNullPropertyNames;
 
 @Service
@@ -21,10 +27,18 @@ public class ForeclosureServiceImpl implements ForeclosureService {
     private final ForeclosureRepository foreclosureRepository;
     private final EmailService emailService;
     private final EmailRepository emailRepository;
+    private final CaseOwnerBranchClient caseOwnerBranchClient;
+    private final EmployeeClient employeeClient;
+    private final EmployeeMapper employeeMapper;
     EmailDetails details = new EmailDetails();
+
     @Override
     public Foreclosure createForeclosure(Foreclosure foreclosure, JwtAuthenticationToken token) throws IllegalAccessException {
-
+        var employeeId = getEmployeeID(token);
+        var maintainer = getEmployee(employeeId);
+        var email = token.getTokenAttributes().get("email");
+        foreclosure.setMaintainer(maintainer);
+        foreclosure.getMaintainer().setEmail((String) email);
         var postForeclosure = foreclosureRepository.save(foreclosure);
         if (postForeclosure.getForeclosureId() != null) {
             details.setRecipient("mz.tesfa@gmail.com");
@@ -38,10 +52,14 @@ public class ForeclosureServiceImpl implements ForeclosureService {
             System.out.println("emil details" + details);
 
         }
-
         return postForeclosure;
 
     }
+
+    private Employee getEmployee(String employeeId) {
+        return employeeMapper.employeeDtoToEmployee(employeeClient.getEmployeeById(employeeId));
+    }
+
 
     @Override
     public Foreclosure getForeclosureById(long id) {
@@ -91,11 +109,13 @@ public class ForeclosureServiceImpl implements ForeclosureService {
         return foreclosureRepository.findForeclosureByAttorneyHandlingTheCaseAndDeletedIsFalseAndEnabledIsTrueOrderByForeclosureIdDesc(pageable, attorney);
 
     }
+
     @Override
     public Page<Foreclosure> findForeclosureByBranchId(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
-        return foreclosureRepository.findForeclosureByBranchIdAndDeletedIsFalseOrderByForeclosureIdDesc(pageable, branchId);
+        return foreclosureRepository.findForeclosureByMaintainerBranchIdAndDeletedIsFalseOrderByForeclosureIdDesc(pageable, branchId);
 
     }
+
     @Override
     public Page<Foreclosure> findAllByBranchIdIsNotContaining(Pageable pageable, Long branchId, JwtAuthenticationToken token) {
         return foreclosureRepository.findAllByBranchIdAndDeletedIsFalseAndEnabledIsTrueOrderByForeclosureIdDesc(pageable, branchId);

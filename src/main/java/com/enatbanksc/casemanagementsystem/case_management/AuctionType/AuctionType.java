@@ -20,7 +20,7 @@ import javax.validation.constraints.NotEmpty;
 public class AuctionType extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long auctionTypeId;
+    private Long id;
     @NotEmpty(message = "Auction Type Name can not be empty!")
     private String auctionTypeName;
     private String auctionTypeColor;
@@ -34,11 +34,12 @@ public class AuctionType extends Auditable {
     private Foreclosure foreclosure;
     @Embedded
     @AttributeOverrides({
+            @AttributeOverride(name = "branch.id", column = @Column(name = "branch_id")),
             @AttributeOverride(name = "employeeId", column = @Column(name = "maintainer_employee_id")),
             @AttributeOverride(name = "fullName", column = @Column(name = "maintainer_employee_fullName")),
             @AttributeOverride(name = "branch.code", column = @Column(name = "maintainer_branch_code")),
             @AttributeOverride(name = "branch.name", column = @Column(name = "maintainer_branch_name"))
     })
-    private Employee maintained_by;
+    private Employee maintainer;
 
 }

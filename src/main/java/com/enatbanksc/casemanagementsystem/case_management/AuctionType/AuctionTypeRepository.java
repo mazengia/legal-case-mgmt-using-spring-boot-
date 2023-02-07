@@ -7,9 +7,15 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RepositoryRestResource
 public interface AuctionTypeRepository extends PagingAndSortingRepository<AuctionType, Long>, JpaSpecificationExecutor<AuctionType> {
-    Page<AuctionType> findAllByDeletedIsFalseOrderByAuctionTypeIdDesc(Pageable pageable);
-    Page<AuctionType> findAllByForeclosureForeclosureIdAndDeletedIsFalseOrderByAuctionTypeIdDesc(Pageable pageable, long id);
+    Page<AuctionType> findAllByDeletedIsFalseOrderByIdDesc(Pageable pageable);
+    List<AuctionType> findAllByDeletedIsFalse();
+    Page<AuctionType> findAllByForeclosureForeclosureIdAndDeletedIsFalseOrderByIdDesc(Pageable pageable, long id);
+
+
+
 }

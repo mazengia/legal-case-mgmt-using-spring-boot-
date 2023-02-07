@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface ForeclosureRepository extends PagingAndSortingRepository<Foreclosure, Long>, JpaSpecificationExecutor<Foreclosure> {
     Page<Foreclosure> findAllByDeletedIsFalseAndEnabledIsTrueOrderByForeclosureIdDesc(Pageable pageable);
 
-    Page<Foreclosure> findForeclosureByBranchIdAndDeletedIsFalseOrderByForeclosureIdDesc(Pageable pageable, Long branchId);
+    Page<Foreclosure> findForeclosureByMaintainerBranchIdAndDeletedIsFalseOrderByForeclosureIdDesc(Pageable pageable, Long branchId);
 
     @Query(value = "select * from foreclosure l where  l.id  !=:branchId", nativeQuery = true)
     Page<Foreclosure> findAllByBranchIdAndDeletedIsFalseAndEnabledIsTrueOrderByForeclosureIdDesc(Pageable pageable, @Param("branchId") Long branchId);

@@ -37,13 +37,7 @@ public class ExecutionsServiceImpl implements ExecutionsService {
 
     @Override
     public Executions createExecutions(Executions executions, JwtAuthenticationToken token) throws IllegalAccessException {
-        var branch = getBranchById(executions.getBranch().getId());
-        executions.setBranch(branch);
 
-
-        var employeeId = getEmployeeID(token);
-        var maintainer = getEmployee(employeeId);
-//        intervenes.setMaintained_by(maintainer);
         return executionsRepository.save(executions);
     }
 

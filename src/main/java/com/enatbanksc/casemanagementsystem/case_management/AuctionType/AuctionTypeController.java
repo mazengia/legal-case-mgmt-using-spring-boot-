@@ -29,8 +29,8 @@ public class AuctionTypeController  implements AuctionTypeApi{
     }
 
     @Override
-    public AuctionTypeDto getAuctionType(long auctionTypeId) {
-        return auctionTypeMapper.toAuctionTypeDto(auctionTypeService.getAuctionType(auctionTypeId));
+    public AuctionTypeDto getAuctionById(long auctionTypeId) {
+        return auctionTypeMapper.toAuctionTypeDto(auctionTypeService.getAuctionById(auctionTypeId));
     }
 
     @Override

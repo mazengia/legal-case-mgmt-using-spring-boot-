@@ -2,6 +2,7 @@ package com.enatbanksc.casemanagementsystem.case_management.MailNotificationType
 
 import com.enatbanksc.casemanagementsystem.case_management._EmbeddedClasses.Employee;
 import com.enatbanksc.casemanagementsystem.case_management._config.EmployeeClient;
+import com.enatbanksc.casemanagementsystem.case_management._config.utils.Util;
 import com.enatbanksc.casemanagementsystem.case_management._exceptions.EntityNotFoundException;
 import com.enatbanksc.casemanagementsystem.case_management.dto.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import static com.enatbanksc.casemanagementsystem.case_management._config.utils.
 
 @Service
 @RequiredArgsConstructor
-public class MailNotificationTypeServiceImpl implements MailNotificationTypeService{
+public class MailNotificationTypeServiceImpl implements MailNotificationTypeService {
     private final MailNotificationTypeRepository mailNotificationTypeRepository;
     private final EmployeeMapper employeeMapper;
     private final EmployeeClient employeeClient;
@@ -24,17 +25,19 @@ public class MailNotificationTypeServiceImpl implements MailNotificationTypeServ
     public MailNotificationType createMailNotificationType(MailNotificationType mailNotificationType, JwtAuthenticationToken token) throws IllegalAccessException {
         var employeeId = getEmployeeID(token);
         var maintainer = getEmployee(employeeId);
-        if(mailNotificationTypeRepository.existsByMailTypeName(mailNotificationType.getMailTypeName())){
+        if (mailNotificationTypeRepository.existsByMailTypeName(mailNotificationType.getMailTypeName())) {
             throw new IllegalAccessException("Expense with name " + mailNotificationType.getMailTypeName() + " already exists!");
         }
-        mailNotificationType.setMaintained_by(maintainer);
+        mailNotificationType.setMaintainer(maintainer);
         mailNotificationType.setColor(getRandomColor());
+        var email = token.getTokenAttributes().get("email");
+        mailNotificationType.getMaintainer().setEmail((String) email);
         return mailNotificationTypeRepository.save(mailNotificationType);
     }
 
     @Override
-    public MailNotificationType getMailNotificationType(long mailNotificationTypeId) {
-        return mailNotificationTypeRepository.findById(mailNotificationTypeId).orElseThrow(()-> new EntityNotFoundException(MailNotificationType.class, "Mail Notification Type with id " + mailNotificationTypeId + " was not found!"));
+    public MailNotificationType getMailNotificationById(long mailNotificationTypeId) {
+        return mailNotificationTypeRepository.findById(mailNotificationTypeId).orElseThrow(() -> new EntityNotFoundException(MailNotificationType.class, "Mail Notification Type with id " + mailNotificationTypeId + " was not found!"));
     }
 
     @Override
@@ -45,7 +48,7 @@ public class MailNotificationTypeServiceImpl implements MailNotificationTypeServ
     @Override
     public MailNotificationType updateMailNotificationType(long mailNotificationTypeId, MailNotificationType mailNotificationType, JwtAuthenticationToken token) throws IllegalAccessException {
         var employeeId = getEmployeeID(token);
-        var mnt = getMailNotificationType(mailNotificationTypeId);
+        var mnt = getMailNotificationById(mailNotificationTypeId);
 //        if(!mailNotificationType.getMaintained_by().getEmployeeId().equals(employeeId)){
 //            throw  new IllegalAccessException("You are not allowed to update this Mail Notification Type");
 //        }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MailNotificationTypeService {
     MailNotificationType createMailNotificationType(MailNotificationType mailNotificationType, JwtAuthenticationToken token) throws IllegalAccessException;
-    MailNotificationType getMailNotificationType(long mailNotificationTypeId);
+    MailNotificationType getMailNotificationById(long mailNotificationTypeId);
     Page<MailNotificationType> getMailNotificationTypes(Pageable pageable, JwtAuthenticationToken token);
     MailNotificationType updateMailNotificationType(long mailNotificationTypeId, MailNotificationType mailNotificationType, JwtAuthenticationToken token) throws IllegalAccessException;
     void deleteMailNotificationType(long mailNotificationTypeId);

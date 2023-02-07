@@ -19,7 +19,6 @@ import java.io.File;
 public class EmailServiceImpl  implements EmailService{
 
     private final EmailRepository emailRepository;
-
     public final JavaMailSender javaMailSender;
 //    @Value("${spring.mail.username}")
     @Value("${support.email}")
@@ -73,5 +72,10 @@ public class EmailServiceImpl  implements EmailService{
     @Override
     public Page<EmailDetails> getEmails(Pageable pageable, JwtAuthenticationToken token) {
         return emailRepository.findAllByDeletedIsFalseOrderByCreatedAtDesc(pageable);
+    }
+
+    @Override
+    public EmailDetails createEmailDetails(EmailDetails emailDetails) throws IllegalAccessException {
+        return emailRepository.save(emailDetails);
     }
 }

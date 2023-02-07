@@ -21,7 +21,7 @@ public interface AuctionTypeApi {
 
     @GetMapping("/{auctionTypeId}")
     @ResponseStatus(HttpStatus.OK)
-    AuctionTypeDto getAuctionType(@PathVariable("auctionTypeId") long auctionTypeId);
+    AuctionTypeDto getAuctionById(@PathVariable("auctionTypeId") long auctionTypeId);
 
     @DeleteMapping("/{auctionTypeId}")
     @ResponseStatus(HttpStatus.OK)

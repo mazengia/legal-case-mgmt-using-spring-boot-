@@ -1,0 +1,129 @@
+#spring:
+#  application:
+#    name: CASE-MANAGEMENT-SERVICE
+#  main:
+#    lazy-initialization: true
+#    allow-bean-definition-overriding: true
+#    security:
+#      oauth2:
+#        client:
+#          registration:
+#            case_management:
+#              client-id: case_management
+#              client-secret: WGTr1CRUmLVCUVkksww2oRPikLwu4o5i
+#              provider: keycloak
+#          provider:
+#            keycloak:
+#              issuer-uri: http://10.1.12.70:8081/auth/realms/enat
+##              issuer-uri: http://10.1.22.72:8081/auth/realms/enat
+##              issuer-uri: http://localhost:8080/realms/maze
+#        resourceserver:
+#          jwt:
+#            issuer-uri: http://10.1.12.70:8081/auth/realms/enat
+##            issuer-uri: http://10.1.22.72:8081/auth/realms/enat
+##            issuer-uri: http://localhost:8080/realms/maze
+#  datasource:
+#    driverClassName=com:
+#      microsoft:
+#        sqlserver:
+#          jdbc: SQLServerDriver
+##    password: P@ss2345
+##    username: mtesfa
+##    jdbc-url: jdbc:sqlserver://localhost:1433;encrypt=false;database=case_management
+#    password: P@ss@12345
+#    username: sa
+#    jdbc-url: jdbc:sqlserver://10.1.12.110:1433;instanceName=EBSQLSRV;encrypt=false;databaseName=case_management;
+#
+#
+#    hateoas:
+#      use-hal-as-default-json-media-type: true
+#    jpa:
+#      generate-ddl: true
+#      show-sql: true
+#
+#  mail:
+#    host: email.enatbanksc.com
+#    username: noreply
+#    password: NoPass@Reply123
+#    port: 587
+##    host: smtp.gmail.com
+##    username: mazumicro@gmail.com
+##    password: tujjfxetmtqudiij
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#          connection-timeout: 5000
+#          timeout: 5000
+#          write-timeout: 5000
+#        ssl:
+#          trust: all
+#        protocols: TLSv1.2
+#
+#
+#  servlet:
+#    multipart:
+#      enabled: true
+#      file-size-threshold: 2KB
+#      max-file-size: 200MB
+#      max-request-size: 215MB
+#support:
+#  email: noreply@enatbanksc.com
+##  email: mazumicro@gmail.com
+#
+#
+#hibernate:
+#  hbm2ddl:
+#    auto: update
+#server:
+##  port: 8080
+#  port: 7070
+#application:
+#  allowed-origin:
+#    -https://10.1.22.72:5006
+#    -http://localhost:4200
+#    -http://10.1.12.70:5012
+#    -http://localhost
+#
+#
+#eureka:
+#  instance:
+#    preferIpAddress: true
+#  client:
+#    serviceUrl:
+#      defaultZone: ${EUREKA_URI:http://10.1.12.70:8761/eureka}
+##      defaultZone: ${EUREKA_URI:http://10.1.22.72:8761/eureka}
+##      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+#
+#services:
+#  hr: http://10.1.12.70:8083/hr
+##  hr: http://localhost:8081
+##  hr: http://10.1.22.72:8083/hr
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
+#management:
+#  endpoint:
+#    loggers:
+#      enabled: true
+#    jmx:
+#      exposure:
+#        include: health,info
+#    web:
+#      exposure:
+#        include: loggers
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#

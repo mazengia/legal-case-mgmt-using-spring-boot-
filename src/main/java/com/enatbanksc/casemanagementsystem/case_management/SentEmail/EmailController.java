@@ -2,10 +2,10 @@ package com.enatbanksc.casemanagementsystem.case_management.SentEmail;
 
 
 import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionType;
-import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionTypeRepository;
+import com.enatbanksc.casemanagementsystem.case_management.AuctionType.AuctionTypeServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.Foreclosure;
-import com.enatbanksc.casemanagementsystem.case_management.MailNotificationType.MailNotificationTypeRepository;
 import com.enatbanksc.casemanagementsystem.case_management.Foreclosure.ForeclosureRepository;
+import com.enatbanksc.casemanagementsystem.case_management.MailNotificationType.MailNotificationTypeServiceImpl;
 import com.enatbanksc.casemanagementsystem.case_management._config.utils.PaginatedResultsRetrievedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -24,6 +24,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/v1/emails")
@@ -35,10 +37,10 @@ public class EmailController implements EmailApi {
     //    @Scheduled(cron = "*/10 * * * * *")
     //    For example, 0 10 8 * * ? means that the task is executed at 08:10:00 every day
     private final EmailService emailService;
-    private final EmailRepository emailRepository;
-    private final AuctionTypeRepository auctionTypeRepository;
+    private final EmailServiceImpl emailService1;
+    private final AuctionTypeServiceImpl auctionTypeService;
     private final ForeclosureRepository foreclosureRepository;
-    private final MailNotificationTypeRepository mailNotificationTypeRepository;
+    private final MailNotificationTypeServiceImpl notificationTypeService;
     private final EmailMapper emailMapper;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -56,45 +58,46 @@ public class EmailController implements EmailApi {
         return true;
 
     }
-    @Scheduled(cron = "0 0 2,10 * * *")
+
+            @Scheduled(cron = "0 0 2,10 * * *")
+//    @Scheduled(cron = "*/10 * * * * *")
     public String sendToAuctions() throws Exception {
         LocalDate today = LocalDate.now();
-        var auctions = auctionTypeRepository.findAll();
+        var auctions = auctionTypeService.getAllAuctionTypes();
         var mortgageDetails = foreclosureRepository.findAll();
-        var mail = mailNotificationTypeRepository.findById(1L);
-
+        var mail = notificationTypeService.getMailNotificationById(1);
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
         for (AuctionType auctionTypeList : auctions) {
-            LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionAnnounced());
-            LocalDate created_at = LocalDate.from(date.minusDays(mail.get().getNumberOfDays())
-            );
-            if (today.equals(created_at) && !auctionTypeList.getForeclosure().getMaintained_by().getEmail().isEmpty()) {
-                details.setRecipient(auctionTypeList.getForeclosure().getMaintained_by().getEmail());
-//                "mz.tesfa@gmail.com"
+            LocalDate date = LocalDate.parse(auctionTypeList.getDateAuctionAnnounced(), inputFormatter);
+            LocalDate difference = LocalDate.from(date.minusDays(mail.getNumberOfDays()));
+            String email = auctionTypeList.getMaintainer().getEmail();
+            if (today.equals(difference) && !email.isEmpty()) {
+                details.setRecipient(email);
                 details.setMsgBody("I try to check emil getDateAuctionWillBeConducted");
                 details.setSubject("I'm from cron job");
-                if (!emailService.sendSimpleMail(details).isEmpty()) {
-                    details.setSent(true);
-                    details.setForeclosure(auctionTypeList.getForeclosure());
-                    emailRepository.save(details);
-                }
-                System.out.println(details);
+//                System.out.println("details.setSubject");
+//                if (!emailService.sendSimpleMail(details).isEmpty()) {
+//                    details.setSent(true);
+//                    details.setForeclosure(auctionTypeList.getForeclosure());
+//                    emailService1.createEmailDetails(details);
+//                }
+//                System.out.println(details);
             }
         }
         for (Foreclosure foreclosure : mortgageDetails) {
             if (!foreclosure.getDateLegalNoticeServed().isEmpty()) {
-                LocalDate date = LocalDate.parse(foreclosure.getDateLegalNoticeServed());
-                LocalDate created_at = LocalDate.from(date.minusDays(mail.get().getNumberOfDays()));
-                if (today.equals(created_at)&& !foreclosure.getMaintained_by().getEmail().isEmpty()) {
-                    details.setRecipient(foreclosure.getMaintained_by().getEmail());
-//                "mz.tesfa@gmail.com"
+
+                LocalDate date = LocalDate.parse(foreclosure.getDateLegalNoticeServed(), inputFormatter);
+                LocalDate difference = LocalDate.from(date.minusDays(mail.getNumberOfDays()));
+                if (today.equals(difference) && !foreclosure.getMaintainer().getEmail().isEmpty()) {
+                    details.setRecipient(mail.getMaintainer().getEmail());
                     details.setMsgBody("I try to check emil getDateLegalNoticeServed");
                     details.setSubject("I'm from cron job");
-                    if (!emailService.sendSimpleMail(details).isEmpty()) {
-                        details.setSent(true);
-                        details.setForeclosure(foreclosure);
-                        emailRepository.save(details);
-                    }
-                    System.out.println(details);
+//                    if (!emailService.sendSimpleMail(details).isEmpty()) {
+//                        details.setSent(true);
+//                        details.setForeclosure(foreclosure);
+//                        emailService1.createEmailDetails(details);
+//                    }
                 }
             }
         }

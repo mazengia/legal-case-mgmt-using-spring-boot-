@@ -31,8 +31,8 @@ public class MailNotificationTypeController implements MailNotificationTypeApi{
     }
 
     @Override
-    public MailNotificationTypeDto getMailNotificationType(long mailNotificationTypeId) {
-        return mailNotificationTypeMapper.toMailNotificationTypeDto(mailNotificationTypeService.getMailNotificationType(mailNotificationTypeId));
+    public MailNotificationTypeDto getMailNotificationById(long mailNotificationTypeId) {
+        return mailNotificationTypeMapper.toMailNotificationTypeDto(mailNotificationTypeService.getMailNotificationById(mailNotificationTypeId));
     }
 
     @Override

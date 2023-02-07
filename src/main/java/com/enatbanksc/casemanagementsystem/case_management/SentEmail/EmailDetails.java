@@ -34,15 +34,15 @@ public class EmailDetails extends Auditable {
     private String attachment;
     private boolean sent;
     @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "mortgageDetailId",nullable = true)
+    @JoinColumn(name = "mortgageDetailId")
     @JsonIgnoreProperties(value={"emailDetails"} )
     private Foreclosure foreclosure;
     @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "litigationId",nullable = true)
+    @JoinColumn(name = "litigationId")
     @JsonIgnoreProperties(value={"emailDetails"} )
     private Litigation litigation;
     @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "executionsId",nullable = true)
+    @JoinColumn(name = "executionsId")
     @JsonIgnoreProperties(value={"emailDetails"} )
     private Executions executions;
 

@@ -20,11 +20,9 @@ public class ForeclosureDto extends Auditable {
     private String dateCollateralIsEstimated;
     private Boolean isWrittenLegalNoticeServed;
     private String dateLegalNoticeServed;
-    private CaseOwnerBranchDto branch;
     private String mortgagor;
     private String borrower;
     private String status;
-    private Employee maintained_by;
-//    private List<AuctionType> AuctionType;
+    private Employee maintainer;
 
 }

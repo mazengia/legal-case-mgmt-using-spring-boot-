@@ -24,14 +24,4 @@ public class Executions extends Auditable {
     private String attorneyHandlingTheCase;
     private String disputedAmount;
     private  String  caseType;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "branch.id", column = @Column(name = "branch_id")),
-            @AttributeOverride(name = "branch.code", column = @Column(name = "branch_code")),
-            @AttributeOverride(name = "branch.name", column = @Column(name = "branch_name")),
-    })
-    private CaseOwnerBranchDto branch;
-
-//    @OneToMany(mappedBy = "executions")
-//    private List<JudicialAppointment> judicialAppointment;
 }
